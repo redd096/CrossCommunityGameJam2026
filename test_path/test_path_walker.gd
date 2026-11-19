@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	# # As good practice, you should replace UI actions with custom gameplay actions.
 	# var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	# var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	var direction := get_path_direction()
+	var direction := MovementUtilities.get_path_direction(path, lookahead, global_position)
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
@@ -37,25 +37,3 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
-
-
-func get_path_direction() -> Vector3:
-	# calculate where we are in the path
-	var curve: Curve3D = path.curve
-	var current_pos_local_to_path: Vector3 = path.to_local(global_position)
-	var current_progress: float = curve.get_closest_offset(current_pos_local_to_path)
-
-	# calculate next position to reach
-	var next_progress: float = minf(current_progress + lookahead, curve.get_baked_length())
-	var next_pos_local_to_path: Vector3 = curve.sample_baked(next_progress)
-	var next_pos_global: Vector3 = path.to_global(next_pos_local_to_path)
-
-	# calculate only direction (ignore height)
-	var direction: Vector3 = next_pos_global - global_position
-	direction.y = 0.0
-	
-	# if reached the end, stay still
-	if direction.length() < 0.1:
-		return Vector3.ZERO
-	
-	return direction.normalized()
