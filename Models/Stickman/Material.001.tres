@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://degnaeoo0cs85"]
+
+[resource]
+resource_name = "Material.001"
+vertex_color_use_as_albedo = true
+emission_enabled = true
