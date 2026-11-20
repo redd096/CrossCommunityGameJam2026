@@ -5,7 +5,7 @@ class_name OrphanUnit
 @export var path : Path3D
 @export var lookahead : float
 @export var speed : float
-
+@export var turn_speed : float
 
 enum CharacterState
 {
@@ -32,10 +32,13 @@ func _input(event: InputEvent) -> void:
 func _process(delta : float) -> void :	
 	if (velocity.length() > 0) :
 		state = CharacterState.FOLLOW_TARGET
+	else :
+		state = CharacterState.IDLE
 	
 	DebugDraw.draw_arrow_ray(position, velocity, 8.0, 0.5, Color.YELLOW)
-	var target_basis = Basis.looking_at(velocity)
-	basis = basis.slerp(target_basis, 0.5)
+	if (velocity.length() > 0) :
+		var target_basis = Basis.looking_at(velocity)
+		basis = basis.slerp(target_basis, turn_speed)
 
 
 func _physics_process(delta : float) -> void:
@@ -43,4 +46,7 @@ func _physics_process(delta : float) -> void:
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 	move_and_slide()
