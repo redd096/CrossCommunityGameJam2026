@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dxicjxdgya40q"]
 
-[ext_resource type="Script" uid="uid://3282bwmu7mio" path="res://test_path/test_path_walker.gd" id="1_0mibw"]
-[ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://test_path/floor.tres" id="1_dsxpn"]
-[ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://test_path/path.tres" id="2_txubo"]
+[ext_resource type="Script" uid="uid://3282bwmu7mio" path="res://tests/test_path/test_path_walker.gd" id="1_0mibw"]
+[ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="1_dsxpn"]
+[ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="2_txubo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_38h1k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -62,7 +62,7 @@ curve = SubResource("Curve3D_38h1k")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D" unique_id=332002013]
 material_override = ExtResource("2_txubo")
-polygon = PackedVector2Array(0, 0, 0, 0.02, 1, 0.02, 1, 0)
+polygon = PackedVector2Array(-1, 0, -1, 0.02, 1, 0.02, 1, 0)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
