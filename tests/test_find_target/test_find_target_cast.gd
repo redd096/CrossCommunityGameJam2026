@@ -1,8 +1,7 @@
 extends CharacterBody3D
 ## Test script: 
 ## - spawn at Path3D start
-## - then move with normal CharacterBody3D but follow Path3D direction
-## - if pushed away should move again inside the Path3D
+## - follow path like test_path_walker.gd
 ## - if find enemy along the path, stop
 
 @export var path: Path3D
@@ -36,12 +35,8 @@ func _physics_process(delta: float) -> void:
 
 	var direction := MovementUtilities.get_path_direction(path, lookahead, global_position)
 
-	# debug area
-	var sphere: SphereMesh = area_debug.mesh
-	sphere.radius = radius_find_enemy
-	sphere.height = radius_find_enemy * 2.0
-	# stop if find enemy
-	if FightUtilities.find_target(self, radius_find_enemy, enemy_layer) != null:
+	# STOP IF FIND ENEMY
+	if _check_enemy():
 		direction = Vector3.ZERO
 
 	if direction:
@@ -52,3 +47,13 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
+
+
+func _check_enemy() -> bool:
+	# debug area
+	var sphere: SphereMesh = area_debug.mesh
+	sphere.radius = radius_find_enemy
+	sphere.height = radius_find_enemy * 2.0
+
+	# check if find enemy
+	return FightUtilities.find_target(self, radius_find_enemy, enemy_layer) != null
