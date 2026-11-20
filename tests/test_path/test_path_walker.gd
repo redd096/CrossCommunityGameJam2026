@@ -9,11 +9,6 @@ extends CharacterBody3D
 @export var lookahead: float = 1.5 ## calculate next point by currentPositionOnPath + lookahead
 
 
-func _ready() -> void:
-	# spawn at Path3D start
-	global_position = path.to_global(path.curve.sample_baked(0.0))
-
-
 # copy-paste from CharacterBody3D code in godot
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

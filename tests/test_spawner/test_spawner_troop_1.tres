@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://cb66eomurt8n0"]
+
+[ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="1_lmtyp"]
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="2_uemop"]
+[ext_resource type="PackedScene" uid="uid://geply1hfi1bj" path="res://tests/test_spawner/test_spawner_character_prefab.tscn" id="3_rusmn"]
+
+[resource]
+script = ExtResource("2_uemop")
+troop_name = &"troop 1"
+troop_prefab = ExtResource("3_rusmn")
+icon = ExtResource("1_lmtyp")
+metadata/_custom_type_script = "uid://dq42um1m8nncq"

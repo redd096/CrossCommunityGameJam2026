@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dfxkw1xgpye3l"]
+
+[ext_resource type="Theme" uid="uid://ci7k3p0r42w7d" path="res://Themes/player_ui_theme.tres" id="1_3mw3f"]
+[ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="2_du2y1"]
+[ext_resource type="Script" uid="uid://cdtfkmk4kx3wm" path="res://Scripts/player_ui/player_ui_spawn_button.gd" id="3_uw8e6"]
+
+[node name="SpawnButton" type="Button" unique_id=1412768287 node_paths=PackedStringArray("button")]
+custom_maximum_size = Vector2(-1, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 43.0
+offset_right = -972.0
+offset_bottom = -555.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3mw3f")
+theme_type_variation = &"SpawnButton"
+text = "nome della truppa
+50p"
+icon = ExtResource("2_du2y1")
+script = ExtResource("3_uw8e6")
+button = NodePath(".")

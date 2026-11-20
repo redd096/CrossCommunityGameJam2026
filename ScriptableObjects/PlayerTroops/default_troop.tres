@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://dg5dm7ljdy02e"]
+
+[ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="1_c0xou"]
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="1_jmfbp"]
+[ext_resource type="PackedScene" uid="uid://b3cmfhmr8hwcf" path="res://Scenes/TestCharacter.tscn" id="2_0pk5e"]
+
+[resource]
+script = ExtResource("1_jmfbp")
+troop_name = &"Default Troop"
+troop_prefab = ExtResource("2_0pk5e")
+cost = 10
+icon = ExtResource("1_c0xou")
+metadata/_custom_type_script = "uid://dq42um1m8nncq"

@@ -1,0 +1,33 @@
+[gd_resource type="Theme" format=3 uid="uid://ci7k3p0r42w7d"]
+
+[sub_resource type="DPITexture" id="DPITexture_8wyov"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arykj"]
+bg_color = Color(0, 1, 0.2734375, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wyov"]
+content_margin_left = 4.0
+content_margin_top = 10.0
+content_margin_right = 4.0
+content_margin_bottom = 10.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+ManaSlider/base_type = &"HSlider"
+ManaSlider/icons/grabber_disabled = SubResource("DPITexture_8wyov")
+ManaSlider/styles/grabber_area = SubResource("StyleBoxFlat_arykj")
+ManaSlider/styles/slider = SubResource("StyleBoxFlat_8wyov")
+PlayerUIVerticalContainer/base_type = &"VBoxContainer"
+PlayerUIVerticalContainer/constants/separation = 15
+SpawnButton/base_type = &"Button"
+SpawnButton/constants/icon_max_width = 25
+SpawnButtonsContainer/base_type = &"HBoxContainer"
+SpawnButtonsContainer/constants/separation = 10
