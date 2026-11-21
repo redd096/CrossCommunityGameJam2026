@@ -8,6 +8,7 @@
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=566235473 node_paths=PackedStringArray("avoidance_agent")]
 script = ExtResource("1_5ypge")
+speed = 10.0
 avoidance_agent = NodePath("NavigationAgent3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=335407026]
