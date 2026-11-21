@@ -86,6 +86,6 @@ func _try_select_spawner(mouse_position: Vector2) -> void:
 	var hit: Dictionary = camera.get_world_3d().direct_space_state.intersect_ray(query)
 
 	# the collider is the spawner body (e.g. StaticBody3D)
-	if not hit.is_empty() and hit.collider in spawners:
+	if not hit.is_empty() and hit.collider is Spawner and hit.collider in spawners:
 		set_spawner(hit.collider)
 		print("todo - spawner script instead of Node3D?")
