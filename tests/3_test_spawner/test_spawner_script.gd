@@ -3,6 +3,10 @@ extends Node
 ## - when user select a spawner, just change its color
 ## - when user spawn a troop, set its path and start position (in the future this should be an Init function)
 
+## NB in this script I assume the troops are "test_spawner_walker" 
+## so they have "path" and "side_offset" variables!
+## In the future probably troops will have their Init function to do this and PlayerManager just call it
+
 @export var player_manager: PlayerManager
 @export var selected_color: Color = Color.YELLOW
 @export var formation_max_columns: int = 3 ## max units side by side in a row
