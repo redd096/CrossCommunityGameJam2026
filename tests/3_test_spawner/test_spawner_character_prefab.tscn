@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://geply1hfi1bj"]
 
-[ext_resource type="Script" uid="uid://cr56pab00xcma" path="res://tests/test_spawner/test_spawner_walker.gd" id="1_5ypge"]
+[ext_resource type="Script" uid="uid://cr56pab00xcma" path="res://tests/3_test_spawner/test_spawner_walker.gd" id="1_5ypge"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kjfgv"]
 

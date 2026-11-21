@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dxicjxdgya40q"]
 
-[ext_resource type="Script" uid="uid://3282bwmu7mio" path="res://tests/test_path/test_path_walker.gd" id="1_0mibw"]
+[ext_resource type="Script" uid="uid://3282bwmu7mio" path="res://tests/1_test_path/test_path_walker.gd" id="1_0mibw"]
 [ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="1_dsxpn"]
 [ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="2_txubo"]
 

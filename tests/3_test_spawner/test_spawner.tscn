@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://Scripts/spawner.gd" id="3_nr6dc"]
 [ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://UI/player_ui.tscn" id="4_nr6dc"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="5_3f1fc"]
-[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/test_spawner/test_spawner_troop_1.tres" id="6_3f1fc"]
-[ext_resource type="Script" uid="uid://37mnrqk7bayj" path="res://tests/test_spawner/test_spawner_script.gd" id="6_4b7bd"]
-[ext_resource type="Resource" uid="uid://cmwq34hsrtqed" path="res://tests/test_spawner/test_spawner_troop_2.tres" id="7_unq8r"]
+[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/3_test_spawner/test_spawner_troop_1.tres" id="6_3f1fc"]
+[ext_resource type="Script" uid="uid://37mnrqk7bayj" path="res://tests/3_test_spawner/test_spawner_script.gd" id="6_4b7bd"]
+[ext_resource type="Resource" uid="uid://cmwq34hsrtqed" path="res://tests/3_test_spawner/test_spawner_troop_2.tres" id="7_unq8r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_38h1k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
