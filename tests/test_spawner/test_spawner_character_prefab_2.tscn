@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://c7cqdnw5f2xph"]
 
-[ext_resource type="Script" uid="uid://3282bwmu7mio" path="res://tests/test_path/test_path_walker.gd" id="1_je334"]
+[ext_resource type="Script" uid="uid://cr56pab00xcma" path="res://tests/test_spawner/test_spawner_walker.gd" id="1_8pp4t"]
 [ext_resource type="Material" uid="uid://ch3r55tewldbs" path="res://tests/materials_for_tests/enemy.tres" id="2_8pp4t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kjfgv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ltmj"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=566235473]
-script = ExtResource("1_je334")
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=566235473 node_paths=PackedStringArray("avoidance_agent")]
+script = ExtResource("1_8pp4t")
+avoidance_agent = NodePath("NavigationAgent3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=335407026]
 material_override = ExtResource("2_8pp4t")
@@ -16,3 +17,6 @@ mesh = SubResource("CapsuleMesh_kjfgv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1487776218]
 shape = SubResource("CapsuleShape3D_0ltmj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1306829518]
+avoidance_enabled = true
