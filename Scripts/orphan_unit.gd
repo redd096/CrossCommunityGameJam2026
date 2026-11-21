@@ -57,7 +57,7 @@ func _physics_process(delta : float) -> void:
 		velocity = Vector3.ZERO
 		state = CharacterState.IDLE
 	else :
-		var direction := MovementUtilities.get_path_direction(path, lookahead, global_position)
+		var direction := MovementUtilities.get_path_direction(path, global_position, lookahead)
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
