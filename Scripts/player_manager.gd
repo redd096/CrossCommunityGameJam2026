@@ -18,7 +18,8 @@ var current_spawner: Spawner
 
 signal on_update_mana(from: int, to: int)
 signal on_select_spawner(previous_spawner: Spawner, new_spawner: Spawner)
-signal on_spawn_troop(troop: Node3D)
+## Emitted once per spawned unit. formation_index is from 0 to formation_size - 1,
+signal on_spawn_troop(troop: Node3D, formation_index: int, formation_size: int)
 
 
 func _ready() -> void:
@@ -57,9 +58,11 @@ func try_spawn_troop(troop: TroopResource) -> void:
 	# if mana is enough, decrease it to spawn troop on selected spawner
 	if current_mana >= troop.cost:
 		remove_mana(troop.cost)
-		var spawned_troop: Node3D = troop.troop_prefab.instantiate() as Node3D
-		add_child(spawned_troop)
-		on_spawn_troop.emit(spawned_troop)
+		# spawn the whole formation for a single cost
+		for i: int in troop.formation_size:
+			var spawned_troop: Node3D = troop.troop_prefab.instantiate() as Node3D
+			add_child(spawned_troop)
+			on_spawn_troop.emit(spawned_troop, i, troop.formation_size)
 		print("todo - troop script and call init? - update also TroopResource.troop_prefab comment")
 	# else, show warning
 	else:
@@ -83,6 +86,6 @@ func _try_select_spawner(mouse_position: Vector2) -> void:
 	var hit: Dictionary = camera.get_world_3d().direct_space_state.intersect_ray(query)
 
 	# the collider is the spawner body (e.g. StaticBody3D)
-	if not hit.is_empty() and hit.collider in spawners:
+	if not hit.is_empty() and hit.collider is Spawner and hit.collider in spawners:
 		set_spawner(hit.collider)
 		print("todo - spawner script instead of Node3D?")

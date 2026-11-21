@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://bujd47a0o2yxw"]
 
-[ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="1_238bg"]
-[ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="2_k8l42"]
-[ext_resource type="Script" uid="uid://86j4axe6vxve" path="res://Scripts/player_manager.gd" id="3_kkegm"]
-[ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://Scripts/spawner.gd" id="3_nr6dc"]
-[ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://UI/player_ui.tscn" id="4_nr6dc"]
-[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="5_3f1fc"]
-[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/test_spawner/test_spawner_troop_1.tres" id="6_3f1fc"]
-[ext_resource type="Script" uid="uid://37mnrqk7bayj" path="res://tests/test_spawner/test_spawner_script.gd" id="6_4b7bd"]
-[ext_resource type="Resource" uid="uid://cmwq34hsrtqed" path="res://tests/test_spawner/test_spawner_troop_2.tres" id="7_unq8r"]
+[ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="1_v8ehv"]
+[ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="2_k0u8p"]
+[ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://Scripts/spawner.gd" id="3_whelo"]
+[ext_resource type="Script" uid="uid://86j4axe6vxve" path="res://Scripts/player_manager.gd" id="4_dkjai"]
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="5_q88kf"]
+[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/3_test_spawner/test_spawner_troop_1.tres" id="6_l4re4"]
+[ext_resource type="Resource" uid="uid://cmwq34hsrtqed" path="res://tests/3_test_spawner/test_spawner_troop_2.tres" id="7_oofha"]
+[ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://UI/player_ui.tscn" id="8_6q50s"]
+[ext_resource type="Script" uid="uid://37mnrqk7bayj" path="res://tests/3_test_spawner/test_spawner_script.gd" id="9_p1s22"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_38h1k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -61,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 6, 12
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1552487680]
-material_override = ExtResource("1_238bg")
+material_override = ExtResource("1_v8ehv")
 mesh = SubResource("BoxMesh_7sa57")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1777126042]
@@ -74,7 +74,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0297194, -1, 5.31)
 curve = SubResource("Curve3D_38h1k")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="." unique_id=332002013]
-material_override = ExtResource("2_k8l42")
+material_override = ExtResource("2_k0u8p")
 polygon = PackedVector2Array(-1, 0, -1, 0.02, 1, 0.02, 1, 0)
 mode = 2
 path_node = NodePath("../Path3D")
@@ -90,7 +90,7 @@ path_joined = false
 
 [node name="Spawner" type="StaticBody3D" parent="." unique_id=747084869 node_paths=PackedStringArray("path")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.448099, -0.5, 6.935667)
-script = ExtResource("3_nr6dc")
+script = ExtResource("3_whelo")
 path = NodePath("../Path3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Spawner" unique_id=1509286816]
@@ -106,7 +106,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4888477, -1, 5.31)
 curve = SubResource("Curve3D_kkegm")
 
 [node name="CSGPolygon3D2" type="CSGPolygon3D" parent="." unique_id=477291637]
-material_override = ExtResource("2_k8l42")
+material_override = ExtResource("2_k0u8p")
 polygon = PackedVector2Array(-1, 0, -1, 0.02, 1, 0.02, 1, 0)
 mode = 2
 path_node = NodePath("../Path3D2")
@@ -122,7 +122,7 @@ path_joined = false
 
 [node name="Spawner2" type="StaticBody3D" parent="." unique_id=505871041 node_paths=PackedStringArray("path")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.711667, -0.5, 6.839079)
-script = ExtResource("3_nr6dc")
+script = ExtResource("3_whelo")
 path = NodePath("../Path3D2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Spawner2" unique_id=1109526492]
@@ -134,16 +134,16 @@ shape = SubResource("BoxShape3D_nr6dc")
 [node name="-------------------3" type="Node" parent="." unique_id=748651119]
 
 [node name="PlayerManager" type="Node" parent="." unique_id=1341416858 node_paths=PackedStringArray("camera", "spawners", "start_selected_spawner")]
-script = ExtResource("3_kkegm")
+script = ExtResource("4_dkjai")
 camera = NodePath("../Camera3D")
 spawners = [NodePath("../Spawner"), NodePath("../Spawner2")]
 start_selected_spawner = NodePath("../Spawner")
-spawnable_troops = Array[ExtResource("5_3f1fc")]([ExtResource("6_3f1fc"), ExtResource("7_unq8r")])
+spawnable_troops = Array[ExtResource("5_q88kf")]([ExtResource("6_l4re4"), ExtResource("7_oofha")])
 metadata/_custom_type_script = "uid://86j4axe6vxve"
 
-[node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("4_nr6dc")]
+[node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("8_6q50s")]
 player_manager = NodePath("../PlayerManager")
 
-[node name="TestScript" type="Node" parent="." unique_id=1551469830 node_paths=PackedStringArray("player_manager")]
-script = ExtResource("6_4b7bd")
+[node name="TestSpawnerScript" type="Node" parent="." unique_id=1551469830 node_paths=PackedStringArray("player_manager")]
+script = ExtResource("9_p1s22")
 player_manager = NodePath("../PlayerManager")

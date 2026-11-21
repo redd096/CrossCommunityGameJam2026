@@ -5,3 +5,4 @@ class_name TroopResource extends Resource
 @export var troop_prefab: PackedScene # Troop script?
 @export var cost: int = 10
 @export var icon: Texture2D
+@export var formation_size: int = 1 ## how many units are spawned together with one click
