@@ -42,7 +42,7 @@ func _process(delta : float) -> void :
 
 
 func _physics_process(delta : float) -> void:
-	var direction := MovementUtilities.get_path_direction(path, lookahead, global_position)
+	var direction := MovementUtilities.get_path_direction(path, global_position, lookahead)
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
