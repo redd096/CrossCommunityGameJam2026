@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var path: Path3D
 @export var speed: float = 4.0
 @export var lookahead: float = 1.5 ## calculate next point by currentPositionOnPath + lookahead
+@export var side_offset: float = 0.0 ## distance from the path center (negative = left, positive = right, 0 = center)
 
 
 # copy-paste from CharacterBody3D code in godot
@@ -23,7 +24,7 @@ func _physics_process(delta: float) -> void:
 	# # As good practice, you should replace UI actions with custom gameplay actions.
 	# var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	# var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	var direction := MovementUtilities.get_path_direction(path, global_position, lookahead)
+	var direction := MovementUtilities.get_path_direction(path, global_position, lookahead, side_offset)
 	if direction:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed

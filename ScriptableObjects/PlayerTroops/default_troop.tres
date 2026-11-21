@@ -8,6 +8,5 @@
 script = ExtResource("1_jmfbp")
 troop_name = &"Default Troop"
 troop_prefab = ExtResource("2_0pk5e")
-cost = 10
 icon = ExtResource("1_c0xou")
 metadata/_custom_type_script = "uid://dq42um1m8nncq"
