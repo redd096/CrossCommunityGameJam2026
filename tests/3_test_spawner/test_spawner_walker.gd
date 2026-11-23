@@ -18,13 +18,13 @@ extends CharacterBody3D
 
 #region state machine
 
-enum State
+enum EState
 {
 	MOVE,		## follow the path, avoiding the other units
 	ARRIVED,	## reached the path end, or gave up because we can't get closer (there are other units on the path end)
 }
 
-var state: State = State.MOVE
+var state: EState = EState.MOVE
 
 # avoidance priority: if an agent reached the end path, it doesn't move for other units
 const MOVING_PRIORITY: float = 0.5
@@ -46,7 +46,7 @@ func _ready() -> void:
 		avoidance_agent.velocity_computed.connect(_on_velocity_computed)
 
 	# set start state
-	_set_state(State.MOVE)
+	_set_state(EState.MOVE)
 
 
 # copy-paste from CharacterBody3D code in godot
@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	match state:
-		State.MOVE:
+		EState.MOVE:
 			# increase "give up timer"
 			_give_up_timer += delta
 
@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 				_give_up_timer = 0.0
 			# else, if "give up timer" is completed, stop moving
 			elif _give_up_timer > give_up_time:
-				_set_state(State.ARRIVED)
+				_set_state(EState.ARRIVED)
 
 			# calculate direction to move along the path
 			var direction: Vector3 = MovementUtilities.get_path_direction(path, global_position, lookahead, side_offset)
@@ -82,15 +82,15 @@ func _physics_process(delta: float) -> void:
 
 			# no direction means we reached the end of our lane
 			if direction == Vector3.ZERO:
-				_set_state(State.ARRIVED)
+				_set_state(EState.ARRIVED)
 
-		State.ARRIVED:
+		EState.ARRIVED:
 			# increase "retry timer"
 			_retry_timer += delta
 
 			# if "retry timer" is completed, try again to move to the end path
 			if _retry_timer > retry_time:
-				_set_state(State.MOVE)
+				_set_state(EState.MOVE)
 			
 			# velocity in this state is always 0
 			velocity.x = 0.0
@@ -103,7 +103,7 @@ func _physics_process(delta: float) -> void:
 ## Called by the NavigationAgent3D in the same physics frame, with the desired velocity adjusted to avoid the other agents
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	# if arrived, don't move. Now this unit is an obstacle for the others
-	if state == State.ARRIVED:
+	if state == EState.ARRIVED:
 		safe_velocity = Vector3.ZERO
 	# avoidance works only on the ground plane (XZ), ignore gravity (Y)
 	velocity.x = safe_velocity.x
@@ -111,12 +111,12 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	move_and_slide()
 
 
-func _set_state(new_state: State) -> void:
+func _set_state(new_state: EState) -> void:
 	# set state
 	state = new_state
 
 	# set avoidance priority if moving or arrived
-	avoidance_agent.avoidance_priority = MOVING_PRIORITY if state == State.MOVE else ARRIVED_PRIORITY
+	avoidance_agent.avoidance_priority = MOVING_PRIORITY if state == EState.MOVE else ARRIVED_PRIORITY
 
 	# reset vars
 	_give_up_timer = 0.0
