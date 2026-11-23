@@ -7,7 +7,7 @@ extends Node
 ## so they have "path" and "side_offset" variables!
 ## In the future probably troops will have their Init function to do this and PlayerManager just call it
 
-@export var player_manager: PlayerManager
+@export var player_manager: PlayerManagerTest
 @export var selected_color: Color = Color.YELLOW
 @export var formation_max_columns: int = 3 ## max units side by side in a row
 @export var formation_spacing: float = 1.2 ## distance between units

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c7cqdnw5f2xph"]
 
-[ext_resource type="Script" uid="uid://cr56pab00xcma" path="res://tests/3_test_spawner/test_spawner_walker.gd" id="1_8pp4t"]
+[ext_resource type="Script" uid="uid://cr56pab00xcma" path="res://tests/3_test_spawner/scripts/test_spawner_walker.gd" id="1_8pp4t"]
 [ext_resource type="Material" uid="uid://ch3r55tewldbs" path="res://tests/materials_for_tests/enemy.tres" id="2_8pp4t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kjfgv"]

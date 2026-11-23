@@ -7,9 +7,13 @@ class_name UnitMovementComponent
 @export var lookahead: float = 1.5 ## calculate next point by currentPositionOnPath + lookahead
 @export var turn_speed : float = 0.75
 
-func move(unit: CharacterBody3D, path: Path3D) -> void:	
-	# move along path
-	var direction := MovementUtilities.get_path_direction(path, unit.global_position, lookahead)
+
+## Move unit along path [br]
+## move_forward: true if move along path, false if move in reverse
+func move(unit: CharacterBody3D, path: Path3D, move_forward: bool) -> void:	
+	# move along path by lookahead
+	var lookahead_value: float = lookahead if move_forward else -lookahead
+	var direction := MovementUtilities.get_path_direction(path, unit.global_position, lookahead_value)
 	if direction:
 		unit.velocity.x = direction.x * speed
 		unit.velocity.z = direction.z * speed

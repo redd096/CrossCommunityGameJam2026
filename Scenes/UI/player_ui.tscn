@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dh6qxehqe1qpi"]
+
+[ext_resource type="Script" uid="uid://bcuccjkpynqn2" path="res://Scripts/player_ui/player_ui_manager.gd" id="1_kwigr"]
+[ext_resource type="Theme" uid="uid://ci7k3p0r42w7d" path="res://Themes/player_ui_theme.tres" id="1_nplvd"]
+[ext_resource type="PackedScene" uid="uid://dfxkw1xgpye3l" path="res://Scenes/UI/spawn_button.tscn" id="2_kwigr"]
+
+[node name="PlayerUI" type="Control" unique_id=888097903 node_paths=PackedStringArray("mana_slider", "mana_label", "buttons_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_kwigr")
+mana_slider = NodePath("VBoxContainer/ManaSlider")
+mana_label = NodePath("VBoxContainer/ManaSlider/ManaLabel")
+button_prefab = ExtResource("2_kwigr")
+buttons_container = NodePath("VBoxContainer/SpawnButtonsContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1282041557]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -115.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_nplvd")
+theme_type_variation = &"PlayerUIVerticalContainer"
+alignment = 1
+
+[node name="ManaSlider" type="HSlider" parent="VBoxContainer" unique_id=193710189]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_nplvd")
+theme_type_variation = &"ManaSlider"
+value = 100.0
+editable = false
+scrollable = false
+
+[node name="ManaLabel" type="Label" parent="VBoxContainer/ManaSlider" unique_id=792493174]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "100 / 100"
+
+[node name="SpawnButtonsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=717835511]
+layout_mode = 2
+theme = ExtResource("1_nplvd")
+theme_type_variation = &"SpawnButtonsContainer"
+alignment = 1
+
+[node name="SpawnButton" parent="VBoxContainer/SpawnButtonsContainer" unique_id=1412768287 instance=ExtResource("2_kwigr")]
+layout_mode = 2
+
+[node name="SpawnButton2" parent="VBoxContainer/SpawnButtonsContainer" unique_id=167328223 instance=ExtResource("2_kwigr")]
+layout_mode = 2
+
+[node name="SpawnButton3" parent="VBoxContainer/SpawnButtonsContainer" unique_id=597085876 instance=ExtResource("2_kwigr")]
+layout_mode = 2
+
+[node name="SpawnButton4" parent="VBoxContainer/SpawnButtonsContainer" unique_id=1428036187 instance=ExtResource("2_kwigr")]
+layout_mode = 2

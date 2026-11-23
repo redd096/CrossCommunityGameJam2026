@@ -12,14 +12,27 @@ enum ECharacterFaction
 
 @export var faction: ECharacterFaction
 @export var current_map_node: MapNode
+@export var current_struct_path: StructPathNode
 
 ## Init the character to set its node, path and start position
-func setup(map_node: MapNode, follow_path : bool = true) -> void:
+func setup(map_node: MapNode, follow_path: bool = true) -> void:
 	current_map_node = map_node
-	if (follow_path) :
-		global_position = MovementUtilities.get_path_start_position(current_map_node.get_next_path())
-	else :
-		global_position = map_node.global_position
+	current_struct_path = map_node.get_next_struct_path()
+	_spawn_position(follow_path)
+
+
+func _spawn_position(follow_path: bool) -> void:
+	if follow_path:
+		var path: Path3D = current_map_node.get_path_from_struct(current_struct_path)
+		# set path start position
+		if current_struct_path.move_forward:
+			global_position = MovementUtilities.get_path_start_position(path)
+		# or end position
+		else:
+			global_position = MovementUtilities.get_path_end_position(path)
+	# else, just spawn to map node position
+	else:
+		global_position = current_map_node.global_position
 
 # @export var path : Path3D
 # @export var lookahead : float

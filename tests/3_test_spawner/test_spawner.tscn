@@ -2,14 +2,13 @@
 
 [ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="1_v8ehv"]
 [ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="2_k0u8p"]
-[ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://tests/3_test_spawner/spawner_test.gd" id="3_whelo"]
-[ext_resource type="Script" uid="uid://86j4axe6vxve" path="res://tests/3_test_spawner/player_manager_test.gd" id="4_dkjai"]
+[ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://tests/3_test_spawner/scripts/spawner_test.gd" id="3_whelo"]
+[ext_resource type="Script" uid="uid://86j4axe6vxve" path="res://tests/3_test_spawner/scripts/player_manager_test.gd" id="4_dkjai"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="5_q88kf"]
-[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/3_test_spawner/test_spawner_troop_1.tres" id="6_l4re4"]
-[ext_resource type="Resource" uid="uid://cmwq34hsrtqed" path="res://tests/3_test_spawner/test_spawner_troop_2.tres" id="7_oofha"]
-[ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://UI/player_ui.tscn" id="8_6q50s"]
-[ext_resource type="Script" uid="uid://c2am5ykkof4w4" path="res://tests/3_test_spawner/player_ui_manager_test.gd" id="9_k0u8p"]
-[ext_resource type="Script" uid="uid://37mnrqk7bayj" path="res://tests/3_test_spawner/test_spawner_script.gd" id="9_p1s22"]
+[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/3_test_spawner/scriptable_objects/test_spawner_troop_1.tres" id="6_l4re4"]
+[ext_resource type="Resource" uid="uid://cmwq34hsrtqed" path="res://tests/3_test_spawner/scriptable_objects/test_spawner_troop_2.tres" id="7_oofha"]
+[ext_resource type="PackedScene" uid="uid://c8avm7518oba7" path="res://tests/3_test_spawner/prefabs/test_spawner_player_ui.tscn" id="8_v8ehv"]
+[ext_resource type="Script" uid="uid://37mnrqk7bayj" path="res://tests/3_test_spawner/scripts/test_spawner_script.gd" id="9_p1s22"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_38h1k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -142,8 +141,7 @@ start_selected_spawner = NodePath("../Spawner")
 spawnable_troops = Array[ExtResource("5_q88kf")]([ExtResource("6_l4re4"), ExtResource("7_oofha")])
 metadata/_custom_type_script = "uid://86j4axe6vxve"
 
-[node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("8_6q50s")]
-script = ExtResource("9_k0u8p")
+[node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("8_v8ehv")]
 player_manager = NodePath("../PlayerManager")
 
 [node name="TestSpawnerScript" type="Node" parent="." unique_id=1551469830 node_paths=PackedStringArray("player_manager")]

@@ -11,4 +11,7 @@ func _enter_state() -> void:
 
 
 func _physics_process_state(_delta: float) -> void:
-	sm.movement_component.move(sm.unit, sm.unit.current_map_node.get_next_path())
+	# move along path
+	var path: Path3D = sm.unit.current_map_node.get_path_from_struct(sm.unit.current_struct_path)
+	var move_forward: bool = sm.unit.current_struct_path.move_forward
+	sm.movement_component.move(sm.unit, path, move_forward)

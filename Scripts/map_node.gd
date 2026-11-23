@@ -9,16 +9,21 @@ enum EDefaultMapNodeUnit
 }
 
 @export var nodes : Array[StructPathNode]
+# tower prefabs
 @export var emptyUnitPrefab : PackedScene
 @export var playerUnitPrefab : PackedScene
 @export var enemyUnitPrefab : PackedScene
+# faction
 @export var defaultUnitType : EDefaultMapNodeUnit
+
 var selectedPath : StructPathNode
 var currentUnit : OrphanUnit
+var current_unit_type: EDefaultMapNodeUnit
 
 
 func _ready() -> void :
-	match (defaultUnitType) :
+	current_unit_type = defaultUnitType
+	match (defaultUnitType):
 		EDefaultMapNodeUnit.EMPTY:
 			currentUnit = emptyUnitPrefab.instantiate() as OrphanUnit
 		EDefaultMapNodeUnit.PLAYER:
@@ -28,7 +33,13 @@ func _ready() -> void :
 	add_child(currentUnit)
 	currentUnit.setup(self, false)
 
-func get_next_path() -> Path3D :
-	#var mapNode = get_node(nodes[0].mapNode) as MapNode
-	var path = get_node(nodes[0].path) as Path3D
+
+func get_next_struct_path() -> StructPathNode:
+	var path = nodes[0]
 	return path
+
+func get_path_from_struct(struct: StructPathNode) -> Path3D:
+	return get_node(struct.path)
+
+func get_map_node_from_struct(struct: StructPathNode) -> MapNode:
+	return get_node((struct.mapNode))

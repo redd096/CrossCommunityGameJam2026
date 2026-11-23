@@ -5,9 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/map_node_empty.tscn" id="3_ikfsv"]
 [ext_resource type="PackedScene" uid="uid://c0njwyvvjjs1i" path="res://Scenes/map_node_player.tscn" id="4_5dgvu"]
 [ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="4_fiftr"]
-[ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/player_manager.gd" id="5_1ixah"]
+[ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/managers/player_manager.gd" id="5_1ixah"]
 [ext_resource type="PackedScene" uid="uid://c1yuwxi0y8xr" path="res://Scenes/map_node_enemy.tscn" id="5_uscyt"]
-[ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerTroops/default_troop.tres" id="6_rgj8m"]
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="8_ikfsv"]
+[ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerTroops/default_troop.tres" id="9_5dgvu"]
+[ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://Scenes/UI/player_ui.tscn" id="10_5dgvu"]
+[ext_resource type="Script" uid="uid://cdpi7dawbfypr" path="res://Scripts/managers/enemy_manager.gd" id="11_uscyt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -59,6 +62,7 @@ metadata/_custom_type_script = "uid://cngcvlml4cxx2"
 script = ExtResource("2_fiftr")
 path = NodePath("../Path3D_AB")
 mapNode = NodePath("../MapNode_A")
+move_forward = false
 metadata/_custom_type_script = "uid://cngcvlml4cxx2"
 
 [sub_resource type="Curve3D" id="Curve3D_fiftr"]
@@ -78,6 +82,7 @@ metadata/_custom_type_script = "uid://cngcvlml4cxx2"
 script = ExtResource("2_fiftr")
 path = NodePath("../Path3D_AC")
 mapNode = NodePath("../MapNode_A")
+move_forward = false
 metadata/_custom_type_script = "uid://cngcvlml4cxx2"
 
 [sub_resource type="Curve3D" id="Curve3D_1ixah"]
@@ -91,12 +96,14 @@ point_count = 3
 script = ExtResource("2_fiftr")
 path = NodePath("../Path3D_BD")
 mapNode = NodePath("../MapNode_B")
+move_forward = false
 metadata/_custom_type_script = "uid://cngcvlml4cxx2"
 
 [sub_resource type="Resource" id="Resource_5dgvu"]
 script = ExtResource("2_fiftr")
 path = NodePath("../Path3D_CD")
 mapNode = NodePath("../MapNode_C")
+move_forward = false
 metadata/_custom_type_script = "uid://cngcvlml4cxx2"
 
 [node name="GameScene" type="Node3D" unique_id=276836493]
@@ -127,6 +134,7 @@ nodes = Array[ExtResource("2_fiftr")]([SubResource("Resource_rgmaf"), SubResourc
 emptyUnitPrefab = ExtResource("3_ikfsv")
 playerUnitPrefab = ExtResource("4_5dgvu")
 enemyUnitPrefab = ExtResource("5_uscyt")
+defaultUnitType = 1
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="Path3D_AB" type="Path3D" parent="CSGBox3D_Map" unique_id=1991840106]
@@ -244,9 +252,18 @@ enemyUnitPrefab = ExtResource("5_uscyt")
 defaultUnitType = 2
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
-[node name="PlayerManager" type="Node" parent="." unique_id=2087178807 node_paths=PackedStringArray("start_selected_spawner")]
+[node name="PlayerManager" type="Node" parent="." unique_id=2087178807 node_paths=PackedStringArray("camera", "start_selected_spawner")]
 script = ExtResource("5_1ixah")
+camera = NodePath("../Camera3D")
 start_selected_spawner = NodePath("../CSGBox3D_Map/MapNode_A")
-spawnable_troop = ExtResource("6_rgj8m")
-spawn_interval = 2.0
+spawnable_troops = Array[ExtResource("8_ikfsv")]([ExtResource("9_5dgvu")])
 metadata/_custom_type_script = "uid://dh7ryi52cb4rf"
+
+[node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("10_5dgvu")]
+player_manager = NodePath("../PlayerManager")
+
+[node name="EnemyManager" type="Node" parent="." unique_id=1608931244 node_paths=PackedStringArray("spawner")]
+script = ExtResource("11_uscyt")
+spawner = NodePath("../CSGBox3D_Map/MapNode_D")
+spawnable_troop = ExtResource("9_5dgvu")
+metadata/_custom_type_script = "uid://cdpi7dawbfypr"
