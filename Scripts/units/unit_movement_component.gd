@@ -28,3 +28,18 @@ func move(unit: CharacterBody3D, path: Path3D, move_forward: bool, side_offset: 
 		unit.basis = unit.basis.slerp(target_basis, turn_speed)
 	
 	unit.move_and_slide()
+
+
+## Stop movement
+func stop(unit: CharacterBody3D) -> void:
+	unit.velocity = Vector3.ZERO
+
+
+## Return distance to start or end path [br]
+## move_forward: true, return length to end of the path; false, return length to the start
+func get_to_end_distance(unit: CharacterBody3D, path: Path3D, move_forward: bool) -> float:
+	# distance to start or end path
+	var path_pos: Vector3 = MovementUtilities.get_path_end_position(path) if move_forward else MovementUtilities.get_path_start_position(path)
+	var to_end: Vector3 = path_pos - unit.global_position
+	to_end.y = 0.0 # ignore y
+	return to_end.length()

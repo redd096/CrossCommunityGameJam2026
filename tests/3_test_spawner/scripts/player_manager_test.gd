@@ -63,10 +63,6 @@ func try_spawn_troop(troop: TroopResource) -> void:
 			var spawned_troop: Node3D = troop.troop_prefab.instantiate() as Node3D
 			add_child(spawned_troop)
 			on_spawn_troop.emit(spawned_troop, i, troop.formation_size)
-		print("todo - troop script and call init? - update also TroopResource.troop_prefab comment")
-	# else, show warning
-	else:
-		print("todo - show warning when mana isn't enough")
 
 
 ## Set selected spawner
@@ -88,4 +84,3 @@ func _try_select_spawner(mouse_position: Vector2) -> void:
 	# the collider is the spawner body (e.g. StaticBody3D)
 	if not hit.is_empty() and hit.collider is SpawnerTest and hit.collider in spawners:
 		set_spawner(hit.collider)
-		print("todo - spawner script instead of Node3D?")

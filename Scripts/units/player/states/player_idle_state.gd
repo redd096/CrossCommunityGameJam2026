@@ -14,11 +14,15 @@ func _enter_state() -> void:
 	# find a tower to move to
 	var move_path: StructPathNode = get_next_path()
 	if move_path != null:
-		sm.current_struct_path = move_path
+		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
 
 
-func get_next_path() -> StructPathNode:	
+func get_next_path() -> StructPathNode:
+	# if there is only one path, move to it
+	if current_node.nodes.size() == 1:
+		return current_node.nodes[0]
+
 	# split paths to enemy towers and paths to empty towers
 	var enemy_paths: Array[StructPathNode]
 	var empty_paths: Array[StructPathNode]

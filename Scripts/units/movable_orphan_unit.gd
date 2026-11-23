@@ -17,3 +17,13 @@ func setup_movable_unit(map_node: MapNode, formation_slot: Vector2) -> void:
 
 	# and start statemachine
 	state_machine.setup(map_node, formation_slot)
+
+
+
+## Called when an enemy destroys this unit
+func kill(_destroyer_faction: ECharacterFaction) -> void:
+	# stop the states
+	state_machine.set_state(null)
+	# remove from the node/path list
+	state_machine.set_new_node_and_path(null, null)
+	queue_free()

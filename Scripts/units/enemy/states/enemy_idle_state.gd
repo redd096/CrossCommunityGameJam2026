@@ -20,7 +20,7 @@ func _enter_state() -> void:
 	# if there aren't player's units, find a tower to move to
 	var move_path: StructPathNode = get_next_path()
 	if move_path != null:
-		sm.current_struct_path = move_path
+		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
 		return
 	
@@ -28,7 +28,11 @@ func _enter_state() -> void:
 	sm.set_state(sm.defend_state)
 
 
-func get_next_path() -> StructPathNode:	
+func get_next_path() -> StructPathNode:
+	# if there is only one path, move to it
+	if current_node.nodes.size() == 1:
+		return current_node.nodes[0]
+
 	# split paths to player towers and paths to empty towers
 	var player_paths: Array[StructPathNode]
 	var empty_paths: Array[StructPathNode]

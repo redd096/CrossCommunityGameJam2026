@@ -55,9 +55,15 @@ func remove_mana(decrement: float) -> void:
 
 ## Set selected spawner
 func set_spawner(spawner: MapNode) -> void:
+	# change spawner
 	var previous_spawner: MapNode = current_spawner
 	current_spawner = spawner
 	on_select_spawner.emit(previous_spawner, current_spawner)
+
+	# register to event to know when this spawner is no more in player's faction
+	if previous_spawner:
+		previous_spawner.on_conquisted_node.disconnect(_on_conquisted_spawner)
+	current_spawner.on_conquisted_node.connect(_on_conquisted_spawner)
 
 
 ## If enough mana, spawn troop on selected spawner
@@ -70,7 +76,7 @@ func try_spawn_troop(troop: TroopResource) -> void:
 			_spawn_troop(troop, slot)
 	# else, show warning
 	else:
-		print("todo - show warning when mana isn't enough")
+		push_warning("TODO - show warning when mana isn't enough")
 
 #endregion
 
@@ -78,7 +84,7 @@ func try_spawn_troop(troop: TroopResource) -> void:
 func _spawn_troop(troop: TroopResource, formation_slot: Vector2) -> void:
 	# check node is still in player faction
 	if current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
-		push_warning("Show some feedback that this node is no more Player's node")
+		push_warning("TODO - Show some feedback that this node is no more Player's node")
 		return
 
 	# spawn troop prefab and initialize it
@@ -102,3 +108,8 @@ func _try_select_spawner(mouse_position: Vector2) -> void:
 		if (hit.collider as MapNode).current_faction == OrphanUnit.ECharacterFaction.PLAYER:
 			# then set this as player spawner
 			set_spawner(hit.collider)
+
+
+func _on_conquisted_spawner(new_faction: OrphanUnit.ECharacterFaction) -> void:
+	if new_faction != OrphanUnit.ECharacterFaction.PLAYER:
+		push_warning("TODO - Show some feedback that this node is no more Player's node")

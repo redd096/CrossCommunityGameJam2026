@@ -12,10 +12,19 @@ enum ECharacterFaction
 
 @export var faction: ECharacterFaction
 
+var current_map_node: MapNode
+
 
 ## Init the character to set its node and start position. This is extended from MovableOrphanUnit
 func setup(map_node: MapNode) -> void:
-	global_position = map_node.global_position
+	current_map_node = map_node
+	global_position = current_map_node.global_position
+
+
+## Called when an enemy kills this unit. Extended from MovableOrphanUnit [br]
+func kill(destroyer_faction: ECharacterFaction) -> void:
+	if current_map_node:
+		current_map_node.on_tower_destroyed(destroyer_faction)
 
 
 # @export var path : Path3D

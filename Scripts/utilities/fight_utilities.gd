@@ -22,7 +22,7 @@ static func find_targets(caller: Node3D, radius: float, target_layer: int) -> Ar
 ## target_layer: enemy layer when called from player's character, or player layer when called from enemies
 static func find_target(caller: Node3D, radius: float, target_layer: int) -> Node3D:
 	var list: Array[Node3D] = find_targets(caller, radius, target_layer)
-	return _get_best_target_in_list(caller.global_position, list)
+	return get_best_target_in_list(caller.global_position, list)
 
 
 ## Return the list of targets in this area
@@ -32,15 +32,15 @@ static func find_targets_in_area(area: Area3D) -> Array[Node3D]:
 
 ## Return the best target in this area
 static func find_target_in_area(area: Area3D) -> Node3D:
-	return _get_best_target_in_list(area.global_position, area.get_overlapping_bodies())
+	return get_best_target_in_list(area.global_position, area.get_overlapping_bodies())
+
+
+## Return the best target in this list. For now just find target by distance, in the future could check some priority
+static func get_best_target_in_list(current_global_position: Vector3, list: Array[Node3D]) -> Node3D:
+	return _get_closest_in_list(current_global_position, list)
 
 
 #region private api
-
-
-## For now just find target by distance, in the future could check some priority
-static func _get_best_target_in_list(current_global_position: Vector3, list: Array[Node3D]) -> Node3D:
-	return _get_closest_in_list(current_global_position, list)
 
 
 ## Return the closest body inside the list

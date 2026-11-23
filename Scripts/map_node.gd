@@ -9,6 +9,8 @@ class_name MapNode
 # faction
 @export var default_faction : OrphanUnit.ECharacterFaction
 
+signal on_conquisted_node(new_faction: OrphanUnit.ECharacterFaction)
+
 var selectedPath : StructPathNode ## player current selected path when reach this node
 var currentUnit : OrphanUnit ## the tower on this node
 var current_faction: OrphanUnit.ECharacterFaction
@@ -19,7 +21,23 @@ var current_units_on_this_node: Dictionary[Path3D, Array]
 
 func _ready() -> void :
 	current_faction = default_faction
-	match (default_faction):
+	_recreate_tower()
+
+
+func on_tower_destroyed(destroyer_faction: OrphanUnit.ECharacterFaction) -> void:
+	# change faction and emit signal
+	current_faction = destroyer_faction
+	_recreate_tower()
+	on_conquisted_node.emit(destroyer_faction)
+
+
+func _recreate_tower() -> void:
+	# destroy previous tower
+	if currentUnit:
+		currentUnit.queue_free()
+
+	# instantiate tower and initialize
+	match (current_faction):
 		OrphanUnit.ECharacterFaction.NONE:
 			currentUnit = emptyUnitPrefab.instantiate() as OrphanUnit
 		OrphanUnit.ECharacterFaction.PLAYER:
