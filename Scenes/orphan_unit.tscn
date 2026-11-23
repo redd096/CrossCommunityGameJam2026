@@ -1,10 +1,13 @@
 [gd_scene format=4 uid="uid://ngnh4akaiktg"]
 
-[ext_resource type="Script" uid="uid://bw3yw4g0pdmoo" path="res://Scripts/orphan_unit.gd" id="1_w7tgd"]
+[ext_resource type="Script" uid="uid://bw3yw4g0pdmoo" path="res://Scripts/units/orphan_unit.gd" id="1_w7tgd"]
 [ext_resource type="Material" uid="uid://degnaeoo0cs85" path="res://Models/Stickman/Material.001.tres" id="2_1t0yi"]
 [ext_resource type="Animation" uid="uid://iwok8pkcwe5v" path="res://Models/Stickman/Anims/Stickman_Idle.res" id="3_af6am"]
 [ext_resource type="Animation" uid="uid://dvu5hxthw7lnl" path="res://Models/Stickman/Anims/Stickman_Run.res" id="4_fwu6i"]
 [ext_resource type="Animation" uid="uid://l33q3rthq08r" path="res://Models/Stickman/Anims/Stickman_Sad.res" id="5_i53co"]
+[ext_resource type="Script" uid="uid://baelbbr0ixnlb" path="res://Scripts/units/unit_state_machine_component.gd" id="6_fwu6i"]
+[ext_resource type="Script" uid="uid://dny1axiipwdkv" path="res://Scripts/units/unit_move_state.gd" id="7_i53co"]
+[ext_resource type="Script" uid="uid://cu83wsf0ab2if" path="res://Scripts/units/unit_movement_component.gd" id="8_vffi5"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xajy4"]
 resource_name = "Cube_002"
@@ -164,9 +167,8 @@ states/Stickman|Sad/position = Vector2(615, 198)
 transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_uffue"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_0obr8"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_uogb4")]
 graph_offset = Vector2(-81, 45)
 
-[node name="OrphanUnit" type="CharacterBody3D" unique_id=2037079988 node_paths=PackedStringArray("target")]
+[node name="OrphanUnit" type="CharacterBody3D" unique_id=2037079988]
 script = ExtResource("1_w7tgd")
-target = NodePath("")
 
 [node name="Stickman" type="Node3D" parent="." unique_id=1435321724]
 transform = Transform3D(1, 0, 0, 0, 1, -1.6292067e-07, 0, 1.6292067e-07, 1, 0, -1, 0)
@@ -434,3 +436,20 @@ libraries/ = SubResource("AnimationLibrary_n56db")
 tree_root = SubResource("AnimationNodeStateMachine_tckcw")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="Components" type="Node" parent="." unique_id=296473590]
+
+[node name="UnitStateMachineComponent" type="Node" parent="Components" unique_id=547750474 node_paths=PackedStringArray("unit", "movement_component", "move_state")]
+script = ExtResource("6_fwu6i")
+unit = NodePath("../..")
+movement_component = NodePath("../UnitMovementComponent")
+move_state = NodePath("UnitMoveState")
+metadata/_custom_type_script = "uid://baelbbr0ixnlb"
+
+[node name="UnitMoveState" type="Node" parent="Components/UnitStateMachineComponent" unique_id=1840622411]
+script = ExtResource("7_i53co")
+metadata/_custom_type_script = "uid://dny1axiipwdkv"
+
+[node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070]
+script = ExtResource("8_vffi5")
+metadata/_custom_type_script = "uid://cu83wsf0ab2if"

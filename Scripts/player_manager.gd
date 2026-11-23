@@ -16,8 +16,7 @@ func _process(delta: float) -> void:
 
 
 func _spawn_troop() :
-	var spawned_troop: Node3D = spawnable_troop.troop_prefab.instantiate() as Node3D
-	spawned_troop.path = start_selected_spawner.get_next_path()
+	var spawned_troop: OrphanUnit = spawnable_troop.troop_prefab.instantiate() as OrphanUnit
 	add_child(spawned_troop)
-	spawned_troop.global_position = MovementUtilities.get_path_start_position(spawned_troop.path)
+	spawned_troop.setup(start_selected_spawner)
 	pass

@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cngcvlml4cxx2" path="res://Scripts/struct_pathnode.gd" id="2_fiftr"]
 [ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="4_fiftr"]
 [ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/player_manager.gd" id="5_1ixah"]
-[ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/3_test_spawner/test_spawner_troop_1.tres" id="6_rgj8m"]
+[ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerTroops/default_troop.tres" id="6_rgj8m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
