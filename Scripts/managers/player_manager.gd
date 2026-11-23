@@ -18,8 +18,8 @@ var current_spawner: MapNode
 
 signal on_update_mana(from: int, to: int)
 signal on_select_spawner(previous_spawner: MapNode, new_spawner: MapNode)
-## Emitted once per spawned unit. formation_index is from 0 to formation_size - 1
-signal on_spawn_troop(troop: Node3D, formation_index: int, formation_size: int)
+## Emitted once per spawned unit
+signal on_spawn_troop(troop: MovableOrphanUnit)
 
 
 func _ready() -> void:
@@ -65,9 +65,9 @@ func try_spawn_troop(troop: TroopResource) -> void:
 	# if mana is enough, decrease it to spawn troop on selected spawner
 	if current_mana >= troop.cost:
 		remove_mana(troop.cost)
-		# spawn the whole formation for a single cost
-		for i: int in troop.formation_size:
-			_spawn_troop(troop, i)
+		var offsets: Array[Vector2] = MovementUtilities.get_formation_offsets(troop.formation_size, troop.formation_spacing, troop.formation_max_columns)
+		for slot: Vector2 in offsets:
+			_spawn_troop(troop, slot)
 	# else, show warning
 	else:
 		print("todo - show warning when mana isn't enough")
@@ -75,18 +75,18 @@ func try_spawn_troop(troop: TroopResource) -> void:
 #endregion
 
 
-func _spawn_troop(troop: TroopResource, index: int) -> void:
+func _spawn_troop(troop: TroopResource, formation_slot: Vector2) -> void:
 	# check node is still in player faction
-	if current_spawner.current_unit_type != MapNode.EDefaultMapNodeUnit.PLAYER:
+	if current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
 		push_warning("Show some feedback that this node is no more Player's node")
 		return
 
 	# spawn troop prefab and initialize it
-	var spawned_troop: OrphanUnit = troop.troop_prefab.instantiate() as OrphanUnit
+	var spawned_troop: MovableOrphanUnit = troop.troop_prefab.instantiate() as MovableOrphanUnit
 	add_child(spawned_troop)
-	spawned_troop.setup(current_spawner)
+	spawned_troop.setup_movable_unit(current_spawner, formation_slot)
 	# and emit signal
-	on_spawn_troop.emit(spawned_troop, index, troop.formation_size)
+	on_spawn_troop.emit(spawned_troop)
 
 
 func _try_select_spawner(mouse_position: Vector2) -> void:
@@ -99,6 +99,6 @@ func _try_select_spawner(mouse_position: Vector2) -> void:
 	# check it is a MapNode and it isn't our current selected spawner
 	if not hit.is_empty() and hit.collider is MapNode and not hit.collider == current_spawner:
 		# be sure it is player faction
-		if (hit.collider as MapNode).current_unit_type == MapNode.EDefaultMapNodeUnit.PLAYER:
+		if (hit.collider as MapNode).current_faction == OrphanUnit.ECharacterFaction.PLAYER:
 			# then set this as player spawner
 			set_spawner(hit.collider)

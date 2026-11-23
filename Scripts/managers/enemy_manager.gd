@@ -18,7 +18,9 @@ func _process(delta: float) -> void:
 
 
 func _spawn_troop() :
-	# instantiate troop and initialize it
-	var spawned_troop: OrphanUnit = spawnable_troop.troop_prefab.instantiate() as OrphanUnit
-	add_child(spawned_troop)
-	spawned_troop.setup(spawner)
+	# instantiate troops and initialize them, one formation slot per unit
+	var offsets: Array[Vector2] = MovementUtilities.get_formation_offsets(spawnable_troop.formation_size, spawnable_troop.formation_spacing, spawnable_troop.formation_max_columns)
+	for slot: Vector2 in offsets:
+		var spawned_troop: MovableOrphanUnit = spawnable_troop.troop_prefab.instantiate() as MovableOrphanUnit
+		add_child(spawned_troop)
+		spawned_troop.setup_movable_unit(spawner, slot)

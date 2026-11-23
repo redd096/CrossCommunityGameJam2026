@@ -48,3 +48,31 @@ static func get_path_direction(path: Path3D, current_global_position: Vector3, l
 		return Vector3.ZERO
 	
 	return direction.normalized()
+
+
+## Return the slot offsets of a formation made of columns and rows [br]
+## x = side offset (column, where negative is left and positive is right), y = distance (row) [br]
+## unit_count: the number of units in this formation [br]
+## spacing: distance between two units, both side by side and between rows [br]
+## max_columns: max units side by side in a row
+static func get_formation_offsets(unit_count: int, spacing: float, max_columns: int) -> Array[Vector2]:
+	var offsets: Array[Vector2] = []
+	var row: int = 0
+
+	while offsets.size() < unit_count:
+		# full rows have max_columns units, the last one only the remaining units
+		var remaining_units: int = unit_count - offsets.size()
+		var columns_in_this_row: int = mini(max_columns, remaining_units)
+
+		# calculate to have column 0 at the left instead of the center
+		# e.g. we have 10 columns and we want to stay in column 5, we must be in the center and not to the right
+		var half_size: float = (columns_in_this_row - 1) / 2.0 * spacing
+		for column_index: int in columns_in_this_row:
+			var offset_to_the_right: float = column_index * spacing
+			var side_offset: float = offset_to_the_right - half_size
+			offsets.append(Vector2(side_offset, row * spacing))
+
+		# move to next row
+		row += 1
+
+	return offsets

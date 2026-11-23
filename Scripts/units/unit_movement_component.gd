@@ -9,11 +9,12 @@ class_name UnitMovementComponent
 
 
 ## Move unit along path [br]
-## move_forward: true if move along path, false if move in reverse
-func move(unit: CharacterBody3D, path: Path3D, move_forward: bool) -> void:	
+## move_forward: true if move along path, false if move in reverse [br]
+## side_offset: lane to keep along the path (negative = left, positive = right, 0 = center)
+func move(unit: CharacterBody3D, path: Path3D, move_forward: bool, side_offset: float = 0.0) -> void:
 	# move along path by lookahead
 	var lookahead_value: float = lookahead if move_forward else -lookahead
-	var direction := MovementUtilities.get_path_direction(path, unit.global_position, lookahead_value)
+	var direction := MovementUtilities.get_path_direction(path, unit.global_position, lookahead_value, side_offset)
 	if direction:
 		unit.velocity.x = direction.x * speed
 		unit.velocity.z = direction.z * speed
