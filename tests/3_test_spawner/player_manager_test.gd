@@ -6,18 +6,18 @@ class_name PlayerManagerTest extends Node
 @export var increment_mana_per_second: float = 10
 @export_group("Spawn and select spawn")
 @export var camera: Camera3D
-@export var spawners: Array[Spawner]	## Every spawner in scene the player can select
-@export var start_selected_spawner: Spawner
+@export var spawners: Array[SpawnerTest]	## Every spawner in scene the player can select
+@export var start_selected_spawner: SpawnerTest
 @export_group("Troops")
 @export var spawnable_troops: Array[TroopResource]
 
 const RAY_LENGTH = 1000.0
 
 var current_mana: float
-var current_spawner: Spawner
+var current_spawner: SpawnerTest
 
 signal on_update_mana(from: int, to: int)
-signal on_select_spawner(previous_spawner: Spawner, new_spawner: Spawner)
+signal on_select_spawner(previous_spawner: SpawnerTest, new_spawner: SpawnerTest)
 ## Emitted once per spawned unit. formation_index is from 0 to formation_size - 1,
 signal on_spawn_troop(troop: Node3D, formation_index: int, formation_size: int)
 
@@ -70,8 +70,8 @@ func try_spawn_troop(troop: TroopResource) -> void:
 
 
 ## Set selected spawner
-func set_spawner(spawner: Spawner) -> void:
-	var previous_spawner: Spawner = current_spawner
+func set_spawner(spawner: SpawnerTest) -> void:
+	var previous_spawner: SpawnerTest = current_spawner
 	current_spawner = spawner
 	on_select_spawner.emit(previous_spawner, current_spawner)
 
@@ -86,6 +86,6 @@ func _try_select_spawner(mouse_position: Vector2) -> void:
 	var hit: Dictionary = camera.get_world_3d().direct_space_state.intersect_ray(query)
 
 	# the collider is the spawner body (e.g. StaticBody3D)
-	if not hit.is_empty() and hit.collider is Spawner and hit.collider in spawners:
+	if not hit.is_empty() and hit.collider is SpawnerTest and hit.collider in spawners:
 		set_spawner(hit.collider)
 		print("todo - spawner script instead of Node3D?")

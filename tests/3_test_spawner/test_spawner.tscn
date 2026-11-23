@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="1_v8ehv"]
 [ext_resource type="Material" uid="uid://stubm7pavjxo" path="res://tests/materials_for_tests/path.tres" id="2_k0u8p"]
-[ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://Scripts/spawner.gd" id="3_whelo"]
+[ext_resource type="Script" uid="uid://cw7i1g4gvtj1j" path="res://tests/3_test_spawner/spawner_test.gd" id="3_whelo"]
 [ext_resource type="Script" uid="uid://86j4axe6vxve" path="res://tests/3_test_spawner/player_manager_test.gd" id="4_dkjai"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="5_q88kf"]
 [ext_resource type="Resource" uid="uid://cb66eomurt8n0" path="res://tests/3_test_spawner/test_spawner_troop_1.tres" id="6_l4re4"]

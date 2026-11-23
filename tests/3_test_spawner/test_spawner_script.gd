@@ -28,7 +28,7 @@ func _ready() -> void:
 
 #region on select spawner
 
-func _on_select_spawner(previous_spawner: Spawner, new_spawner: Spawner) -> void:
+func _on_select_spawner(previous_spawner: SpawnerTest, new_spawner: SpawnerTest) -> void:
 	# reset previous material
 	if previous_spawner:
 		_get_spawner_mesh(previous_spawner).material_override = null
@@ -37,7 +37,7 @@ func _on_select_spawner(previous_spawner: Spawner, new_spawner: Spawner) -> void
 		_get_spawner_mesh(new_spawner).material_override = _selected_material
 
 
-func _get_spawner_mesh(spawner: Spawner) -> MeshInstance3D:
+func _get_spawner_mesh(spawner: SpawnerTest) -> MeshInstance3D:
 	# find first MeshInstance3D child
 	return spawner.find_children("*", "MeshInstance3D", false)[0]
 
