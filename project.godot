@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CrossCommunityGameJam2026"
-run/main_scene="uid://b3cmfhmr8hwcf"
+run/main_scene="uid://ch36qusum644r"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
