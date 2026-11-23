@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://2yjli6a80y51"]
+
+[ext_resource type="Script" uid="uid://bw3yw4g0pdmoo" path="res://Scripts/units/orphan_unit.gd" id="1_s6f1c"]
+[ext_resource type="ArrayMesh" uid="uid://u04u310uu2yn" path="res://Models/Tower/Tower.obj" id="1_s6hur"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yer10"]
+albedo_color = Color(0.29219002, 0.29219005, 0.29219002, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s6f1c"]
+points = PackedVector3Array(0.007901194, 0.28537863, 0.007901194, -0.072, 0.0022936757, -0.072, 0.070206344, 0.0022936757, -0.072, 0.072500005, -0.0022936463, 0.072500005, -0.07429366, 0.25913584, 0.072500005, -0.07429366, 0.25913584, -0.07429366, 0.07248563, 0.25916457, -0.07429366, -0.072, 0.0022936757, 0.070206344, 0.07080637, 0.25654063, 0.07082041, -0.0053188875, 0.28656217, -0.0053188875, -0.005282046, 0.28537863, 0.007901194, 0.007901194, 0.28537863, -0.005282046)
+
+[node name="MapNode_Empty" type="CharacterBody3D" unique_id=1464329382]
+script = ExtResource("1_s6f1c")
+faction = 2
+metadata/_custom_type_script = "uid://bw3yw4g0pdmoo"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=710792575]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = ExtResource("1_s6hur")
+surface_material_override/2 = SubResource("StandardMaterial3D_yer10")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1931301547]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_s6f1c")

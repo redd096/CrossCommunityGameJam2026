@@ -6,17 +6,20 @@ class_name OrphanUnit
 enum ECharacterFaction
 {
 	PLAYER,
-	ENEMY
+	ENEMY,
+	NONE
 }
 
 @export var faction: ECharacterFaction
 @export var current_map_node: MapNode
 
 ## Init the character to set its node, path and start position
-func setup(map_node: MapNode) -> void:
+func setup(map_node: MapNode, follow_path : bool = true) -> void:
 	current_map_node = map_node
-	global_position = MovementUtilities.get_path_start_position(current_map_node.get_next_path())
-
+	if (follow_path) :
+		global_position = MovementUtilities.get_path_start_position(current_map_node.get_next_path())
+	else :
+		global_position = map_node.global_position
 
 # @export var path : Path3D
 # @export var lookahead : float
