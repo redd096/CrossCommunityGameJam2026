@@ -11,6 +11,10 @@ func _enter_state() -> void:
 	sm = state_machine as EnemyStateMachineComponent
 	current_node = sm.current_map_node
 
+	# arrived on an empty tower: conquer it immediately
+	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
+		current_node.on_tower_destroyed(sm.unit.faction)
+
 	# if there are player's units on the path to my current node, stay still and defend
 	var defend_path: StructPathNode = _get_path_to_defend()
 	if defend_path != null:

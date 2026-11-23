@@ -4,7 +4,7 @@ class_name EnemyAttackState
 ## Attack State: stay still for a few seconds (attack animation), then destroy the closest target found in area. [br]
 ## Then continue along the path, or go back to idle if there isn't a path
 
-@export var attack_time: float = 2.0 ## seconds to stay still before destroying the target
+@export var attack_time: float = 1.0 ## seconds to stay still before destroying the target
 
 var sm: EnemyStateMachineComponent
 var _target: OrphanUnit

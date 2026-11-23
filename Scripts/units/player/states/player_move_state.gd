@@ -21,7 +21,7 @@ func _enter_state() -> void:
 	_best_distance = INF
 
 
-func _physics_process_state(_delta: float) -> void:
+func _physics_process_state(delta: float) -> void:
 	# move along path
 	var path: Path3D = sm.current_map_node.get_path_from_struct(sm.current_struct_path)
 	var move_forward: bool = sm.current_struct_path.move_forward
@@ -33,6 +33,9 @@ func _physics_process_state(_delta: float) -> void:
 		return
 	
 	# check if reach end of the path or give up, to go back to idle
+
+	# increase "give up timer"
+	_give_up_timer += delta
 
 	# if we moved near the end path, reset "give up timer"
 	var distance: float = sm.movement_component.get_to_end_distance(sm.unit, path, move_forward)

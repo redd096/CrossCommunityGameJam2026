@@ -10,6 +10,10 @@ var current_node: MapNode
 func _enter_state() -> void:
 	sm = state_machine as PlayerStateMachineComponent
 	current_node = sm.current_map_node
+
+	# arrived on an empty tower: conquer it immediately
+	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
+		current_node.on_tower_destroyed(sm.unit.faction)
 	
 	# find a tower to move to
 	var move_path: StructPathNode = get_next_path()
