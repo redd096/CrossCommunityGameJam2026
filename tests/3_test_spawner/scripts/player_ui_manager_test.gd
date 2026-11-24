@@ -4,7 +4,7 @@ class_name PlayerUIManagerTest extends Control
 @export var player_manager: PlayerManagerTest
 @export var mana_slider: Slider
 @export var mana_label: Label
-@export var button_prefab: PackedScene # PlayerUISpawnButton
+@export var button_prefab: PackedScene ## PlayerUISpawnButton
 @export var buttons_container: Control
 
 

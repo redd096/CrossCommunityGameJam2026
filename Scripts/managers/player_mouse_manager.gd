@@ -80,6 +80,10 @@ func _find_object_under_mouse() -> CollisionObject3D:
 #region private click api
 
 func _try_select(target: CollisionObject3D) -> void:
+	# check hovered object is still valid (e.g. a conquered tower is destroyed)
+	if not is_instance_valid(current_hover):
+		return
+
 	# the collider of a MapNode is its tower, 
 	# which is an OrphanUnit but not a MovableOrphanUnit
 	if target is OrphanUnit and not target is MovableOrphanUnit:

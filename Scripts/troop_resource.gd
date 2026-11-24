@@ -1,7 +1,7 @@
 class_name TroopResource extends Resource
 ## ScriptableObject for the troop, used by PlayerUI to show buttons and spawn troops on click
 
-@export var troop_prefab: PackedScene # OrphanUnit
+@export var troop_prefab: PackedScene ## MovableOrphanUnit
 
 @export_group("Player UI")
 @export var troop_name: StringName
