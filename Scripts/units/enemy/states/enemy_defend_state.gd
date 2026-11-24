@@ -5,7 +5,7 @@ class_name EnemyDefendState
 ## Every few seconds, check if there are still Player units on the path (or they are already dead and this enemy can move) [br]
 ## or check if they are near to attack them
 
-@export var check_targets_interval: float = 1.0 ## seconds between checks of Player units in attack range
+@export var check_targets_interval: float = 0.1 ## seconds between checks of Player units in attack range
 @export var check_path_interval: float = 1.0 ## seconds between checks of Player units on the paths
 
 var sm: EnemyStateMachineComponent

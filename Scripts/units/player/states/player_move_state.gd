@@ -5,7 +5,7 @@ class_name PlayerMoveState
 ## and check if find enemies or reach the end of the path. [br]
 ## Or stuck by other units and give up
 
-@export var check_targets_interval: float = 1.0 ## seconds between checks of targets in attack range
+@export var check_targets_interval: float = 0.1 ## seconds between checks of targets in attack range
 @export_group("Give Up")
 @export var give_up_time: float = 1.0 ## seconds without getting closer to the path end, before giving up
 @export var min_progress: float = 0.2 ## how much closer we must get to the path end, to reset give_up_time

@@ -3,42 +3,54 @@ class_name EnemyIdleState
 
 ## This is the state when the enemy spawn or arrive to a node, and decide what to do
 
+@export var check_targets_interval: float = 0.1 ## seconds between checks of Player units in attack range
+@export var check_path_interval: float = 1.0 ## seconds between checks what to do (move along some path or defend)
+
 var sm: EnemyStateMachineComponent
 var current_node: MapNode
 
-const CHECK_INTERVAL: float = 1.0
-var _check_timer: float
+var _targets_timer: float = 0.0
+var _path_timer: float = 0.0
 
 
 func _enter_state() -> void:
 	sm = state_machine as EnemyStateMachineComponent
 	current_node = sm.current_map_node
 
-	# reset values
-	_check_timer = 0.0
+	# reset values (set completed timer to do immediatly first check)
+	_targets_timer = check_targets_interval
+	_path_timer = check_path_interval
 
 	# arrived on an empty tower: conquer it immediately
 	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
 		current_node.on_tower_destroyed(sm.unit.faction)
-	
-	# do immediatly the first check
-	_check_what_to_do()
 
 
 func _process_state(delta: float) -> void:
+	# if find targets, attack
+	_targets_timer += delta
+	if _targets_timer > check_targets_interval:
+		_targets_timer = 0.0
+		if _check_targets():
+			return
+
 	# every few seconds, check what to do
-	_check_timer += delta
-	if _check_timer > CHECK_INTERVAL:
-		_check_timer = 0.0
-		_check_what_to_do()
+	_path_timer += delta
+	if _path_timer > check_path_interval:
+		_path_timer = 0.0
+		_check_paths()
 
 
-func _check_what_to_do() -> void:
+func _check_targets() -> bool:
 	# if find targets, attack
 	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.PLAYER):
 		sm.set_state(sm.attack_state)
-		return
+		return true
+	
+	return false
 
+
+func _check_paths() -> void:
 	# if there are player's units on the path to my current node, stay still and defend
 	var defend_path: StructPathNode = _get_path_to_defend()
 	if defend_path != null:
@@ -46,7 +58,7 @@ func _check_what_to_do() -> void:
 		return
 	
 	# if there aren't player's units, find a tower to move to
-	var move_path: StructPathNode = get_next_path()
+	var move_path: StructPathNode = _get_next_path()
 	if move_path != null:
 		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
@@ -54,8 +66,7 @@ func _check_what_to_do() -> void:
 	# else, just wait to recheck what to do
 
 
-
-func get_next_path() -> StructPathNode:
+func _get_next_path() -> StructPathNode:
 	# if there is only one path, move to it
 	if current_node.nodes.size() == 1:
 		return current_node.nodes[0]
