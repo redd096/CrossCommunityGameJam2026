@@ -7,19 +7,43 @@ class_name PlayerIdleState
 var sm: PlayerStateMachineComponent
 var current_node: MapNode
 
+const CHECK_INTERVAL: float = 1.0
+var _check_timer: float
+
+
 func _enter_state() -> void:
 	sm = state_machine as PlayerStateMachineComponent
 	current_node = sm.current_map_node
 
+	# reset values
+	_check_timer = 0.0
+
 	# arrived on an empty tower: conquer it immediately
 	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
 		current_node.on_tower_destroyed(sm.unit.faction)
-	
-	# find a tower to move to
+
+
+func _process_state(delta: float) -> void:
+	# every few seconds, check what to do
+	_check_timer += delta
+	if _check_timer > CHECK_INTERVAL:
+		_check_timer = 0.0
+		_check_what_to_do()
+
+
+func _check_what_to_do() -> void:
+	# if find targets, attack
+	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.PLAYER):
+		sm.set_state(sm.attack_state)
+		return
+
+	# else, find a tower to move to
 	var move_path: StructPathNode = get_next_path()
 	if move_path != null:
 		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
+	
+	# else, just wait to recheck what to do
 
 
 func get_next_path() -> StructPathNode:
