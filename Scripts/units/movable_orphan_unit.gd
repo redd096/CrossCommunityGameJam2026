@@ -4,6 +4,7 @@ class_name MovableOrphanUnit
 ## Base class for a movable unit, used by Player and Enemy
 
 @export var state_machine: UnitStateMachineComponent
+@export var spawn_height: float = 1.0 ## fix spawn height, to avoid see unit half in the ground
 
 
 ## Place the unit on its formation slot, then start the state machine [br]
@@ -13,7 +14,7 @@ func setup_movable_unit(map_node: MapNode, formation_slot: Vector2) -> void:
 	setup(map_node)
 
 	# then move to slot
-	global_position += Vector3(formation_slot.x, 0.0, formation_slot.y)
+	global_position += Vector3(formation_slot.x, spawn_height, formation_slot.y)
 
 	# and start statemachine
 	state_machine.setup(map_node, formation_slot)
