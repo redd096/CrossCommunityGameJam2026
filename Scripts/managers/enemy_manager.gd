@@ -18,6 +18,10 @@ func _process(delta: float) -> void:
 
 
 func _spawn_troop() :
+	# the spawner tower was conquered by the Player: stop spawning
+	if spawner.current_faction != OrphanUnit.ECharacterFaction.ENEMY:
+		return
+
 	# instantiate troops and initialize them, one formation slot per unit
 	var offsets: Array[Vector2] = MovementUtilities.get_formation_offsets(spawnable_troop.formation_size, spawnable_troop.formation_spacing, spawnable_troop.formation_max_columns)
 	for slot: Vector2 in offsets:
