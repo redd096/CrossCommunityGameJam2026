@@ -21,6 +21,9 @@ func _enter_state() -> void:
 	# arrived on an empty tower: conquer it immediately
 	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
 		current_node.on_tower_destroyed(sm.unit.faction)
+	
+	# do immediatly the first check
+	_check_what_to_do()
 
 
 func _process_state(delta: float) -> void:
@@ -33,7 +36,7 @@ func _process_state(delta: float) -> void:
 
 func _check_what_to_do() -> void:
 	# if find targets, attack
-	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.PLAYER):
+	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.ENEMY):
 		sm.set_state(sm.attack_state)
 		return
 

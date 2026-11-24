@@ -20,6 +20,9 @@ func _enter_state() -> void:
 	# arrived on an empty tower: conquer it immediately
 	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
 		current_node.on_tower_destroyed(sm.unit.faction)
+	
+	# do immediatly the first check
+	_check_what_to_do()
 
 
 func _process_state(delta: float) -> void:
