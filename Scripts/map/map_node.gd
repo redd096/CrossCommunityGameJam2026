@@ -1,6 +1,7 @@
 extends Node3D
 class_name MapNode
 
+## every possible path from this node
 @export var nodes : Array[StructPathNode]
 # tower prefabs
 @export var emptyUnitPrefab : PackedScene

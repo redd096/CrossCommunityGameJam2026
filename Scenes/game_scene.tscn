@@ -13,6 +13,8 @@
 [ext_resource type="Resource" uid="uid://dityss1qu7adb" path="res://ScriptableObjects/PlayerUnits/multiple_player_units.tres" id="10_wywco"]
 [ext_resource type="Script" uid="uid://cdpi7dawbfypr" path="res://Scripts/managers/enemy_manager.gd" id="11_uscyt"]
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="12_4xiap"]
+[ext_resource type="Script" uid="uid://bwoeuf3twejih" path="res://Scripts/managers/player_mouse_manager.gd" id="13_mouse"]
+[ext_resource type="Script" uid="uid://bidk1am4e7n7u" path="res://Scripts/managers/hover_outline.gd" id="14_hover"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -254,15 +256,23 @@ enemyUnitPrefab = ExtResource("5_uscyt")
 default_faction = 1
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
-[node name="PlayerManager" type="Node" parent="." unique_id=2087178807 node_paths=PackedStringArray("camera", "start_selected_spawner")]
+[node name="PlayerManager" type="Node" parent="." unique_id=2087178807 node_paths=PackedStringArray("start_selected_spawner")]
 script = ExtResource("5_1ixah")
-camera = NodePath("../Camera3D")
 start_selected_spawner = NodePath("../CSGBox3D_Map/MapNode_A")
 spawnable_troops = Array[ExtResource("8_ikfsv")]([ExtResource("9_5dgvu"), ExtResource("10_wywco")])
 metadata/_custom_type_script = "uid://dh7ryi52cb4rf"
 
 [node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("10_5dgvu")]
 player_manager = NodePath("../PlayerManager")
+
+[node name="PlayerMouseManager" type="Node" parent="." unique_id=36600300 node_paths=PackedStringArray("player_manager", "camera")]
+script = ExtResource("13_mouse")
+player_manager = NodePath("../PlayerManager")
+camera = NodePath("../Camera3D")
+
+[node name="HoverOutline" type="Node" parent="." unique_id=2133982670 node_paths=PackedStringArray("player_mouse_manager")]
+script = ExtResource("14_hover")
+player_mouse_manager = NodePath("../PlayerMouseManager")
 
 [node name="EnemyManager" type="Node" parent="." unique_id=1608931244 node_paths=PackedStringArray("spawner")]
 script = ExtResource("11_uscyt")
