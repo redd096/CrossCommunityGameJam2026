@@ -1,17 +1,16 @@
 extends State
 class_name PlayerIdleState
 
-## State when unit is on a node and wait for Player to select a path to start move
+## State when unit is on a node and wait for Player to select a path to start move. [br]
+## If the path is already selected, move immediately.
 ## If there is only one path, don't wait for Player to select it
 
 @export var check_targets_interval: float = 0.1 ## seconds between checks of Player units in attack range
-@export var check_path_interval: float = 1.0 ## seconds between checks what to do (move along some path or defend)
 
 var sm: PlayerStateMachineComponent
 var current_node: MapNode
 
 var _targets_timer: float = 0.0
-var _path_timer: float = 0.0
 
 
 func _enter_state() -> void:
@@ -20,7 +19,6 @@ func _enter_state() -> void:
 
 	# reset values (set completed timer to do immediatly first check)
 	_targets_timer = check_targets_interval
-	_path_timer = check_path_interval
 
 	# arrived on an empty tower: conquer it immediately
 	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
@@ -35,11 +33,8 @@ func _process_state(delta: float) -> void:
 		if _check_targets():
 			return
 
-	# every few seconds, check what to do
-	_path_timer += delta
-	if _path_timer > check_path_interval:
-		_path_timer = 0.0
-		_check_paths()
+	# else, move on the path if selected
+	_check_paths()
 
 
 func _check_targets() -> bool:
@@ -51,106 +46,35 @@ func _check_targets() -> bool:
 	return false
 
 
-func _check_paths() -> void:	
-	# else, find a tower to move to
+func _check_paths() -> void:
+	# if there is a path selected, move along it
 	var move_path: StructPathNode = _get_next_path()
 	if move_path != null:
 		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
-	
-	# else, just wait to recheck what to do
 
+	# else, just wait to recheck what to do
+	
 
 func _get_next_path() -> StructPathNode:
-	# if there is only one path, move to it
-	if current_node.nodes.size() == 1:
-		return current_node.nodes[0]
+	# if this node isn't of the player (e.g. reconquered by enemies), stay to fight
+	# NB this is necessary because the fight check is only every few seconds, not every frame
+	if current_node.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
+		return null
 
-	# split paths to enemy towers and paths to empty towers
-	var enemy_paths: Array[StructPathNode]
-	var empty_paths: Array[StructPathNode]
-	for struct_path: StructPathNode in current_node.nodes:
-		var target_node: MapNode = current_node.get_map_node_from_struct(struct_path)
-		if target_node.current_faction == OrphanUnit.ECharacterFaction.ENEMY:
-			enemy_paths.append(struct_path)
-		elif target_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
-			empty_paths.append(struct_path)
-	
-	# move to enemy's towers
-	if not enemy_paths.is_empty():
-		return _get_shorter_path_from_list(enemy_paths)	
+	# if player selected a path on this node, move to it
+	if current_node.selectedPath != null:
+		return current_node.selectedPath
 
-	# if there aren't enemy tower, move to empty towers
-	if not empty_paths.is_empty():
-		return _get_shorter_path_from_list(empty_paths)	
+	# if there is only one path to a node that isn't already of the player, move to it
+	var paths_to_conquer: Array[StructPathNode] = current_node.nodes.filter(_is_path_to_conquer)
+	if paths_to_conquer.size() == 1:
+		return paths_to_conquer[0]
 
-	# if there aren't objectives near, draw a path from this tower to nearest tower with enemy or empty towers connected
-	return _draw_path_to_enemy_tower_with_enemy_or_empty_near()
-
-
-#region private api
-
-
-func _get_shorter_path_from_list(list: Array[StructPathNode]) -> StructPathNode:
-	var shortest: StructPathNode = null
-	var shortest_length: float = INF
-
-	for struct: StructPathNode in list:
-		var path: Path3D = current_node.get_path_from_struct(struct)
-		var length: float = path.curve.get_baked_length()
-		if length < shortest_length:
-			shortest_length = length
-			shortest = struct
-	
-	return shortest
-
-
-## Dijkstra algorithm on the whole map, starting from current_node.
-## Returns the first path to take to reach the nearest ENEMY tower (it can pass through other towers too).
-## If no enemy tower is reachable, returns the first path to the nearest EMPTY tower
-func _draw_path_to_enemy_tower_with_enemy_or_empty_near() -> StructPathNode:
-	# shortest known distance from current_node to every discovered node
-	var distances: Dictionary[MapNode, float] = {current_node: 0.0}
-	# for every discovered node, the first path to take from current_node to reach it
-	var first_steps: Dictionary[MapNode, StructPathNode] = {}
-	# nodes that we know for sure the shortests distance
-	var visited: Dictionary[MapNode, bool] = {}
-	# fallback if there aren't enemy towers reachable (the nearest tower empty)
-	var nearest_empty: MapNode = null
-
-	while true:
-		# pick the closest node not visited yet
-		var mapNode: MapNode = null
-		for candidate: MapNode in distances:
-			if not visited.has(candidate) and (mapNode == null or distances[candidate] < distances[mapNode]):
-				mapNode = candidate
-		# every reachable node was visited
-		if mapNode == null:
-			break
-		visited[mapNode] = true
-
-		if mapNode != current_node:
-			## FOUND NEAREST ENEMY TOWER
-			if mapNode.current_faction == OrphanUnit.ECharacterFaction.ENEMY:
-				return first_steps[mapNode]
-			# remember the nearest empty tower, but keep searching for a enemy tower
-			if mapNode.current_faction == OrphanUnit.ECharacterFaction.NONE and nearest_empty == null:
-				nearest_empty = mapNode
-				#IF WE DECIDE THAT THE NEAREST EMPTY TOWER IS OKAY, RETURN HERE, INSTEAD OF LOOK FOR THE ENEMY TOWER
-
-		# update distances of the connected nodes
-		for struct_path: StructPathNode in mapNode.nodes:
-			var neighbour: MapNode = mapNode.get_map_node_from_struct(struct_path)
-			var distance: float = distances[mapNode] + mapNode.get_path_from_struct(struct_path).curve.get_baked_length()
-			if distance < distances.get(neighbour, INF):
-				distances[neighbour] = distance
-				# from current_node the first step is the path itself, otherwise inherit it from the previous node
-				first_steps[neighbour] = struct_path if mapNode == current_node else first_steps[mapNode]
-
-	# FALLBACK NEAREST EMPTY TOWER
-	if nearest_empty != null:
-		return first_steps[nearest_empty]
-
+	# else, wait for player to select a path
 	return null
 
-#endregion
+
+func _is_path_to_conquer(struct_path: StructPathNode) -> bool:
+	var target_node: MapNode = current_node.get_map_node_from_struct(struct_path)
+	return target_node.current_faction != OrphanUnit.ECharacterFaction.PLAYER

@@ -40,18 +40,11 @@ func _set_hover(target: CollisionObject3D) -> void:
 
 	# end hover on previous object
 	if previous_hover:
-		# previous_hover.tree_exiting.disconnect(_on_hover_tree_exiting)
 		on_end_hover.emit(previous_hover)
 
 	# start hover on new object
 	if current_hover:
-		# current_hover.tree_exiting.connect(_on_hover_tree_exiting)
 		on_start_hover.emit(current_hover)
-
-
-# ## The object is going to be destroyed (e.g. a conquered tower): end hover while it is still valid
-# func _on_hover_tree_exiting() -> void:
-# 	_set_hover(null)
 
 
 ## Raycast from camera to mouse position. Return null if there is nothing or the mouse is on UI
@@ -72,7 +65,6 @@ func _find_object_under_mouse() -> CollisionObject3D:
 		return null
 
 	return hit.collider as CollisionObject3D
-	# return hit.get("collider") as CollisionObject3D
 
 #endregion
 
@@ -88,6 +80,10 @@ func _try_select(target: CollisionObject3D) -> void:
 	# which is an OrphanUnit but not a MovableOrphanUnit
 	if target is OrphanUnit and not target is MovableOrphanUnit:
 		_try_select_spawner((target as OrphanUnit).current_map_node)
+	# or it is an arrow to select a path
+	elif target is PathPlayerSelector:
+		var arrow: PathPlayerSelector = target as PathPlayerSelector
+		arrow.map_node.set_selected_path(arrow.struct_path)
 
 
 func _try_select_spawner(map_node: MapNode) -> void:

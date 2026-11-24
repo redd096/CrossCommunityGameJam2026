@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://btusrjq64rhx4"]
+
+[ext_resource type="Script" uid="uid://ww6ddjqxhkfn" path="res://Scripts/map/path_player_selector.gd" id="1_selector"]
+[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="2_td6pm"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_arrow"]
+size = Vector3(0.2, 0.2, 0.04)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arrow"]
+size = Vector3(1.1, 0.4, 1.1)
+
+[node name="PathArrow" type="StaticBody3D" unique_id=1712293953 node_paths=PackedStringArray("mesh", "collision_shape")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_selector")
+mesh = NodePath("MeshInstance3D")
+collision_shape = NodePath("CollisionShape3D")
+selected_material = ExtResource("2_td6pm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1226184152]
+transform = Transform3D(5, 0, 0, 0, 0, 5, 0, -5, 0, 0, 0.2, 0)
+mesh = SubResource("PrismMesh_arrow")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=217217995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_arrow")
