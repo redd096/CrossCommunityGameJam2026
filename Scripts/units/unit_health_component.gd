@@ -10,7 +10,7 @@ var _prev_hp: float ## previous unit HP
 func init(unit: OrphanUnit):
 	_unit = unit
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (_unit.current_hp != _prev_hp):
 		_prev_hp = _unit.current_hp
 		health_bar.set_health(_unit.current_hp)

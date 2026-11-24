@@ -27,8 +27,8 @@ func setup(map_node: MapNode) -> void:
 
 
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
-func receive_attack(attacker_faction: ECharacterFaction, attack_damage : float) -> void:
-	current_hp = clamp(current_hp, 0.0, current_hp-attack_damage)
+func receive_attack(attacker_faction: ECharacterFaction, damage : float) -> void:
+	current_hp = clamp(current_hp, 0.0, current_hp - damage)
 	if (current_hp == 0.0):
 		if current_map_node:
 			current_map_node.on_tower_destroyed(attacker_faction)

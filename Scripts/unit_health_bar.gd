@@ -12,7 +12,7 @@ func set_health(value: float) -> void:
 	progress_bar.value = value
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var parent_position: Vector3 = parent.global_transform.origin
 	var camera_transform := camera.global_transform
 	var camera_position := camera_transform.origin
@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 	# For the screen's X axis, the projected position is useful to us,
 	# but we need to force it to the side if it's also behind.
 	if is_behind:
-		if unprojected_position.x < viewport_base_size.x / 2:
+		if unprojected_position.x < viewport_base_size.x / 2.0:
 			unprojected_position.x = viewport_base_size.x - MARGIN
 		else:
 			unprojected_position.x = MARGIN

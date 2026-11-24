@@ -21,8 +21,8 @@ func setup_movable_unit(map_node: MapNode, formation_slot: Vector2) -> void:
 
 
 ## Called when an enemy attacks this unit
-func receive_attack(_attacker_faction: ECharacterFaction, attack_damage : float) -> void:
-	current_hp = clamp(current_hp, 0.0, current_hp-attack_damage)
+func receive_attack(_attacker_faction: ECharacterFaction, damage : float) -> void:
+	current_hp = clamp(current_hp, 0.0, current_hp - damage)
 	if (current_hp == 0.0):
 		# stop the states
 		state_machine.set_state(null)
