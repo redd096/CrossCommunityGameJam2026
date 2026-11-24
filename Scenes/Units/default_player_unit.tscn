@@ -150,15 +150,14 @@ animation = &"Stickman|Sad"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uffue"]
 advance_mode = 2
-advance_expression = "state == CharacterState.FOLLOW_TARGET"
+advance_expression = "velocity.length() > 0.1"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0obr8"]
 advance_mode = 2
-advance_expression = "state == CharacterState.FOLLOW_TARGET"
+advance_expression = "velocity.length() <= 0.1"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uogb4"]
 advance_mode = 2
-advance_expression = "state == CharacterState.IDLE"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tckcw"]
 states/End/position = Vector2(615, 100)
