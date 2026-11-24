@@ -11,6 +11,7 @@ class_name EnemyStateMachineComponent
 @export var defend_state: EnemyDefendState
 @export var move_state: EnemyMoveState
 @export var attack_state: EnemyAttackState
+@export var retry_state: EnemyRetryState
 
 
 func setup(map_node: MapNode, slot: Vector2) -> void:

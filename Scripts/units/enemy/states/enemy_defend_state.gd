@@ -18,8 +18,6 @@ func _enter_state() -> void:
 	# reset values
 	_targets_timer = 0.0
 	_path_timer = 0.0
-	# stay still (nothing calls move_and_slide in this state)
-	sm.unit.velocity = Vector3.ZERO
 
 
 func _physics_process_state(delta: float) -> void:

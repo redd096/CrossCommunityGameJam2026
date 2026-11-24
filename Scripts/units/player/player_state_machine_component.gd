@@ -10,6 +10,7 @@ class_name PlayerStateMachineComponent
 @export var idle_state: PlayerIdleState
 @export var move_state: PlayerMoveState
 @export var attack_state: PlayerAttackState
+@export var retry_state: PlayerRetryState
 
 
 func setup(map_node: MapNode, slot: Vector2) -> void:

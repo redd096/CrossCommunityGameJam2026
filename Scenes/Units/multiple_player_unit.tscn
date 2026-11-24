@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cu83wsf0ab2if" path="res://Scripts/units/unit_movement_component.gd" id="10_0rjbd"]
 [ext_resource type="Script" uid="uid://f34yfutr4twr" path="res://Scripts/units/player/states/player_attack_state.gd" id="10_xyfw8"]
 [ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/unit_look_for_targets_component.gd" id="11_fqjwx"]
+[ext_resource type="Script" uid="uid://bslw5qqg70qr1" path="res://Scripts/units/player/states/player_retry_state.gd" id="11_ormpf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xajy4"]
 resource_name = "Cube_002"
@@ -438,6 +439,10 @@ skeleton = NodePath("..")
 shape = SubResource("CapsuleShape3D_xgnhf")
 debug_color = Color(1, 1, 0, 1)
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1306829517]
+avoidance_enabled = true
+radius = 0.6
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1152744125]
 libraries/ = SubResource("AnimationLibrary_n56db")
 
@@ -448,13 +453,14 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Components" type="Node" parent="." unique_id=296473590]
 
-[node name="PlayerStateMachineComponent" type="Node" parent="Components" unique_id=2011216127 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "idle_state", "move_state", "attack_state", "unit")]
+[node name="PlayerStateMachineComponent" type="Node" parent="Components" unique_id=2011216127 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "idle_state", "move_state", "attack_state", "retry_state", "unit")]
 script = ExtResource("7_f4d1o")
 movement_component = NodePath("../UnitMovementComponent")
 look_for_targets_component = NodePath("../UnitLookForTargetsComponent")
 idle_state = NodePath("PlayerIdleState")
 move_state = NodePath("UnitMoveState")
 attack_state = NodePath("PlayerAttackState")
+retry_state = NodePath("PlayerRetryState")
 unit = NodePath("../..")
 metadata/_custom_type_script = "uid://baelbbr0ixnlb"
 
@@ -470,8 +476,13 @@ metadata/_custom_type_script = "uid://dny1axiipwdkv"
 script = ExtResource("10_xyfw8")
 metadata/_custom_type_script = "uid://f34yfutr4twr"
 
-[node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070]
+[node name="PlayerRetryState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=167457568]
+script = ExtResource("11_ormpf")
+metadata/_custom_type_script = "uid://bslw5qqg70qr1"
+
+[node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070 node_paths=PackedStringArray("avoidance_agent")]
 script = ExtResource("10_0rjbd")
+avoidance_agent = NodePath("../../NavigationAgent3D")
 speed = 2.5
 metadata/_custom_type_script = "uid://cu83wsf0ab2if"
 

@@ -1,38 +1,55 @@
 extends Node
 class_name UnitMovementComponent
 
-## The character component used to move along path
+## The character component used to move along path. [br]
+## This uses avoidance_agent to avoid the other units
 
+@export var avoidance_agent: NavigationAgent3D ## units avoid each other (RVO avoidance, no navmesh needed)
 @export var speed: float = 5.0
 @export var lookahead: float = 1.5 ## calculate next point by currentPositionOnPath + lookahead
 @export var turn_speed : float = 0.75
 
+# avoidance priority: a stopped unit doesn't move for the moving units
+const MOVING_PRIORITY: float = 0.5
+const STOPPED_PRIORITY: float = 1.0
 
-## Move unit along path [br]
+var _unit: CharacterBody3D ## the unit to move when avoidance_agent returns the safe velocity
+
+
+func _ready() -> void:
+	# register to events
+	avoidance_agent.velocity_computed.connect(_on_velocity_computed)
+	# set default values
+	avoidance_agent.avoidance_priority = STOPPED_PRIORITY
+
+
+## Move unit along path. Call it every physics frame [br]
 ## move_forward: true if move along path, false if move in reverse [br]
-## side_offset: lane to keep along the path (negative = left, positive = right, 0 = center)
-func move(unit: CharacterBody3D, path: Path3D, move_forward: bool, side_offset: float = 0.0) -> void:
+## side_offset: lane to keep along the path (negative = left, positive = right, 0 = center) [br]
+## Return true when the unit reached the end of its lane
+func move(unit: CharacterBody3D, path: Path3D, move_forward: bool, side_offset: float = 0.0) -> bool:
+	_unit = unit
+
 	# move along path by lookahead
 	var lookahead_value: float = lookahead if move_forward else -lookahead
 	var direction := MovementUtilities.get_path_direction(path, unit.global_position, lookahead_value, side_offset)
-	if direction:
-		unit.velocity.x = direction.x * speed
-		unit.velocity.z = direction.z * speed
-	else:
-		unit.velocity.x = move_toward(unit.velocity.x, 0, speed)
-		unit.velocity.z = move_toward(unit.velocity.z, 0, speed)
-	
-	# rotate towards velocity
-	if (unit.velocity.length() > 0) :
-		var target_basis = Basis.looking_at(unit.velocity)
-		unit.basis = unit.basis.slerp(target_basis, turn_speed)
-	
-	unit.move_and_slide()
+	unit.velocity.x = direction.x * speed
+	unit.velocity.z = direction.z * speed
+
+	# send the desired velocity to avoidance_agent, the movement happens in _on_velocity_computed
+	avoidance_agent.avoidance_priority = MOVING_PRIORITY
+	NavigationServer3D.agent_set_velocity(avoidance_agent.get_rid(), unit.velocity)
+
+	# no direction means we reached the end of our lane
+	return direction == Vector3.ZERO
 
 
-## Stop movement
+## Stop movement. The unit becomes an obstacle for the other units
 func stop(unit: CharacterBody3D) -> void:
+	_unit = null
 	unit.velocity = Vector3.ZERO
+	avoidance_agent.avoidance_priority = STOPPED_PRIORITY
+	NavigationServer3D.agent_set_velocity(avoidance_agent.get_rid(), Vector3.ZERO)
 
 
 ## Return distance to start or end path [br]
@@ -43,3 +60,22 @@ func get_to_end_distance(unit: CharacterBody3D, path: Path3D, move_forward: bool
 	var to_end: Vector3 = path_pos - unit.global_position
 	to_end.y = 0.0 # ignore y
 	return to_end.length()
+
+
+## Called by the NavigationAgent3D in the same physics frame, with the desired velocity adjusted to avoid the other agents
+func _on_velocity_computed(safe_velocity: Vector3) -> void:
+	# stopped (or never moved): nothing to do
+	if _unit == null:
+		return
+
+	# avoidance works only on the ground plane (XZ), keep Y as it is
+	_unit.velocity.x = safe_velocity.x
+	_unit.velocity.z = safe_velocity.z
+
+	# rotate towards velocity (ignore Y)
+	var flat_velocity := Vector3(_unit.velocity.x, 0.0, _unit.velocity.z)
+	if flat_velocity.length() > 0.01:
+		var target_basis = Basis.looking_at(flat_velocity)
+		_unit.basis = _unit.basis.slerp(target_basis, turn_speed)
+
+	_unit.move_and_slide()

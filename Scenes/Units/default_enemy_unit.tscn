@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://drtpye6leah47" path="res://Scripts/units/enemy/states/enemy_move_state.gd" id="9_sefyy"]
 [ext_resource type="Script" uid="uid://ca31r057haeem" path="res://Scripts/units/enemy/states/enemy_attack_state.gd" id="11_2etww"]
 [ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/unit_look_for_targets_component.gd" id="12_rgrbp"]
+[ext_resource type="Script" uid="uid://4bvamn7nj01d" path="res://Scripts/units/enemy/states/enemy_retry_state.gd" id="12_wcexy"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xajy4"]
 resource_name = "Cube_002"
@@ -440,6 +441,10 @@ skeleton = NodePath("..")
 shape = SubResource("CapsuleShape3D_xgnhf")
 debug_color = Color(1, 1, 0, 1)
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1306829517]
+avoidance_enabled = true
+radius = 0.6
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1152744125]
 libraries/ = SubResource("AnimationLibrary_n56db")
 
@@ -450,7 +455,7 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Components" type="Node" parent="." unique_id=296473590]
 
-[node name="EnemyStateMachineComponent" type="Node" parent="Components" unique_id=8690698 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "idle_state", "defend_state", "move_state", "attack_state", "unit")]
+[node name="EnemyStateMachineComponent" type="Node" parent="Components" unique_id=8690698 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "idle_state", "defend_state", "move_state", "attack_state", "retry_state", "unit")]
 script = ExtResource("6_aq6a2")
 movement_component = NodePath("../UnitMovementComponent")
 look_for_targets_component = NodePath("../UnitLookForTargetsComponent")
@@ -458,6 +463,7 @@ idle_state = NodePath("EnemyIdleState")
 defend_state = NodePath("EnemyDefendState")
 move_state = NodePath("EnemyMoveState")
 attack_state = NodePath("EnemyAttackState")
+retry_state = NodePath("EnemyRetryState")
 unit = NodePath("../..")
 metadata/_custom_type_script = "uid://chrgkds1hluam"
 
@@ -477,8 +483,13 @@ metadata/_custom_type_script = "uid://drtpye6leah47"
 script = ExtResource("11_2etww")
 metadata/_custom_type_script = "uid://ca31r057haeem"
 
-[node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070]
+[node name="EnemyRetryState" type="Node" parent="Components/EnemyStateMachineComponent" unique_id=1281451492]
+script = ExtResource("12_wcexy")
+metadata/_custom_type_script = "uid://4bvamn7nj01d"
+
+[node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070 node_paths=PackedStringArray("avoidance_agent")]
 script = ExtResource("8_l1uh1")
+avoidance_agent = NodePath("../../NavigationAgent3D")
 metadata/_custom_type_script = "uid://cu83wsf0ab2if"
 
 [node name="UnitLookForTargetsComponent" type="Node" parent="Components" unique_id=1292522091 node_paths=PackedStringArray("targets_area")]
