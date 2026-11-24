@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://xq1du3x0bbbg"]
+
+[ext_resource type="FontFile" uid="uid://crno5vh5m2hoh" path="res://Fonts/LilitaOne-Regular.ttf" id="1_4dy8v"]
+
+[resource]
+default_font = ExtResource("1_4dy8v")
+default_font_size = 10

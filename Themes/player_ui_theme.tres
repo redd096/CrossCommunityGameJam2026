@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://ci7k3p0r42w7d"]
 
+[ext_resource type="FontFile" uid="uid://crno5vh5m2hoh" path="res://Fonts/LilitaOne-Regular.ttf" id="1_8wyov"]
+
 [sub_resource type="DPITexture" id="DPITexture_8wyov"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arykj"]
@@ -21,6 +23,8 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [resource]
+default_font = ExtResource("1_8wyov")
+default_font_size = 14
 ManaSlider/base_type = &"HSlider"
 ManaSlider/icons/grabber_disabled = SubResource("DPITexture_8wyov")
 ManaSlider/styles/grabber_area = SubResource("StyleBoxFlat_arykj")

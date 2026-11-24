@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dpfmvwtp8ajyd"]
+
+[ext_resource type="Script" uid="uid://twg2w4xrebnv" path="res://Scripts/unit_health_bar.gd" id="1_ak4aa"]
+[ext_resource type="FontFile" uid="uid://crno5vh5m2hoh" path="res://Fonts/LilitaOne-Regular.ttf" id="1_q3csh"]
+[ext_resource type="Theme" uid="uid://xq1du3x0bbbg" path="res://Themes/ui_progress_bar_theme.tres" id="2_rut4a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgnhf"]
+bg_color = Color(0.04, 0.04, 0.04, 1)
+skew = Vector2(0.2, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tckcw"]
+bg_color = Color(0, 0.81, 0.2835001, 0.69803923)
+skew = Vector2(0.2, 0)
+anti_aliasing = false
+
+[node name="UnitHealthBar_Player" type="Control" unique_id=152743807 node_paths=PackedStringArray("progress_bar")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ak4aa")
+progress_bar = NodePath("ProgressBar")
+metadata/_custom_type_script = "uid://twg2w4xrebnv"
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=599244728]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -48.0
+offset_right = 24.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_rut4a")
+theme_type_variation = &"Player"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_q3csh")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_xgnhf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tckcw")
+value = 100.0
+show_percentage = false

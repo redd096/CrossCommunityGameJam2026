@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://ca31r057haeem" path="res://Scripts/units/enemy/states/enemy_attack_state.gd" id="11_2etww"]
 [ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/unit_look_for_targets_component.gd" id="12_rgrbp"]
 [ext_resource type="Script" uid="uid://4bvamn7nj01d" path="res://Scripts/units/enemy/states/enemy_retry_state.gd" id="12_wcexy"]
+[ext_resource type="Script" uid="uid://ba54u3ew8v8fb" path="res://Scripts/units/unit_health_component.gd" id="15_f4e1i"]
+[ext_resource type="PackedScene" uid="uid://c6jyg34nf4ovy" path="res://Scenes/UI/unit_health_bar_enemy.tscn" id="16_f4e1i"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xajy4"]
 resource_name = "Cube_002"
@@ -457,10 +459,11 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Components" type="Node" parent="." unique_id=296473590]
 
-[node name="EnemyStateMachineComponent" type="Node" parent="Components" unique_id=8690698 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "idle_state", "defend_state", "move_state", "attack_state", "retry_state", "unit")]
+[node name="EnemyStateMachineComponent" type="Node" parent="Components" unique_id=8690698 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "health_component", "idle_state", "defend_state", "move_state", "attack_state", "retry_state", "unit")]
 script = ExtResource("6_aq6a2")
 movement_component = NodePath("../UnitMovementComponent")
 look_for_targets_component = NodePath("../UnitLookForTargetsComponent")
+health_component = NodePath("../UnitHealthComponent")
 idle_state = NodePath("EnemyIdleState")
 defend_state = NodePath("EnemyDefendState")
 move_state = NodePath("EnemyMoveState")
@@ -498,6 +501,14 @@ metadata/_custom_type_script = "uid://cu83wsf0ab2if"
 script = ExtResource("12_rgrbp")
 targets_area = NodePath("../../LookForTargetsArea")
 metadata/_custom_type_script = "uid://dhp16hhrbb214"
+
+[node name="UnitHealthComponent" type="Node" parent="Components" unique_id=796185367 node_paths=PackedStringArray("health_bar")]
+script = ExtResource("15_f4e1i")
+health_bar = NodePath("../UnitHealthBar_Enemy")
+metadata/_custom_type_script = "uid://ba54u3ew8v8fb"
+
+[node name="UnitHealthBar_Enemy" parent="Components" unique_id=152743807 node_paths=PackedStringArray("parent") instance=ExtResource("16_f4e1i")]
+parent = NodePath("../..")
 
 [node name="LookForTargetsArea" type="Area3D" parent="." unique_id=2129459929]
 collision_mask = 9
