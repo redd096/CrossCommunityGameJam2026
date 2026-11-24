@@ -4,12 +4,16 @@ class_name PlayerMoveState
 ## Movement State, just move along the path. [br]
 ## and check if find enemies or reach the end of the path
 
+@export var check_targets_interval: float = 1.0 ## seconds between checks of Player units in attack range
+@export_group("Give Up")
 @export var give_up_time: float = 1.0 ## seconds without getting closer to the path end, before giving up
 @export var min_progress: float = 0.2 ## how much closer we must get to the path end, to reset give_up_time
+@export var give_up_max_distance: float = 3.0 ## give up only this near to the path end, else keep walking (we are just stuck in the crowd)
 
 const DISTANCE_REACH_NODE: float = 0.2
 
 var sm: PlayerStateMachineComponent
+var _targets_timer: float = 0.0
 var _give_up_timer: float = 0.0	## if timers reach end, give up to movement
 var _best_distance: float = INF ## check if there is a progress to the end of the path, else give up
 
@@ -17,6 +21,7 @@ var _best_distance: float = INF ## check if there is a progress to the end of th
 func _enter_state() -> void:
 	sm = state_machine as PlayerStateMachineComponent
 	# reset values
+	_targets_timer = 0.0
 	_give_up_timer = 0.0
 	_best_distance = INF
 
@@ -28,9 +33,12 @@ func _physics_process_state(delta: float) -> void:
 	sm.movement_component.move(sm.unit, path, move_forward, sm.formation_slot.x)
 
 	# if find targets, attack
-	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.ENEMY):
-		sm.set_state(sm.attack_state)
-		return
+	_targets_timer += delta
+	if _targets_timer > check_targets_interval:
+		_targets_timer = 0.0
+		if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.ENEMY):
+			sm.set_state(sm.attack_state)
+			return
 	
 	# check if reach end of the path or give up, to go back to idle
 
@@ -48,7 +56,7 @@ func _physics_process_state(delta: float) -> void:
 		sm.set_new_node_and_path(new_node, null)
 		sm.set_state(sm.idle_state)
 	# else, if "give up timer" is completed, back to idle with new reached node
-	elif _give_up_timer > give_up_time:
+	elif _give_up_timer > give_up_time and distance < give_up_max_distance:
 		var new_node: MapNode = sm.current_map_node.get_map_node_from_struct(sm.current_struct_path)
 		sm.set_new_node_and_path(new_node, null)
 		sm.set_state(sm.idle_state)
