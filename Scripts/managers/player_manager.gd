@@ -66,8 +66,13 @@ func set_spawner(spawner: MapNode) -> void:
 	current_spawner.on_conquisted_node.connect(_on_conquisted_spawner)
 
 
-## If enough mana, spawn troop on selected spawner
+## If there is a selected spawn and enough mana, spawn troops on selected spawner
 func try_spawn_troop(troop: TroopResource) -> void:
+	# check node is still in player faction
+	if current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
+		push_warning("TODO - Show some feedback that this node is no more Player's node")
+		return
+
 	# if mana is enough, decrease it to spawn troop on selected spawner
 	if current_mana >= troop.cost:
 		remove_mana(troop.cost)
@@ -82,11 +87,6 @@ func try_spawn_troop(troop: TroopResource) -> void:
 
 
 func _spawn_troop(troop: TroopResource, formation_slot: Vector2) -> void:
-	# check node is still in player faction
-	if current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
-		push_warning("TODO - Show some feedback that this node is no more Player's node")
-		return
-
 	# spawn troop prefab and initialize it
 	var spawned_troop: MovableOrphanUnit = troop.troop_prefab.instantiate() as MovableOrphanUnit
 	add_child(spawned_troop)
