@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dpfmvwtp8ajyd"]
+
+[ext_resource type="FontFile" uid="uid://crno5vh5m2hoh" path="res://Fonts/LilitaOne-Regular.ttf" id="1_gsm4l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgnhf"]
+bg_color = Color(0.04, 0.04, 0.04, 1)
+skew = Vector2(0.2, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tckcw"]
+bg_color = Color(0, 0.7965002, 0.81, 0.69803923)
+skew = Vector2(0.2, 0)
+anti_aliasing = false
+
+[node name="ProgressBar" type="Control" unique_id=484672956]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=599244728]
+layout_mode = 0
+offset_right = 164.0
+offset_bottom = 27.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_gsm4l")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_xgnhf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tckcw")
+value = 100.0

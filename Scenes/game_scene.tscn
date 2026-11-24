@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ch36qusum644r"]
 
-[ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map_node.gd" id="1_b6fju"]
-[ext_resource type="Script" uid="uid://cngcvlml4cxx2" path="res://Scripts/struct_pathnode.gd" id="2_fiftr"]
+[ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map/map_node.gd" id="1_b6fju"]
+[ext_resource type="Script" uid="uid://cngcvlml4cxx2" path="res://Scripts/map/struct_pathnode.gd" id="2_fiftr"]
 [ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/map_node_empty.tscn" id="3_ikfsv"]
 [ext_resource type="PackedScene" uid="uid://c0njwyvvjjs1i" path="res://Scenes/Towers/map_node_player.tscn" id="4_5dgvu"]
 [ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/managers/player_manager.gd" id="5_1ixah"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://dityss1qu7adb" path="res://ScriptableObjects/PlayerUnits/multiple_player_units.tres" id="10_wywco"]
 [ext_resource type="Script" uid="uid://cdpi7dawbfypr" path="res://Scripts/managers/enemy_manager.gd" id="11_uscyt"]
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="12_4xiap"]
+
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

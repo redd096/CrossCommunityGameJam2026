@@ -3,7 +3,6 @@ class_name MovableOrphanUnit
 
 ## Base class for a movable unit, used by Player and Enemy
 
-@export var state_machine: UnitStateMachineComponent
 @export var spawn_height: float = 1.0 ## fix spawn height, to avoid see unit half in the ground
 
 
@@ -21,10 +20,12 @@ func setup_movable_unit(map_node: MapNode, formation_slot: Vector2) -> void:
 
 
 
-## Called when an enemy destroys this unit
-func kill(_destroyer_faction: ECharacterFaction) -> void:
-	# stop the states
-	state_machine.set_state(null)
-	# remove from the node/path list
-	state_machine.set_new_node_and_path(null, null)
-	queue_free()
+## Called when an enemy attacks this unit
+func receive_attack(_attacker_faction: ECharacterFaction, attack_damage : float) -> void:
+	current_hp = clamp(current_hp, 0.0, current_hp-attack_damage)
+	if (current_hp == 0.0):
+		# stop the states
+		state_machine.set_state(null)
+		# remove from the node/path list
+		state_machine.set_new_node_and_path(null, null)
+		queue_free()
