@@ -5,9 +5,9 @@
 [ext_resource type="Animation" uid="uid://iwok8pkcwe5v" path="res://Models/Stickman/Anims/Stickman_Idle.res" id="4_7ojgt"]
 [ext_resource type="Animation" uid="uid://dvu5hxthw7lnl" path="res://Models/Stickman/Anims/Stickman_Run.res" id="5_jlmgb"]
 [ext_resource type="Animation" uid="uid://l33q3rthq08r" path="res://Models/Stickman/Anims/Stickman_Sad.res" id="6_wjphc"]
-[ext_resource type="Script" uid="uid://cu83wsf0ab2if" path="res://Scripts/units/unit_movement_component.gd" id="10_yy1rn"]
-[ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/unit_look_for_targets_component.gd" id="11_07own"]
-[ext_resource type="Script" uid="uid://ba54u3ew8v8fb" path="res://Scripts/units/unit_health_component.gd" id="13_wjphc"]
+[ext_resource type="Script" uid="uid://cu83wsf0ab2if" path="res://Scripts/units/components/unit_movement_component.gd" id="10_yy1rn"]
+[ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/components/unit_look_for_targets_component.gd" id="11_07own"]
+[ext_resource type="Script" uid="uid://ba54u3ew8v8fb" path="res://Scripts/units/components/unit_health_component.gd" id="13_wjphc"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xajy4"]
 resource_name = "Cube_002"

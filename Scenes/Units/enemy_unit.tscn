@@ -14,10 +14,10 @@
 faction = 1
 state_machine = NodePath("Components/EnemyStateMachineComponent")
 
-[node name="Simple_Character" parent="Stickman/Skeleton3D" index="0"]
+[node name="Simple_Character" parent="Stickman/Skeleton3D" parent_id_path=PackedInt32Array(839607215) index="0" unique_id=1462487203]
 material_override = ExtResource("2_sp2bi")
 
-[node name="EnemyStateMachineComponent" type="Node" parent="Components" index="0" unique_id=8690698 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "health_component", "idle_state", "defend_state", "move_state", "attack_state", "retry_state", "unit")]
+[node name="EnemyStateMachineComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(296473590) index="0" unique_id=8690698 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "health_component", "idle_state", "defend_state", "move_state", "attack_state", "retry_state", "unit")]
 script = ExtResource("6_aq6a2")
 movement_component = NodePath("../UnitMovementComponent")
 look_for_targets_component = NodePath("../UnitLookForTargetsComponent")
@@ -30,28 +30,28 @@ retry_state = NodePath("EnemyRetryState")
 unit = NodePath("../..")
 metadata/_custom_type_script = "uid://chrgkds1hluam"
 
-[node name="EnemyIdleState" type="Node" parent="Components/EnemyStateMachineComponent" unique_id=1811685239]
+[node name="EnemyIdleState" type="Node" parent="Components/EnemyStateMachineComponent" index="0" unique_id=1811685239]
 script = ExtResource("7_sp2bi")
 metadata/_custom_type_script = "uid://blckigm0x4u1g"
 
-[node name="EnemyDefendState" type="Node" parent="Components/EnemyStateMachineComponent" unique_id=1984206026]
+[node name="EnemyDefendState" type="Node" parent="Components/EnemyStateMachineComponent" index="1" unique_id=1984206026]
 script = ExtResource("8_cwpc1")
 metadata/_custom_type_script = "uid://ccf0udawk2ncb"
 
-[node name="EnemyMoveState" type="Node" parent="Components/EnemyStateMachineComponent" unique_id=531906323]
+[node name="EnemyMoveState" type="Node" parent="Components/EnemyStateMachineComponent" index="2" unique_id=531906323]
 script = ExtResource("9_sefyy")
 metadata/_custom_type_script = "uid://drtpye6leah47"
 
-[node name="EnemyAttackState" type="Node" parent="Components/EnemyStateMachineComponent" unique_id=2123977232]
+[node name="EnemyAttackState" type="Node" parent="Components/EnemyStateMachineComponent" index="3" unique_id=2123977232]
 script = ExtResource("11_2etww")
 metadata/_custom_type_script = "uid://ca31r057haeem"
 
-[node name="EnemyRetryState" type="Node" parent="Components/EnemyStateMachineComponent" unique_id=1281451492]
+[node name="EnemyRetryState" type="Node" parent="Components/EnemyStateMachineComponent" index="4" unique_id=1281451492]
 script = ExtResource("12_wcexy")
 metadata/_custom_type_script = "uid://4bvamn7nj01d"
 
-[node name="UnitHealthComponent" parent="Components" index="3" node_paths=PackedStringArray("health_bar")]
+[node name="UnitHealthComponent" parent="Components" parent_id_path=PackedInt32Array(296473590) index="3" unique_id=1038389198 node_paths=PackedStringArray("health_bar")]
 health_bar = NodePath("../UnitHealthBar_Enemy")
 
-[node name="UnitHealthBar_Enemy" parent="Components" unique_id=152743807 node_paths=PackedStringArray("parent") instance=ExtResource("16_f4e1i")]
+[node name="UnitHealthBar_Enemy" parent="Components" parent_id_path=PackedInt32Array(296473590) index="4" unique_id=152743807 node_paths=PackedStringArray("parent") instance=ExtResource("16_f4e1i")]
 parent = NodePath("../..")

@@ -5,8 +5,8 @@
 
 [node name="MultiplePlayerUnit" unique_id=1240780802 instance=ExtResource("1_base")]
 
-[node name="Simple_Character" parent="Stickman/Skeleton3D" index="0"]
+[node name="Simple_Character" parent="Stickman/Skeleton3D" parent_id_path=PackedInt32Array(839607215) index="0" unique_id=1462487203]
 material_override = ExtResource("2_myrow")
 
-[node name="UnitMovementComponent" parent="Components" index="1"]
+[node name="UnitMovementComponent" parent="Components" parent_id_path=PackedInt32Array(296473590) index="1" unique_id=1645899070]
 speed = 2.5
