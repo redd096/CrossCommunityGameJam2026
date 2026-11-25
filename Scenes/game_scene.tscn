@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="8_ikfsv"]
 [ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerUnits/default_player_unit.tres" id="9_5dgvu"]
 [ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://Scenes/UI/player_ui.tscn" id="10_5dgvu"]
+[ext_resource type="Script" uid="uid://dx8733yuhixif" path="res://Scripts/enemy_spawn_chance.gd" id="10_w8jfd"]
 [ext_resource type="Resource" uid="uid://dityss1qu7adb" path="res://ScriptableObjects/PlayerUnits/multiple_player_units.tres" id="10_wywco"]
 [ext_resource type="Script" uid="uid://cdpi7dawbfypr" path="res://Scripts/managers/enemy_manager.gd" id="11_uscyt"]
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="12_4xiap"]
@@ -25,6 +26,11 @@ sky_material = SubResource("ProceduralSkyMaterial_1ixah")
 [sub_resource type="Environment" id="Environment_2fmhe"]
 background_mode = 2
 sky = SubResource("Sky_rgj8m")
+
+[sub_resource type="Resource" id="Resource_lnkfh"]
+script = ExtResource("10_w8jfd")
+troop = ExtResource("12_4xiap")
+metadata/_custom_type_script = "uid://dx8733yuhixif"
 
 [sub_resource type="BoxMesh" id="BoxMesh_gtbs0"]
 size = Vector3(30, 1, 30)
@@ -98,7 +104,7 @@ metadata/_custom_type_script = "uid://bidk1am4e7n7u"
 [node name="EnemyManager" type="Node" parent="." unique_id=1608931244 node_paths=PackedStringArray("spawner")]
 script = ExtResource("11_uscyt")
 spawner = NodePath("../Map/MapNode_D")
-spawnable_troop = ExtResource("12_4xiap")
+spawnable_troops = Array[ExtResource("10_w8jfd")]([SubResource("Resource_lnkfh")])
 metadata/_custom_type_script = "uid://cdpi7dawbfypr"
 
 [node name="---------------------------2" type="Node" parent="." unique_id=1388839165]
