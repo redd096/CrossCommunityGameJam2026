@@ -40,7 +40,7 @@ func is_near_unit_arrived_on_node(map_node: MapNode, max_distance: float) -> boo
             # and on the same map_node (so reached it and it's also alive)
             and ally.state_machine.current_map_node == map_node \
             # and is waiting for next path (if already it has another path, it is moving and we don't need to check it)
-            and ally.state_machine.current_struct_path == null:
+            and ally.state_machine.current_map_path == null:
             return true
 
     return false
