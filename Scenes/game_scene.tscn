@@ -1,11 +1,8 @@
 [gd_scene format=3 uid="uid://ch36qusum644r"]
 
-[ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map/map_node.gd" id="1_b6fju"]
+[ext_resource type="PackedScene" uid="uid://c2asd1eow1nf2" path="res://Scenes/Map/map_node.tscn" id="1_mapnode"]
 [ext_resource type="Script" uid="uid://derwx2rh3vnuh" path="res://Scripts/map/map_path.gd" id="2_fiftr"]
-[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/map_node_empty.tscn" id="3_ikfsv"]
-[ext_resource type="PackedScene" uid="uid://c0njwyvvjjs1i" path="res://Scenes/Towers/map_node_player.tscn" id="4_5dgvu"]
 [ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/managers/player_manager.gd" id="5_1ixah"]
-[ext_resource type="PackedScene" uid="uid://c1yuwxi0y8xr" path="res://Scenes/Towers/map_node_enemy.tscn" id="5_uscyt"]
 [ext_resource type="Material" uid="uid://wm2a70eyop23" path="res://Materials/path_grass.tres" id="6_4xiap"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="8_ikfsv"]
 [ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerUnits/default_player_unit.tres" id="9_5dgvu"]
@@ -15,10 +12,8 @@
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="12_4xiap"]
 [ext_resource type="Script" uid="uid://bwoeuf3twejih" path="res://Scripts/managers/player_mouse_manager.gd" id="13_mouse"]
 [ext_resource type="Script" uid="uid://bidk1am4e7n7u" path="res://Scripts/managers/hover_outline.gd" id="14_hover"]
-[ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/Map/path_arrow.tscn" id="15_arrow"]
 [ext_resource type="Material" uid="uid://c04pnngtpch7f" path="res://Materials/floor.tres" id="17_8m72m"]
 [ext_resource type="Material" uid="uid://otm5mqi7dk15" path="res://Materials/outline_material.tres" id="18_outline"]
-[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="19_spawn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -122,16 +117,9 @@ shape = SubResource("BoxShape3D_np3vi")
 
 [node name="---------- Node A ----------" type="Node" parent="Map" unique_id=1407960963]
 
-[node name="MapNode_A" type="Node3D" parent="Map" unique_id=74396829 node_paths=PackedStringArray("paths")]
+[node name="MapNode_A" parent="Map" unique_id=74396829 node_paths=PackedStringArray("paths") instance=ExtResource("1_mapnode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.560181)
-script = ExtResource("1_b6fju")
 paths = [NodePath("../Path3D_AB"), NodePath("../Path3D_AC")]
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-selected_material = ExtResource("19_spawn")
-arrowPrefab = ExtResource("15_arrow")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- AB" type="Node" parent="Map" unique_id=762107619]
 
@@ -185,17 +173,10 @@ material = ExtResource("6_4xiap")
 
 [node name="---------- Node B ----------" type="Node" parent="Map" unique_id=273418147]
 
-[node name="MapNode_B" type="Node3D" parent="Map" unique_id=1881565011 node_paths=PackedStringArray("paths")]
+[node name="MapNode_B" parent="Map" unique_id=1881565011 node_paths=PackedStringArray("paths") instance=ExtResource("1_mapnode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0.344)
-script = ExtResource("1_b6fju")
 default_faction = 2
 paths = [NodePath("../Path3D_BD"), NodePath("../Path3D_AB")]
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-selected_material = ExtResource("19_spawn")
-arrowPrefab = ExtResource("15_arrow")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- BD" type="Node" parent="Map" unique_id=482894951]
 
@@ -224,17 +205,10 @@ material = ExtResource("6_4xiap")
 
 [node name="---------- Node C ----------" type="Node" parent="Map" unique_id=689242885]
 
-[node name="MapNode_C" type="Node3D" parent="Map" unique_id=1530324592 node_paths=PackedStringArray("paths")]
+[node name="MapNode_C" parent="Map" unique_id=1530324592 node_paths=PackedStringArray("paths") instance=ExtResource("1_mapnode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0.344)
-script = ExtResource("1_b6fju")
 default_faction = 2
 paths = [NodePath("../Path3D_CD"), NodePath("../Path3D_AC")]
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-selected_material = ExtResource("19_spawn")
-arrowPrefab = ExtResource("15_arrow")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- CD" type="Node" parent="Map" unique_id=781197292]
 
@@ -263,14 +237,7 @@ material = ExtResource("6_4xiap")
 
 [node name="---------- Node D ----------" type="Node" parent="Map" unique_id=993697494]
 
-[node name="MapNode_D" type="Node3D" parent="Map" unique_id=788405148 node_paths=PackedStringArray("paths")]
+[node name="MapNode_D" parent="Map" unique_id=788405148 node_paths=PackedStringArray("paths") instance=ExtResource("1_mapnode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.62414)
-script = ExtResource("1_b6fju")
 default_faction = 1
 paths = [NodePath("../Path3D_BD"), NodePath("../Path3D_CD")]
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-selected_material = ExtResource("19_spawn")
-arrowPrefab = ExtResource("15_arrow")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
