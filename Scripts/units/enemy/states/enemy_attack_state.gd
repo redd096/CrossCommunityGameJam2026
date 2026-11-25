@@ -35,7 +35,7 @@ func _physics_process_state(delta: float) -> void:
 
 func _back_to_previous_state() -> void:
 	# if we were walking, continue along the path
-	if sm.current_struct_path != null:
+	if sm.current_map_path != null:
 		sm.set_state(sm.move_state)
 	# else, back to idle to decide what to do
 	else:

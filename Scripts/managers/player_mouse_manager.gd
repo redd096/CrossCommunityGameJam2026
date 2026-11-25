@@ -83,7 +83,7 @@ func _try_select(target: CollisionObject3D) -> void:
 	# or it is an arrow to select a path
 	elif target is PathPlayerSelector:
 		var arrow: PathPlayerSelector = target as PathPlayerSelector
-		arrow.map_node.set_selected_path(arrow.struct_path)
+		arrow.map_node.set_selected_path(arrow.map_path)
 
 
 func _try_select_spawner(map_node: MapNode) -> void:

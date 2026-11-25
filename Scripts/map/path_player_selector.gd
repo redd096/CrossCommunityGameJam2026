@@ -8,25 +8,25 @@ class_name PathPlayerSelector
 @export var selected_material: Material ## material used when this is the selected path
 
 var map_node: MapNode
-var struct_path: StructPathNode
+var map_path: MapPath
 
 
 ## Save values and place the arrow on the path, looking at its direction [br]
 ## distance: how far from the map node, in meter along the path
-func setup(_map_node: MapNode, _struct_path: StructPathNode, distance: float) -> void:
+func setup(_map_node: MapNode, _map_path: MapPath, distance: float) -> void:
 	map_node = _map_node
-	struct_path = _struct_path
+	map_path = _map_path
 
 	# calculate node and arrow position on the path
 	# NB when the path is in reverse, this node is at the end of the path
-	var path: Path3D = map_node.get_path_from_struct(struct_path)
-	var length: float = path.curve.get_baked_length()
-	var node_progress: float = 0.0 if struct_path.move_forward else length
-	var arrow_progress: float = distance if struct_path.move_forward else length - distance
+	var move_forward: bool = map_path.is_forward(map_node)
+	var length: float = map_path.curve.get_baked_length()
+	var node_progress: float = 0.0 if move_forward else length
+	var arrow_progress: float = distance if move_forward else length - distance
 
 	# calculate node and arrow position in global space
-	var node_position: Vector3 = MovementUtilities.get_path_global_position(path, node_progress)
-	var arrow_position: Vector3 = MovementUtilities.get_path_global_position(path, arrow_progress)
+	var node_position: Vector3 = MovementUtilities.get_path_global_position(map_path, node_progress)
+	var arrow_position: Vector3 = MovementUtilities.get_path_global_position(map_path, arrow_progress)
 
 	# place the arrow, and look at direction
 	global_position = arrow_position

@@ -52,13 +52,13 @@ func _check_targets() -> bool:
 
 func _check_paths() -> void:
 	# if there are player's units on the path to my current node, stay still and defend
-	var defend_path: StructPathNode = _get_path_to_defend()
+	var defend_path: MapPath = _get_path_to_defend()
 	if defend_path != null:
 		sm.set_state(sm.defend_state)
 		return
 	
 	# if there aren't player's units, find a tower to move to
-	var move_path: StructPathNode = _get_next_path()
+	var move_path: MapPath = _get_next_path()
 	if move_path != null:
 		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
@@ -66,20 +66,20 @@ func _check_paths() -> void:
 	# else, just wait to recheck what to do
 
 
-func _get_next_path() -> StructPathNode:
+func _get_next_path() -> MapPath:
 	# if there is only one path, move to it
-	if current_node.nodes.size() == 1:
-		return current_node.nodes[0]
+	if current_node.paths.size() == 1:
+		return current_node.paths[0]
 
 	# split paths to player towers and paths to empty towers
-	var player_paths: Array[StructPathNode]
-	var empty_paths: Array[StructPathNode]
-	for struct_path: StructPathNode in current_node.nodes:
-		var target_node: MapNode = current_node.get_map_node_from_struct(struct_path)
+	var player_paths: Array[MapPath]
+	var empty_paths: Array[MapPath]
+	for path: MapPath in current_node.paths:
+		var target_node: MapNode = path.get_target_node(current_node)
 		if target_node.current_faction == OrphanUnit.ECharacterFaction.PLAYER:
-			player_paths.append(struct_path)
+			player_paths.append(path)
 		elif target_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
-			empty_paths.append(struct_path)
+			empty_paths.append(path)
 	
 	# move to player's towers
 	if not player_paths.is_empty():
@@ -96,30 +96,28 @@ func _get_next_path() -> StructPathNode:
 #region private api
 
 ## If there are player's units on the path to my current node, stay still and defend
-func _get_path_to_defend() -> StructPathNode:
+func _get_path_to_defend() -> MapPath:
 	# cycle every path from this node
-	for struct_path: StructPathNode in current_node.nodes:
-		var path: Path3D = current_node.get_path_from_struct(struct_path)
-		var target_node: MapNode = current_node.get_map_node_from_struct(struct_path)
+	for path: MapPath in current_node.paths:
+		var target_node: MapNode = path.get_target_node(current_node)
 		# every unit on the same path but starting from target_node, are moving to this current_node
 		var units_moving_to_current_node: Array = target_node.get_units_on_this_node(path)
 		# if there is at least one Player unit, defend
 		if units_moving_to_current_node.any(func(unit: OrphanUnit): return unit.faction == OrphanUnit.ECharacterFaction.PLAYER):
-			return struct_path
+			return path
 	
 	return null
 
 
-func _get_shorter_path_from_list(list: Array[StructPathNode]) -> StructPathNode:
-	var shortest: StructPathNode = null
+func _get_shorter_path_from_list(list: Array[MapPath]) -> MapPath:
+	var shortest: MapPath = null
 	var shortest_length: float = INF
 
-	for struct: StructPathNode in list:
-		var path: Path3D = current_node.get_path_from_struct(struct)
+	for path: MapPath in list:
 		var length: float = path.curve.get_baked_length()
 		if length < shortest_length:
 			shortest_length = length
-			shortest = struct
+			shortest = path
 	
 	return shortest
 
@@ -127,11 +125,11 @@ func _get_shorter_path_from_list(list: Array[StructPathNode]) -> StructPathNode:
 ## Dijkstra algorithm on the whole map, starting from current_node.
 ## Returns the first path to take to reach the nearest PLAYER tower (it can pass through other towers too).
 ## If no player tower is reachable, returns the first path to the nearest EMPTY tower
-func _draw_path_to_enemy_tower_with_player_or_empty_near() -> StructPathNode:
+func _draw_path_to_enemy_tower_with_player_or_empty_near() -> MapPath:
 	# shortest known distance from current_node to every discovered node
 	var distances: Dictionary[MapNode, float] = {current_node: 0.0}
 	# for every discovered node, the first path to take from current_node to reach it
-	var first_steps: Dictionary[MapNode, StructPathNode] = {}
+	var first_steps: Dictionary[MapNode, MapPath] = {}
 	# nodes that we know for sure the shortests distance
 	var visited: Dictionary[MapNode, bool] = {}
 	# fallback if there aren't player towers reachable (the nearest tower empty)
@@ -158,13 +156,13 @@ func _draw_path_to_enemy_tower_with_player_or_empty_near() -> StructPathNode:
 				#IF WE DECIDE THAT THE NEAREST EMPTY TOWER IS OKAY, RETURN HERE, INSTEAD OF LOOK FOR THE PLAYER TOWER
 
 		# update distances of the connected nodes
-		for struct_path: StructPathNode in mapNode.nodes:
-			var neighbour: MapNode = mapNode.get_map_node_from_struct(struct_path)
-			var distance: float = distances[mapNode] + mapNode.get_path_from_struct(struct_path).curve.get_baked_length()
+		for path: MapPath in mapNode.paths:
+			var neighbour: MapNode = path.get_target_node(mapNode)
+			var distance: float = distances[mapNode] + path.curve.get_baked_length()
 			if distance < distances.get(neighbour, INF):
 				distances[neighbour] = distance
 				# from current_node the first step is the path itself, otherwise inherit it from the previous node
-				first_steps[neighbour] = struct_path if mapNode == current_node else first_steps[mapNode]
+				first_steps[neighbour] = path if mapNode == current_node else first_steps[mapNode]
 
 	# FALLBACK NEAREST EMPTY TOWER
 	if nearest_empty != null:

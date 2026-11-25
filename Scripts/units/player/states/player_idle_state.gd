@@ -48,7 +48,7 @@ func _check_targets() -> bool:
 
 func _check_paths() -> void:
 	# if there is a path selected, move along it
-	var move_path: StructPathNode = _get_next_path()
+	var move_path: MapPath = _get_next_path()
 	if move_path != null:
 		sm.set_new_node_and_path(current_node, move_path)
 		sm.set_state(sm.move_state)
@@ -56,7 +56,7 @@ func _check_paths() -> void:
 	# else, just wait to recheck what to do
 	
 
-func _get_next_path() -> StructPathNode:
+func _get_next_path() -> MapPath:
 	# if this node isn't of the player (e.g. reconquered by enemies), stay to fight
 	# NB this is necessary because the fight check is only every few seconds, not every frame
 	if current_node.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
@@ -67,7 +67,7 @@ func _get_next_path() -> StructPathNode:
 		return current_node.selectedPath
 
 	# if there is only one path to a node that isn't already of the player, move to it
-	var paths_to_conquer: Array[StructPathNode] = current_node.nodes.filter(_is_path_to_conquer)
+	var paths_to_conquer: Array[MapPath] = current_node.paths.filter(_is_path_to_conquer)
 	if paths_to_conquer.size() == 1:
 		return paths_to_conquer[0]
 
@@ -75,6 +75,6 @@ func _get_next_path() -> StructPathNode:
 	return null
 
 
-func _is_path_to_conquer(struct_path: StructPathNode) -> bool:
-	var target_node: MapNode = current_node.get_map_node_from_struct(struct_path)
+func _is_path_to_conquer(path: MapPath) -> bool:
+	var target_node: MapNode = path.get_target_node(current_node)
 	return target_node.current_faction != OrphanUnit.ECharacterFaction.PLAYER

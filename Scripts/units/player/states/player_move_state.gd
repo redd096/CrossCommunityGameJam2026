@@ -40,13 +40,13 @@ func _physics_process_state(delta: float) -> void:
 			return
 
 	# move along path
-	var path: Path3D = sm.current_map_node.get_path_from_struct(sm.current_struct_path)
-	var move_forward: bool = sm.current_struct_path.move_forward
+	var path: MapPath = sm.current_map_path
+	var move_forward: bool = path.is_forward(sm.current_map_node)
 	var reached_end: bool = sm.movement_component.move(sm.unit, path, move_forward, sm.formation_slot.x)
 
 	# if reached end of our lane, back to idle with new reached node
 	if reached_end:
-		var new_node: MapNode = sm.current_map_node.get_map_node_from_struct(sm.current_struct_path)
+		var new_node: MapNode = path.get_target_node(sm.current_map_node)
 		sm.set_new_node_and_path(new_node, null)
 		sm.set_state(sm.idle_state)
 		return
