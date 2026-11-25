@@ -7,8 +7,9 @@
 [resource]
 script = ExtResource("2_2f0nw")
 troop_prefab = ExtResource("3_6k6h2")
-troop_name = &"Multiple Troops"
 cost = 30
-icon = ExtResource("1_6k6h2")
 formation_size = 5
+move_speed = 2.5
+troop_name = &"Multiple Troops"
+icon = ExtResource("1_6k6h2")
 metadata/_custom_type_script = "uid://dq42um1m8nncq"

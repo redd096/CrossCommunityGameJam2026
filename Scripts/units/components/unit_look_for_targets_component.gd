@@ -4,6 +4,20 @@ class_name UnitLookForTargetsComponent
 ## Component that look for possible targets
 
 @export var targets_area: Area3D
+@export var targets_shape: CollisionShape3D ## shape of targets_area
+
+
+## Set radius of the area
+func set_radius(radius: float) -> void:
+	# create a new shape, because the one in the scene is shared between every unit
+	var shape := SphereShape3D.new()
+	shape.radius = radius
+	targets_shape.shape = shape
+
+
+## Is this unit still in area?
+func is_in_area(target: OrphanUnit) -> bool:
+	return targets_area.overlaps_body(target)
 
 
 ## Check in area if there are units of this faction

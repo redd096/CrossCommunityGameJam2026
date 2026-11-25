@@ -10,7 +10,7 @@ var current_map_path: MapPath
 var formation_slot: Vector2
 
 @abstract
-func setup(map_node: MapNode, slot: Vector2) -> void
+func setup(troop: TroopResource, map_node: MapNode, slot: Vector2) -> void
 
 
 func set_new_node_and_path(map_node: MapNode, path: MapPath) -> void:

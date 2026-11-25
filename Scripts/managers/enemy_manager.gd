@@ -27,4 +27,4 @@ func _spawn_troop() :
 	for slot: Vector2 in offsets:
 		var spawned_troop: MovableOrphanUnit = spawnable_troop.troop_prefab.instantiate() as MovableOrphanUnit
 		add_child(spawned_troop)
-		spawned_troop.setup_movable_unit(spawner, slot)
+		spawned_troop.setup_movable_unit(spawnable_troop, spawner, slot)

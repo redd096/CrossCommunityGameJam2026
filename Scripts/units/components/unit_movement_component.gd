@@ -27,6 +27,12 @@ func _ready() -> void:
 	avoidance_agent.avoidance_priority = STOPPED_PRIORITY
 
 
+## Set movement speed
+func set_speed(value: float) -> void:
+	speed = value
+	avoidance_agent.max_speed = maxf(avoidance_agent.max_speed, speed)
+
+
 ## Move unit along path. Call it every physics frame [br]
 ## move_forward: true if move along path, false if move in reverse [br]
 ## side_offset: lane to keep along the path (negative = left, positive = right, 0 = center) [br]

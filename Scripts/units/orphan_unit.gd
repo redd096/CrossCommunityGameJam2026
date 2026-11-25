@@ -13,7 +13,7 @@ enum ECharacterFaction
 @export var faction: ECharacterFaction
 @export var state_machine: UnitStateMachineComponent
 @export var start_hp : float
-@export var attack_damage : float
+@export var attack_damage: float
 
 var current_map_node: MapNode
 var current_hp : float
@@ -28,6 +28,10 @@ func setup(map_node: MapNode) -> void:
 
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
 func receive_attack(attacker_faction: ECharacterFaction, damage : float) -> void:
+	# already destroyed
+	if current_hp <= 0.0:
+		return
+
 	current_hp = clamp(current_hp, 0.0, current_hp - damage)
 	if (current_hp == 0.0):
 		if current_map_node:

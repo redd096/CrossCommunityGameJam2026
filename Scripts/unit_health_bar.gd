@@ -8,6 +8,10 @@ class_name UnitHealthBar
 
 const MARGIN = 8
 
+func set_max_health(value: float) -> void:
+	progress_bar.max_value = value
+
+
 func set_health(value: float) -> void:
 	progress_bar.value = value
 

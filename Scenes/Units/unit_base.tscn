@@ -172,8 +172,6 @@ radius = 2.0
 
 [node name="UnitBase" type="CharacterBody3D" unique_id=898132878]
 script = ExtResource("1_mt83k")
-start_hp = 100.0
-attack_damage = 20.0
 metadata/_custom_type_script = "uid://cwdcjjgottvpb"
 
 [node name="Stickman" type="Node3D" parent="." unique_id=1435321724]
@@ -454,9 +452,10 @@ script = ExtResource("10_yy1rn")
 avoidance_agent = NodePath("../../NavigationAgent3D")
 metadata/_custom_type_script = "uid://cu83wsf0ab2if"
 
-[node name="UnitLookForTargetsComponent" type="Node" parent="Components" unique_id=2117138907 node_paths=PackedStringArray("targets_area")]
+[node name="UnitLookForTargetsComponent" type="Node" parent="Components" unique_id=2117138907 node_paths=PackedStringArray("targets_area", "targets_shape")]
 script = ExtResource("11_07own")
 targets_area = NodePath("../../LookForTargetsArea")
+targets_shape = NodePath("../../LookForTargetsArea/CollisionShape3D")
 metadata/_custom_type_script = "uid://dhp16hhrbb214"
 
 [node name="UnitHealthComponent" type="Node" parent="Components" unique_id=1038389198]
