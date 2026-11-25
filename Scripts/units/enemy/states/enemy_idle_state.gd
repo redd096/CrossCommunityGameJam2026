@@ -15,6 +15,8 @@ var _path_timer: float = 0.0
 
 func _enter_state() -> void:
 	sm = state_machine as EnemyStateMachineComponent
+	# stay here, but let the other units pass
+	sm.movement_component.wait(sm.unit)
 	current_node = sm.current_map_node
 
 	# reset values (set completed timer to do immediatly first check)

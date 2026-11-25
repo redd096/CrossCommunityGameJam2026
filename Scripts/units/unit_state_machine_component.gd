@@ -24,3 +24,18 @@ func set_new_node_and_path(map_node: MapNode, path: StructPathNode) -> void:
     # add to new
     if current_map_node and current_struct_path:
         current_map_node.add_unit_to_this_node(unit, current_struct_path)
+
+
+## Is there an ally, inside max_distance, already arrived on this node? (so it isn't walking on a path)
+func is_near_unit_arrived_on_node(map_node: MapNode, max_distance: float) -> bool:
+    # overlap on the layer of this unit. It can find also enemies or the floor, so check the faction
+    for body: Node3D in FightUtilities.find_targets(unit, max_distance, unit.collision_layer):
+        var ally: MovableOrphanUnit = body as MovableOrphanUnit
+        # be sure it is a unit, of the same faction, not this same object, and on the same map_node (so reached it and it's also alive)
+        if ally != null \
+            and ally.faction == unit.faction \
+            and ally != unit \
+            and ally.state_machine.current_map_node == map_node:
+            return true
+
+    return false

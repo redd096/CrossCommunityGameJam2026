@@ -16,6 +16,8 @@ var _retry_timer: float = 0.0
 
 func _enter_state() -> void:
 	sm = state_machine as EnemyStateMachineComponent
+	# stay here, but let the other units pass
+	sm.movement_component.wait(sm.unit)
 	# reset values
 	_targets_timer = 0.0
 	_retry_timer = 0.0
