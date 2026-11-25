@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://4gbbgfo84y2h"]
+
+[ext_resource type="Script" uid="uid://derwx2rh3vnuh" path="res://Scripts/map/map_path.gd" id="1_path"]
+[ext_resource type="Material" uid="uid://wm2a70eyop23" path="res://Materials/path_grass.tres" id="2_grass"]
+
+[node name="MapPath" type="Path3D" unique_id=1781790996]
+script = ExtResource("1_path")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." unique_id=164558641]
+polygon = PackedVector2Array(-1, 0, -1, 0.02, 1, 0.02, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("2_grass")
