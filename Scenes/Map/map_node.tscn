@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c2asd1eow1nf2"]
+
+[ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map/map_node.gd" id="1_67ker"]
+[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/map_node_empty.tscn" id="2_6bipi"]
+[ext_resource type="PackedScene" uid="uid://c0njwyvvjjs1i" path="res://Scenes/Towers/map_node_player.tscn" id="3_vipkl"]
+[ext_resource type="PackedScene" uid="uid://c1yuwxi0y8xr" path="res://Scenes/Towers/map_node_enemy.tscn" id="4_bb76c"]
+[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="5_p1mky"]
+[ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/Map/path_arrow.tscn" id="6_n06pl"]
+
+[node name="MapNode_A" type="Node3D" unique_id=1623825951]
+script = ExtResource("1_67ker")
+emptyUnitPrefab = ExtResource("2_6bipi")
+playerUnitPrefab = ExtResource("3_vipkl")
+enemyUnitPrefab = ExtResource("4_bb76c")
+selected_material = ExtResource("5_p1mky")
+arrowPrefab = ExtResource("6_n06pl")
+metadata/_custom_type_script = "uid://dce1w37ti0adq"
+
+[node name="MapNode_Empty" parent="." unique_id=1464329382 instance=ExtResource("2_6bipi")]

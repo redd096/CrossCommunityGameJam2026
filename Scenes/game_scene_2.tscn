@@ -11,12 +11,7 @@
 [ext_resource type="Script" uid="uid://cdpi7dawbfypr" path="res://Scripts/managers/enemy_manager.gd" id="9_ytfab"]
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="10_4e3x8"]
 [ext_resource type="Material" uid="uid://c04pnngtpch7f" path="res://Materials/floor.tres" id="11_qty1c"]
-[ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map/map_node.gd" id="12_eq8wm"]
-[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/map_node_empty.tscn" id="13_cxg4c"]
-[ext_resource type="PackedScene" uid="uid://c0njwyvvjjs1i" path="res://Scenes/Towers/map_node_player.tscn" id="14_dp0qq"]
-[ext_resource type="PackedScene" uid="uid://c1yuwxi0y8xr" path="res://Scenes/Towers/map_node_enemy.tscn" id="15_gw07y"]
-[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="16_ijc86"]
-[ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/path_arrow.tscn" id="17_01y5k"]
+[ext_resource type="PackedScene" uid="uid://c2asd1eow1nf2" path="res://Scenes/Map/map_node.tscn" id="12_oit20"]
 [ext_resource type="Script" uid="uid://derwx2rh3vnuh" path="res://Scripts/map/map_path.gd" id="18_tn2ii"]
 [ext_resource type="Material" uid="uid://wm2a70eyop23" path="res://Materials/path_grass.tres" id="19_jl082"]
 
@@ -220,16 +215,9 @@ shape = SubResource("BoxShape3D_np3vi")
 
 [node name="---------- Node A ----------" type="Node" parent="Map" unique_id=934522024]
 
-[node name="MapNode_A" type="Node3D" parent="Map" unique_id=1432454036 node_paths=PackedStringArray("paths")]
+[node name="MapNode_A" parent="Map" unique_id=1623825951 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.9, 0, 0.4)
-script = ExtResource("12_eq8wm")
 paths = [NodePath("../Path3D_AB")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- AB" type="Node" parent="Map" unique_id=2114789450]
 
@@ -258,16 +246,9 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node B ----------" type="Node" parent="Map" unique_id=519218956]
 
-[node name="MapNode_B" type="Node3D" parent="Map" unique_id=796364743 node_paths=PackedStringArray("paths")]
+[node name="MapNode_B" parent="Map" unique_id=796364743 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.1, 0, 0.1)
-script = ExtResource("12_eq8wm")
 paths = [NodePath("../Path3D_AB"), NodePath("../Path3D_BC"), NodePath("../Path3D_BD"), NodePath("../Path3D_BE")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- BC" type="Node" parent="Map" unique_id=797834643]
 
@@ -346,16 +327,9 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node C ----------" type="Node" parent="Map" unique_id=1613641676]
 
-[node name="MapNode_C" type="Node3D" parent="Map" unique_id=1626873219 node_paths=PackedStringArray("paths")]
+[node name="MapNode_C" parent="Map" unique_id=1626873219 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.1, 0, -9.6)
-script = ExtResource("12_eq8wm")
 paths = [NodePath("../Path3D_BC"), NodePath("../Path3D_CD")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- CD" type="Node" parent="Map" unique_id=697108215]
 
@@ -384,16 +358,9 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node D ----------" type="Node" parent="Map" unique_id=1566528905]
 
-[node name="MapNode_D" type="Node3D" parent="Map" unique_id=946478212 node_paths=PackedStringArray("paths")]
+[node name="MapNode_D" parent="Map" unique_id=946478212 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, 0, -9.6)
-script = ExtResource("12_eq8wm")
 paths = [NodePath("../Path3D_BD"), NodePath("../Path3D_CD"), NodePath("../Path3D_DF")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- DF" type="Node" parent="Map" unique_id=840965686]
 
@@ -422,17 +389,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node E ----------" type="Node" parent="Map" unique_id=1512959105]
 
-[node name="MapNode_E" type="Node3D" parent="Map" unique_id=954599752 node_paths=PackedStringArray("paths")]
+[node name="MapNode_E" parent="Map" unique_id=954599752 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.6, 0, 9.7)
-script = ExtResource("12_eq8wm")
 default_faction = 2
 paths = [NodePath("../Path3D_BE"), NodePath("../Path3D_EG")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- EG" type="Node" parent="Map" unique_id=323375630]
 
@@ -461,17 +421,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node F ----------" type="Node" parent="Map" unique_id=941793372]
 
-[node name="MapNode_F" type="Node3D" parent="Map" unique_id=426148737 node_paths=PackedStringArray("paths")]
+[node name="MapNode_F" parent="Map" unique_id=426148737 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, -4.2)
-script = ExtResource("12_eq8wm")
 default_faction = 2
 paths = [NodePath("../Path3D_DF"), NodePath("../Path3D_FG"), NodePath("../Path3D_FH")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- FG" type="Node" parent="Map" unique_id=1275917008]
 
@@ -525,17 +478,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node G ----------" type="Node" parent="Map" unique_id=1880367419]
 
-[node name="MapNode_G" type="Node3D" parent="Map" unique_id=1584335569 node_paths=PackedStringArray("paths")]
+[node name="MapNode_G" parent="Map" unique_id=1584335569 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3, 0, 4)
-script = ExtResource("12_eq8wm")
 default_faction = 2
 paths = [NodePath("../Path3D_EG"), NodePath("../Path3D_FG"), NodePath("../Path3D_GJ")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- GJ" type="Node" parent="Map" unique_id=1384953321]
 
@@ -564,17 +510,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node H ----------" type="Node" parent="Map" unique_id=651799579]
 
-[node name="MapNode_H" type="Node3D" parent="Map" unique_id=1049686904 node_paths=PackedStringArray("paths")]
+[node name="MapNode_H" parent="Map" unique_id=1049686904 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, -9.6)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_FH"), NodePath("../Path3D_HI"), NodePath("../Path3D_HK")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- HI" type="Node" parent="Map" unique_id=155175295]
 
@@ -628,17 +567,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node I ----------" type="Node" parent="Map" unique_id=1916805364]
 
-[node name="MapNode_I" type="Node3D" parent="Map" unique_id=1481467623 node_paths=PackedStringArray("paths")]
+[node name="MapNode_I" parent="Map" unique_id=1481467623 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 1.9)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_HI"), NodePath("../Path3D_IJ"), NodePath("../Path3D_IK"), NodePath("../Path3D_IL")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- IJ" type="Node" parent="Map" unique_id=1799510950]
 
@@ -717,31 +649,17 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node J ----------" type="Node" parent="Map" unique_id=1211071495]
 
-[node name="MapNode_J" type="Node3D" parent="Map" unique_id=1496314555 node_paths=PackedStringArray("paths")]
+[node name="MapNode_J" parent="Map" unique_id=1496314555 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 9.6)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_GJ"), NodePath("../Path3D_IJ")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---------- Node K ----------" type="Node" parent="Map" unique_id=1399346815]
 
-[node name="MapNode_K" type="Node3D" parent="Map" unique_id=948890548 node_paths=PackedStringArray("paths")]
+[node name="MapNode_K" parent="Map" unique_id=948890548 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3, 0, -8.3)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_HK"), NodePath("../Path3D_IK"), NodePath("../Path3D_KM")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- KM" type="Node" parent="Map" unique_id=426236251]
 
@@ -770,17 +688,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node L ----------" type="Node" parent="Map" unique_id=1975466932]
 
-[node name="MapNode_L" type="Node3D" parent="Map" unique_id=611252652 node_paths=PackedStringArray("paths")]
+[node name="MapNode_L" parent="Map" unique_id=611252652 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3, 0, 9.6)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_IL"), NodePath("../Path3D_LM")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- LM" type="Node" parent="Map" unique_id=64201113]
 
@@ -809,17 +720,10 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node M ----------" type="Node" parent="Map" unique_id=383764714]
 
-[node name="MapNode_M" type="Node3D" parent="Map" unique_id=158525147 node_paths=PackedStringArray("paths")]
+[node name="MapNode_M" parent="Map" unique_id=158525147 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3, 0, 1)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_KM"), NodePath("../Path3D_LM"), NodePath("../Path3D_MN")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="---- MN" type="Node" parent="Map" unique_id=2072564030]
 
@@ -848,14 +752,7 @@ material = ExtResource("19_jl082")
 
 [node name="---------- Node N ----------" type="Node" parent="Map" unique_id=2131488152]
 
-[node name="MapNode_N" type="Node3D" parent="Map" unique_id=1673226993 node_paths=PackedStringArray("paths")]
+[node name="MapNode_N" parent="Map" unique_id=1673226993 node_paths=PackedStringArray("paths") instance=ExtResource("12_oit20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 1)
-script = ExtResource("12_eq8wm")
 default_faction = 1
 paths = [NodePath("../Path3D_MN")]
-emptyUnitPrefab = ExtResource("13_cxg4c")
-playerUnitPrefab = ExtResource("14_dp0qq")
-enemyUnitPrefab = ExtResource("15_gw07y")
-selected_material = ExtResource("16_ijc86")
-arrowPrefab = ExtResource("17_01y5k")
-metadata/_custom_type_script = "uid://dce1w37ti0adq"

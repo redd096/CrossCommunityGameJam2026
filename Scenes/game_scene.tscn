@@ -15,7 +15,7 @@
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="12_4xiap"]
 [ext_resource type="Script" uid="uid://bwoeuf3twejih" path="res://Scripts/managers/player_mouse_manager.gd" id="13_mouse"]
 [ext_resource type="Script" uid="uid://bidk1am4e7n7u" path="res://Scripts/managers/hover_outline.gd" id="14_hover"]
-[ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/path_arrow.tscn" id="15_arrow"]
+[ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/Map/path_arrow.tscn" id="15_arrow"]
 [ext_resource type="Material" uid="uid://c04pnngtpch7f" path="res://Materials/floor.tres" id="17_8m72m"]
 [ext_resource type="Material" uid="uid://otm5mqi7dk15" path="res://Materials/outline_material.tres" id="18_outline"]
 [ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="19_spawn"]

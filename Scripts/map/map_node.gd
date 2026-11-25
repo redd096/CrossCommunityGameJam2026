@@ -35,6 +35,10 @@ var current_units_on_this_node: Dictionary[MapPath, Array]
 
 
 func _ready() -> void:
+	# on instantiate destroy editor tower placeholder
+	var placeholders: Array[Node] = find_children("*", "OrphanUnit")
+	for p: Node in placeholders: p.queue_free()
+	# set faction and tower
 	current_faction = default_faction
 	_recreate_tower()
 	# create disabled arrows
