@@ -14,6 +14,8 @@ var _attack_timer: float = 0.0
 
 func _enter_state() -> void:
 	sm = state_machine as PlayerStateMachineComponent
+	# keep this position, nobody can move this unit during the attack
+	sm.movement_component.stop(sm.unit)
 	# reset values
 	_attack_timer = cooldown - first_attack_delay # start with predetermined delay
 	# find closest target

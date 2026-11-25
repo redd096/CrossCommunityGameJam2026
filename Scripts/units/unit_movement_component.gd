@@ -9,11 +9,15 @@ class_name UnitMovementComponent
 @export var lookahead: float = 1.5 ## calculate next point by currentPositionOnPath + lookahead
 @export var turn_speed : float = 0.75
 
-# avoidance priority: a stopped unit doesn't move for the moving units
+# avoidance priority: a waiting unit moves aside for the others, a stopped unit (e.g. attacking) doesn't move for anyone
+const WAITING_PRIORITY: float = 0.3
 const MOVING_PRIORITY: float = 0.5
 const STOPPED_PRIORITY: float = 1.0
 
+enum EMovementState { WAITING, MOVING, STOPPED }
+
 var _unit: CharacterBody3D ## the unit to move when avoidance_agent returns the safe velocity
+var movement_state: EMovementState
 
 
 func _ready() -> void:
@@ -29,6 +33,8 @@ func _ready() -> void:
 ## Return true when the unit reached the end of its lane
 func move(unit: CharacterBody3D, path: Path3D, move_forward: bool, side_offset: float = 0.0) -> bool:
 	_unit = unit
+	avoidance_agent.avoidance_priority = MOVING_PRIORITY
+	movement_state = EMovementState.MOVING
 
 	# move along path by lookahead
 	var lookahead_value: float = lookahead if move_forward else -lookahead
@@ -37,18 +43,31 @@ func move(unit: CharacterBody3D, path: Path3D, move_forward: bool, side_offset: 
 	unit.velocity.z = direction.z * speed
 
 	# send the desired velocity to avoidance_agent, the movement happens in _on_velocity_computed
-	avoidance_agent.avoidance_priority = MOVING_PRIORITY
 	NavigationServer3D.agent_set_velocity(avoidance_agent.get_rid(), unit.velocity)
 
 	# no direction means we reached the end of our lane
 	return direction == Vector3.ZERO
 
 
+## Wait on this place. The unit moves aside when other units need to pass
+func wait(unit: CharacterBody3D) -> void:
+	_unit = unit
+	avoidance_agent.avoidance_priority = WAITING_PRIORITY
+	movement_state = EMovementState.WAITING
+
+	# tell avoidance_agent we want to stay still
+	unit.velocity = Vector3.ZERO
+	NavigationServer3D.agent_set_velocity(avoidance_agent.get_rid(), Vector3.ZERO)
+
+
 ## Stop movement. The unit becomes an obstacle for the other units
 func stop(unit: CharacterBody3D) -> void:
 	_unit = null
-	unit.velocity = Vector3.ZERO
 	avoidance_agent.avoidance_priority = STOPPED_PRIORITY
+	movement_state = EMovementState.STOPPED
+
+	# tell avoidance_agent we want to stay still
+	unit.velocity = Vector3.ZERO
 	NavigationServer3D.agent_set_velocity(avoidance_agent.get_rid(), Vector3.ZERO)
 
 
@@ -72,9 +91,9 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	_unit.velocity.x = safe_velocity.x
 	_unit.velocity.z = safe_velocity.z
 
-	# rotate towards velocity (ignore Y)
+	# rotate towards velocity (ignore y) - but don't rotate while waiting to avoid rotate also attack area
 	var flat_velocity := Vector3(_unit.velocity.x, 0.0, _unit.velocity.z)
-	if flat_velocity.length() > 0.01:
+	if movement_state != EMovementState.WAITING and flat_velocity.length() > 0.01:
 		var target_basis = Basis.looking_at(flat_velocity)
 		_unit.basis = _unit.basis.slerp(target_basis, turn_speed)
 
