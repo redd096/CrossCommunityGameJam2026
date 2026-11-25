@@ -174,11 +174,12 @@ graph_offset = Vector2(-81, 45)
 [sub_resource type="SphereShape3D" id="SphereShape3D_xyfw8"]
 radius = 2.0
 
-[node name="PlayerUnitMultiple" type="CharacterBody3D" unique_id=2037079988 node_paths=PackedStringArray("state_machine")]
+[node name="PlayerUnitMultiple" type="CharacterBody3D" unique_id=1240780802 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_myrow")
 state_machine = NodePath("Components/PlayerStateMachineComponent")
 start_hp = 100.0
 attack_damage = 20.0
+metadata/_custom_type_script = "uid://cwdcjjgottvpb"
 
 [node name="Stickman" type="Node3D" parent="." unique_id=1435321724]
 transform = Transform3D(1, 0, 0, 0, 1, -1.6292067e-07, 0, 1.6292067e-07, 1, 0, -1, 0)

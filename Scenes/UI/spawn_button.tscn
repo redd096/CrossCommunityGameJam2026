@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="2_du2y1"]
 [ext_resource type="Script" uid="uid://cdtfkmk4kx3wm" path="res://Scripts/player_ui/player_ui_spawn_button.gd" id="3_uw8e6"]
 
-[node name="SpawnButton" type="Button" unique_id=1412768287 node_paths=PackedStringArray("button")]
+[node name="SpawnButton" type="Button" unique_id=104251703 node_paths=PackedStringArray("button")]
 custom_maximum_size = Vector2(-1, 50)
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,3 +21,4 @@ text = "nome della truppa
 icon = ExtResource("2_du2y1")
 script = ExtResource("3_uw8e6")
 button = NodePath(".")
+metadata/_custom_type_script = "uid://cdtfkmk4kx3wm"

@@ -176,11 +176,12 @@ graph_offset = Vector2(-81, 45)
 [sub_resource type="SphereShape3D" id="SphereShape3D_cyy0d"]
 radius = 2.0
 
-[node name="PlayerUnit" type="CharacterBody3D" unique_id=2037079988 node_paths=PackedStringArray("state_machine")]
+[node name="PlayerUnit" type="CharacterBody3D" unique_id=898132878 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_mt83k")
 state_machine = NodePath("Components/PlayerStateMachineComponent")
 start_hp = 100.0
 attack_damage = 20.0
+metadata/_custom_type_script = "uid://cwdcjjgottvpb"
 
 [node name="Stickman" type="Node3D" parent="." unique_id=1435321724]
 transform = Transform3D(1, 0, 0, 0, 1, -1.6292067e-07, 0, 1.6292067e-07, 1, 0, -1, 0)
@@ -488,10 +489,10 @@ metadata/_custom_type_script = "uid://bslw5qqg70qr1"
 
 [node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070 node_paths=PackedStringArray("avoidance_agent")]
 script = ExtResource("10_yy1rn")
+avoidance_agent = NodePath("../../NavigationAgent3D")
 speed = null
 lookahead = null
 turn_speed = null
-avoidance_agent = NodePath("../../NavigationAgent3D")
 metadata/_custom_type_script = "uid://cu83wsf0ab2if"
 
 [node name="UnitLookForTargetsComponent" type="Node" parent="Components" unique_id=2117138907 node_paths=PackedStringArray("targets_area")]
