@@ -67,6 +67,10 @@ func _get_next_path() -> MapPath:
 	# if player selected a path on this node, move to it
 	if current_node.selectedPath != null:
 		return current_node.selectedPath
+	
+	# if there is only one path, move to it
+	if current_node.paths.size() == 1:
+		return current_node.paths[0]
 
 	# if there is only one path to a node that isn't already of the player, move to it
 	var paths_to_conquer: Array[MapPath] = current_node.paths.filter(_is_path_to_conquer)
