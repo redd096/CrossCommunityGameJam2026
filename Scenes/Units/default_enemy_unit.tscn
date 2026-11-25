@@ -161,7 +161,7 @@ advance_expression = "velocity.length() <= 0.1"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uogb4"]
 advance_mode = 2
-advance_expression = "state == CharacterState.IDLE"
+advance_expression = "not is_part_of_edited_scene()"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tckcw"]
 states/End/position = Vector2(615, 100)
