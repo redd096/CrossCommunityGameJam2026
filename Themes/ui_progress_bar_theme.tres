@@ -2,6 +2,38 @@
 
 [ext_resource type="FontFile" uid="uid://crno5vh5m2hoh" path="res://Fonts/LilitaOne-Regular.ttf" id="1_4dy8v"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_enemy_fill"]
+bg_color = Color(0.81, 0.12149998, 0, 0.69803923)
+skew = Vector2(0.2, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_player_fill"]
+bg_color = Color(0, 0.81, 0.2835001, 0.69803923)
+skew = Vector2(0.2, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
+bg_color = Color(0.04, 0.04, 0.04, 1)
+skew = Vector2(0.2, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [resource]
 default_font = ExtResource("1_4dy8v")
 default_font_size = 10
+EnemyHealthBar/base_type = &"ProgressBar"
+EnemyHealthBar/styles/fill = SubResource("StyleBoxFlat_enemy_fill")
+PlayerHealthBar/base_type = &"ProgressBar"
+PlayerHealthBar/styles/fill = SubResource("StyleBoxFlat_player_fill")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_background")

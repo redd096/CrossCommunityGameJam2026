@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c6jyg34nf4ovy"]
+
+[ext_resource type="PackedScene" uid="uid://sixdn18m2xef" path="res://Scenes/UI/health_bar/unit_health_bar_base.tscn" id="1_base"]
+
+[node name="UnitHealthBar_Enemy" unique_id=152743807 instance=ExtResource("1_base")]
+
+[node name="ProgressBar" parent="." index="0"]
+theme_type_variation = &"EnemyHealthBar"

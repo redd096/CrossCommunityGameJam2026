@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://d270xf1t1x71l"]
 
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="1_bjvo7"]
-[ext_resource type="PackedScene" uid="uid://bcybouk30d3p1" path="res://Scenes/Units/default_enemy_unit.tscn" id="2_yu8sx"]
+[ext_resource type="PackedScene" uid="uid://bcybouk30d3p1" path="res://Scenes/Units/enemy/default_enemy_unit.tscn" id="2_yu8sx"]
 
 [resource]
 script = ExtResource("1_bjvo7")

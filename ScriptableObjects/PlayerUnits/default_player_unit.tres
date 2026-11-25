@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="1_c0xou"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="1_jmfbp"]
-[ext_resource type="PackedScene" uid="uid://ngnh4akaiktg" path="res://Scenes/Units/default_player_unit.tscn" id="3_c0xou"]
+[ext_resource type="PackedScene" uid="uid://ngnh4akaiktg" path="res://Scenes/Units/player/default_player_unit.tscn" id="3_ic5m3"]
 
 [resource]
 script = ExtResource("1_jmfbp")
+troop_prefab = ExtResource("3_ic5m3")
 troop_name = &"Default Troop"
-troop_prefab = ExtResource("3_c0xou")
 icon = ExtResource("1_c0xou")
 metadata/_custom_type_script = "uid://dq42um1m8nncq"

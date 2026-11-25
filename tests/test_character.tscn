@@ -6,7 +6,7 @@
 [ext_resource type="Animation" uid="uid://dvu5hxthw7lnl" path="res://Models/Stickman/Anims/Stickman_Run.res" id="4_uogb4"]
 [ext_resource type="Animation" uid="uid://l33q3rthq08r" path="res://Models/Stickman/Anims/Stickman_Sad.res" id="5_ao56c"]
 [ext_resource type="Material" uid="uid://ch3r55tewldbs" path="res://tests/materials_for_tests/enemy.tres" id="6_0obr8"]
-[ext_resource type="PackedScene" uid="uid://dpfmvwtp8ajyd" path="res://Scenes/UI/unit_health_bar_player.tscn" id="6_i364g"]
+[ext_resource type="PackedScene" uid="uid://dpfmvwtp8ajyd" path="res://Scenes/UI/health_bar/unit_health_bar_player.tscn" id="6_i364g"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xgnhf"]
 size = Vector3(20, 1, 20)
