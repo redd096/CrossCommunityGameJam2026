@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://djpuf5tokansm"]
+
+[ext_resource type="PackedScene" uid="uid://dp26vuy8cph4c" path="res://Scenes/Units/player_unit.tscn" id="1_base"]
+[ext_resource type="Material" uid="uid://ca7pvbcmijoe" path="res://Materials/multiple_player_unit.tres" id="2_myrow"]
+
+[node name="MultiplePlayerUnit" unique_id=1240780802 instance=ExtResource("1_base")]
+
+[node name="Simple_Character" parent="Stickman/Skeleton3D" index="0"]
+material_override = ExtResource("2_myrow")
+
+[node name="UnitMovementComponent" parent="Components" index="1"]
+speed = 2.5

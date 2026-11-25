@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://blii4s8sfax5h"]
+
+[ext_resource type="ArrayMesh" uid="uid://u04u310uu2yn" path="res://Models/Tower/Tower.obj" id="1_bkrsj"]
+[ext_resource type="Script" uid="uid://bw3yw4g0pdmoo" path="res://Scripts/units/orphan_unit.gd" id="1_irdos"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_irdos"]
+points = PackedVector3Array(0.007901194, 0.28537863, 0.007901194, -0.072, 0.0022936757, -0.072, 0.070206344, 0.0022936757, -0.072, 0.072500005, -0.0022936463, 0.072500005, -0.07429366, 0.25913584, 0.072500005, -0.07429366, 0.25913584, -0.07429366, 0.07248563, 0.25916457, -0.07429366, -0.072, 0.0022936757, 0.070206344, 0.07080637, 0.25654063, 0.07082041, -0.0053188875, 0.28656217, -0.0053188875, -0.005282046, 0.28537863, 0.007901194, 0.007901194, 0.28537863, -0.005282046)
+
+[node name="TowerBase" type="CharacterBody3D" unique_id=2100006670]
+collision_layer = 8
+script = ExtResource("1_irdos")
+start_hp = 100.0
+metadata/_custom_type_script = "uid://bw3yw4g0pdmoo"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=710792575]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = ExtResource("1_bkrsj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1726821505]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_irdos")

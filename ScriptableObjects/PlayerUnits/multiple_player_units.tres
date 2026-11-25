@@ -2,12 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="1_6k6h2"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="2_2f0nw"]
-[ext_resource type="PackedScene" uid="uid://ngnh4akaiktg" path="res://Scenes/Units/default_player_unit.tscn" id="3_tbmta"]
+[ext_resource type="PackedScene" uid="uid://djpuf5tokansm" path="res://Scenes/Units/player/multiple_player_unit.tscn" id="3_6k6h2"]
 
 [resource]
 script = ExtResource("2_2f0nw")
+troop_prefab = ExtResource("3_6k6h2")
 troop_name = &"Multiple Troops"
-troop_prefab = ExtResource("3_tbmta")
 cost = 30
 icon = ExtResource("1_6k6h2")
 formation_size = 5

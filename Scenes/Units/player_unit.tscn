@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dp26vuy8cph4c"]
+
+[ext_resource type="PackedScene" uid="uid://b126hgnteaq84" path="res://Scenes/Units/unit_base.tscn" id="1_base"]
+[ext_resource type="Material" uid="uid://qfb0b05i481r" path="res://Materials/player_faction.tres" id="2_07own"]
+[ext_resource type="Script" uid="uid://baelbbr0ixnlb" path="res://Scripts/units/player/player_state_machine_component.gd" id="7_1rpom"]
+[ext_resource type="Script" uid="uid://dg6gagsenq73h" path="res://Scripts/units/player/states/player_idle_state.gd" id="8_aaw8u"]
+[ext_resource type="Script" uid="uid://dny1axiipwdkv" path="res://Scripts/units/player/states/player_move_state.gd" id="9_x8m7x"]
+[ext_resource type="Script" uid="uid://f34yfutr4twr" path="res://Scripts/units/player/states/player_attack_state.gd" id="10_cyy0d"]
+[ext_resource type="Script" uid="uid://bslw5qqg70qr1" path="res://Scripts/units/player/states/player_retry_state.gd" id="11_7ojgt"]
+[ext_resource type="PackedScene" uid="uid://dpfmvwtp8ajyd" path="res://Scenes/UI/health_bar/unit_health_bar_player.tscn" id="14_jlmgb"]
+
+[node name="PlayerUnit" unique_id=898132878 node_paths=PackedStringArray("state_machine") instance=ExtResource("1_base")]
+state_machine = NodePath("Components/PlayerStateMachineComponent")
+
+[node name="Simple_Character" parent="Stickman/Skeleton3D" index="0"]
+material_override = ExtResource("2_07own")
+
+[node name="PlayerStateMachineComponent" type="Node" parent="Components" index="0" unique_id=2011216127 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "health_component", "idle_state", "move_state", "attack_state", "retry_state", "unit")]
+script = ExtResource("7_1rpom")
+movement_component = NodePath("../UnitMovementComponent")
+look_for_targets_component = NodePath("../UnitLookForTargetsComponent")
+health_component = NodePath("../UnitHealthComponent")
+idle_state = NodePath("PlayerIdleState")
+move_state = NodePath("PlayerMoveState")
+attack_state = NodePath("PlayerAttackState")
+retry_state = NodePath("PlayerRetryState")
+unit = NodePath("../..")
+metadata/_custom_type_script = "uid://baelbbr0ixnlb"
+
+[node name="PlayerIdleState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=192467083]
+script = ExtResource("8_aaw8u")
+metadata/_custom_type_script = "uid://dg6gagsenq73h"
+
+[node name="PlayerMoveState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=1840622411]
+script = ExtResource("9_x8m7x")
+metadata/_custom_type_script = "uid://dny1axiipwdkv"
+
+[node name="PlayerAttackState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=297227829]
+script = ExtResource("10_cyy0d")
+metadata/_custom_type_script = "uid://f34yfutr4twr"
+
+[node name="PlayerRetryState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=435264789]
+script = ExtResource("11_7ojgt")
+metadata/_custom_type_script = "uid://bslw5qqg70qr1"
+
+[node name="UnitHealthComponent" parent="Components" index="3" node_paths=PackedStringArray("health_bar")]
+health_bar = NodePath("../UnitHealthBar_Player")
+
+[node name="UnitHealthBar_Player" parent="Components" unique_id=152743807 node_paths=PackedStringArray("parent") instance=ExtResource("14_jlmgb")]
+parent = NodePath("../..")

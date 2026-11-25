@@ -1,20 +1,13 @@
-[gd_scene format=4 uid="uid://ngnh4akaiktg"]
+[gd_scene format=4 uid="uid://b126hgnteaq84"]
 
 [ext_resource type="Script" uid="uid://cwdcjjgottvpb" path="res://Scripts/units/movable_orphan_unit.gd" id="1_mt83k"]
-[ext_resource type="Material" uid="uid://qfb0b05i481r" path="res://Materials/player_faction.tres" id="2_07own"]
 [ext_resource type="Material" uid="uid://degnaeoo0cs85" path="res://Models/Stickman/Material.001.tres" id="3_cyy0d"]
 [ext_resource type="Animation" uid="uid://iwok8pkcwe5v" path="res://Models/Stickman/Anims/Stickman_Idle.res" id="4_7ojgt"]
 [ext_resource type="Animation" uid="uid://dvu5hxthw7lnl" path="res://Models/Stickman/Anims/Stickman_Run.res" id="5_jlmgb"]
 [ext_resource type="Animation" uid="uid://l33q3rthq08r" path="res://Models/Stickman/Anims/Stickman_Sad.res" id="6_wjphc"]
-[ext_resource type="Script" uid="uid://baelbbr0ixnlb" path="res://Scripts/units/player/player_state_machine_component.gd" id="7_1rpom"]
-[ext_resource type="Script" uid="uid://dg6gagsenq73h" path="res://Scripts/units/player/states/player_idle_state.gd" id="8_aaw8u"]
-[ext_resource type="Script" uid="uid://dny1axiipwdkv" path="res://Scripts/units/player/states/player_move_state.gd" id="9_x8m7x"]
-[ext_resource type="Script" uid="uid://f34yfutr4twr" path="res://Scripts/units/player/states/player_attack_state.gd" id="10_cyy0d"]
 [ext_resource type="Script" uid="uid://cu83wsf0ab2if" path="res://Scripts/units/unit_movement_component.gd" id="10_yy1rn"]
-[ext_resource type="Script" uid="uid://bslw5qqg70qr1" path="res://Scripts/units/player/states/player_retry_state.gd" id="11_7ojgt"]
 [ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/unit_look_for_targets_component.gd" id="11_07own"]
 [ext_resource type="Script" uid="uid://ba54u3ew8v8fb" path="res://Scripts/units/unit_health_component.gd" id="13_wjphc"]
-[ext_resource type="PackedScene" uid="uid://dpfmvwtp8ajyd" path="res://Scenes/UI/unit_health_bar_player.tscn" id="14_jlmgb"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xajy4"]
 resource_name = "Cube_002"
@@ -177,9 +170,8 @@ graph_offset = Vector2(-81, 45)
 [sub_resource type="SphereShape3D" id="SphereShape3D_cyy0d"]
 radius = 2.0
 
-[node name="PlayerUnit" type="CharacterBody3D" unique_id=898132878 node_paths=PackedStringArray("state_machine")]
+[node name="UnitBase" type="CharacterBody3D" unique_id=898132878]
 script = ExtResource("1_mt83k")
-state_machine = NodePath("Components/PlayerStateMachineComponent")
 start_hp = 100.0
 attack_damage = 20.0
 metadata/_custom_type_script = "uid://cwdcjjgottvpb"
@@ -435,7 +427,6 @@ bones/34/rotation = Quaternion(0, 0, 0, 1)
 bones/34/scale = Vector3(1, 1, 1)
 
 [node name="Simple_Character" type="MeshInstance3D" parent="Stickman/Skeleton3D" unique_id=1462487203]
-material_override = ExtResource("2_07own")
 mesh = SubResource("ArrayMesh_xajy4")
 skin = SubResource("Skin_7fpvr")
 skeleton = NodePath("..")
@@ -458,42 +449,9 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Components" type="Node" parent="." unique_id=296473590]
 
-[node name="PlayerStateMachineComponent" type="Node" parent="Components" unique_id=2011216127 node_paths=PackedStringArray("movement_component", "look_for_targets_component", "health_component", "idle_state", "move_state", "attack_state", "retry_state", "unit")]
-script = ExtResource("7_1rpom")
-movement_component = NodePath("../UnitMovementComponent")
-look_for_targets_component = NodePath("../UnitLookForTargetsComponent")
-health_component = NodePath("../UnitHealthComponent")
-idle_state = NodePath("PlayerIdleState")
-move_state = NodePath("PlayerMoveState")
-attack_state = NodePath("PlayerAttackState")
-retry_state = NodePath("PlayerRetryState")
-unit = NodePath("../..")
-metadata/_custom_type_script = "uid://baelbbr0ixnlb"
-
-[node name="PlayerIdleState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=192467083]
-script = ExtResource("8_aaw8u")
-metadata/_custom_type_script = "uid://dg6gagsenq73h"
-
-[node name="PlayerMoveState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=1840622411]
-script = ExtResource("9_x8m7x")
-metadata/_custom_type_script = "uid://dny1axiipwdkv"
-
-[node name="PlayerAttackState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=297227829]
-script = ExtResource("10_cyy0d")
-cooldown = null
-first_attack_delay = null
-metadata/_custom_type_script = "uid://f34yfutr4twr"
-
-[node name="PlayerRetryState" type="Node" parent="Components/PlayerStateMachineComponent" unique_id=435264789]
-script = ExtResource("11_7ojgt")
-metadata/_custom_type_script = "uid://bslw5qqg70qr1"
-
 [node name="UnitMovementComponent" type="Node" parent="Components" unique_id=1645899070 node_paths=PackedStringArray("avoidance_agent")]
 script = ExtResource("10_yy1rn")
 avoidance_agent = NodePath("../../NavigationAgent3D")
-speed = null
-lookahead = null
-turn_speed = null
 metadata/_custom_type_script = "uid://cu83wsf0ab2if"
 
 [node name="UnitLookForTargetsComponent" type="Node" parent="Components" unique_id=2117138907 node_paths=PackedStringArray("targets_area")]
@@ -501,13 +459,9 @@ script = ExtResource("11_07own")
 targets_area = NodePath("../../LookForTargetsArea")
 metadata/_custom_type_script = "uid://dhp16hhrbb214"
 
-[node name="UnitHealthComponent" type="Node" parent="Components" unique_id=1038389198 node_paths=PackedStringArray("health_bar")]
+[node name="UnitHealthComponent" type="Node" parent="Components" unique_id=1038389198]
 script = ExtResource("13_wjphc")
-health_bar = NodePath("../UnitHealthBar_Player")
 metadata/_custom_type_script = "uid://ba54u3ew8v8fb"
-
-[node name="UnitHealthBar_Player" parent="Components" unique_id=152743807 node_paths=PackedStringArray("parent") instance=ExtResource("14_jlmgb")]
-parent = NodePath("../..")
 
 [node name="LookForTargetsArea" type="Area3D" parent="." unique_id=1375720882]
 collision_mask = 9
