@@ -7,7 +7,7 @@ class_name PlayerRetryState
 
 
 @export var check_targets_interval: float = 0.1 ## seconds between checks of targets in attack range
-@export var retry_interval: float = 3.0 ## seconds to stay still because gave up, before try moving again
+@export var retry_interval: float = 1.0 ## seconds to stay still because gave up, before try moving again
 
 var sm: PlayerStateMachineComponent
 var _targets_timer: float = 0.0
