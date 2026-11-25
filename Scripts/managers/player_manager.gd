@@ -53,18 +53,20 @@ func set_spawner(spawner: MapNode) -> void:
 	# show which spawner is selected
 	if previous_spawner:
 		previous_spawner.set_selected_spawner(false)
-	current_spawner.set_selected_spawner(true)
+	if current_spawner:
+		current_spawner.set_selected_spawner(true)
 
 	# register to event to know when this spawner is no more in player's faction
 	if previous_spawner:
 		previous_spawner.on_conquisted_node.disconnect(_on_conquisted_spawner)
-	current_spawner.on_conquisted_node.connect(_on_conquisted_spawner)
+	if current_spawner:
+		current_spawner.on_conquisted_node.connect(_on_conquisted_spawner)
 
 
 ## If there is a selected spawn and enough mana, spawn troops on selected spawner
 func try_spawn_troop(troop: TroopResource) -> void:
 	# check node is still in player faction
-	if current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
+	if not current_spawner or current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
 		push_warning("TODO - Show some feedback that this node is no more Player's node")
 		return
 
@@ -84,8 +86,9 @@ func try_spawn_troop(troop: TroopResource) -> void:
 #region private spawn api
 
 func _on_conquisted_spawner(new_faction: OrphanUnit.ECharacterFaction) -> void:
+	# deselect it, because it's no more Player's node
 	if new_faction != OrphanUnit.ECharacterFaction.PLAYER:
-		push_warning("TODO - Show some feedback that this node is no more Player's node")
+		set_spawner(null)
 
 
 func _spawn_troop(troop: TroopResource, formation_slot: Vector2) -> void:
