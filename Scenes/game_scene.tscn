@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://bidk1am4e7n7u" path="res://Scripts/managers/hover_outline.gd" id="14_hover"]
 [ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/path_arrow.tscn" id="15_arrow"]
 [ext_resource type="Material" uid="uid://c04pnngtpch7f" path="res://Materials/floor.tres" id="17_8m72m"]
+[ext_resource type="Material" uid="uid://otm5mqi7dk15" path="res://Materials/outline_material.tres" id="18_outline"]
+[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="19_spawn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -95,6 +97,7 @@ metadata/_custom_type_script = "uid://bwoeuf3twejih"
 [node name="HoverOutline" type="Node" parent="." unique_id=1037687064 node_paths=PackedStringArray("player_mouse_manager")]
 script = ExtResource("14_hover")
 player_mouse_manager = NodePath("../PlayerMouseManager")
+outline_material = ExtResource("18_outline")
 metadata/_custom_type_script = "uid://bidk1am4e7n7u"
 
 [node name="EnemyManager" type="Node" parent="." unique_id=1608931244 node_paths=PackedStringArray("spawner")]
@@ -126,6 +129,7 @@ paths = [NodePath("../Path3D_AB"), NodePath("../Path3D_AC")]
 emptyUnitPrefab = ExtResource("3_ikfsv")
 playerUnitPrefab = ExtResource("4_5dgvu")
 enemyUnitPrefab = ExtResource("5_uscyt")
+selected_material = ExtResource("19_spawn")
 arrowPrefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
@@ -189,6 +193,7 @@ paths = [NodePath("../Path3D_BD"), NodePath("../Path3D_AB")]
 emptyUnitPrefab = ExtResource("3_ikfsv")
 playerUnitPrefab = ExtResource("4_5dgvu")
 enemyUnitPrefab = ExtResource("5_uscyt")
+selected_material = ExtResource("19_spawn")
 arrowPrefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
@@ -227,6 +232,7 @@ paths = [NodePath("../Path3D_CD"), NodePath("../Path3D_AC")]
 emptyUnitPrefab = ExtResource("3_ikfsv")
 playerUnitPrefab = ExtResource("4_5dgvu")
 enemyUnitPrefab = ExtResource("5_uscyt")
+selected_material = ExtResource("19_spawn")
 arrowPrefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
@@ -265,5 +271,6 @@ paths = [NodePath("../Path3D_BD"), NodePath("../Path3D_CD")]
 emptyUnitPrefab = ExtResource("3_ikfsv")
 playerUnitPrefab = ExtResource("4_5dgvu")
 enemyUnitPrefab = ExtResource("5_uscyt")
+selected_material = ExtResource("19_spawn")
 arrowPrefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"

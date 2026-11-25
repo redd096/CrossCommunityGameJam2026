@@ -50,6 +50,11 @@ func set_spawner(spawner: MapNode) -> void:
 	current_spawner = spawner
 	on_select_spawner.emit(previous_spawner, current_spawner)
 
+	# show which spawner is selected
+	if previous_spawner:
+		previous_spawner.set_selected_spawner(false)
+	current_spawner.set_selected_spawner(true)
+
 	# register to event to know when this spawner is no more in player's faction
 	if previous_spawner:
 		previous_spawner.on_conquisted_node.disconnect(_on_conquisted_spawner)
