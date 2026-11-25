@@ -31,11 +31,16 @@ func is_near_unit_arrived_on_node(map_node: MapNode, max_distance: float) -> boo
     # overlap on the layer of this unit. It can find also enemies or the floor, so check the faction
     for body: Node3D in FightUtilities.find_targets(unit, max_distance, unit.collision_layer):
         var ally: MovableOrphanUnit = body as MovableOrphanUnit
-        # be sure it is a unit, of the same faction, not this same object, and on the same map_node (so reached it and it's also alive)
+        # be sure it is a unit
         if ally != null \
+            # of the same faction
             and ally.faction == unit.faction \
+            # not this same object
             and ally != unit \
-            and ally.state_machine.current_map_node == map_node:
+            # and on the same map_node (so reached it and it's also alive)
+            and ally.state_machine.current_map_node == map_node \
+            # and is waiting for next path (if already it has another path, it is moving and we don't need to check it)
+            and ally.state_machine.current_struct_path == null:
             return true
 
     return false
