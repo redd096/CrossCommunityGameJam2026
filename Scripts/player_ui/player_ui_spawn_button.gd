@@ -1,4 +1,4 @@
-class_name PlayerUISpawnButton extends Control
+class_name PlayerUISpawnButton extends Button
 ## Button showed in PlayerUI to spawn troops
 
 @export var button: Button

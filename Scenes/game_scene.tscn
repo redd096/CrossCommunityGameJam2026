@@ -86,14 +86,16 @@ metadata/_custom_type_script = "uid://dh7ryi52cb4rf"
 [node name="PlayerUI" parent="." unique_id=888097903 node_paths=PackedStringArray("player_manager") instance=ExtResource("10_5dgvu")]
 player_manager = NodePath("../PlayerManager")
 
-[node name="PlayerMouseManager" type="Node" parent="." unique_id=36600300 node_paths=PackedStringArray("player_manager", "camera")]
+[node name="PlayerMouseManager" type="Node" parent="." unique_id=126497341 node_paths=PackedStringArray("player_manager", "camera")]
 script = ExtResource("13_mouse")
 player_manager = NodePath("../PlayerManager")
 camera = NodePath("../Camera3D")
+metadata/_custom_type_script = "uid://bwoeuf3twejih"
 
-[node name="HoverOutline" type="Node" parent="." unique_id=2133982670 node_paths=PackedStringArray("player_mouse_manager")]
+[node name="HoverOutline" type="Node" parent="." unique_id=1037687064 node_paths=PackedStringArray("player_mouse_manager")]
 script = ExtResource("14_hover")
 player_mouse_manager = NodePath("../PlayerMouseManager")
+metadata/_custom_type_script = "uid://bidk1am4e7n7u"
 
 [node name="EnemyManager" type="Node" parent="." unique_id=1608931244 node_paths=PackedStringArray("spawner")]
 script = ExtResource("11_uscyt")
