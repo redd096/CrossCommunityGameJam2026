@@ -6,5 +6,5 @@
 [node name="MapNode_Enemy" unique_id=2100006670 instance=ExtResource("1_base")]
 faction = 1
 
-[node name="MeshInstance3D" parent="." index="0"]
+[node name="MeshInstance3D" parent="." index="0" unique_id=710792575]
 surface_material_override/2 = ExtResource("3_bbybd")

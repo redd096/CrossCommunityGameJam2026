@@ -6,5 +6,5 @@
 [node name="MapNode_Player" unique_id=589175981 instance=ExtResource("1_base")]
 collision_layer = 24
 
-[node name="MeshInstance3D" parent="." index="0"]
+[node name="MeshInstance3D" parent="." index="0" unique_id=710792575]
 surface_material_override/2 = ExtResource("3_0b6ew")

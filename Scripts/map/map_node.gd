@@ -89,9 +89,9 @@ func _update_selected_spawner() -> void:
 	_get_tower_mesh().set_surface_override_material(ROOF_SURFACE, selected_material if selected else default_roof_material)
 
 
-## Every tower inherits from tower_base, so the mesh has always this name
 func _get_tower_mesh() -> MeshInstance3D:
-	return currentUnit.get_node("MeshInstance3D") as MeshInstance3D
+	# find first MeshInstance3D child in the tower
+	return currentUnit.find_children("*", "MeshInstance3D", false)[0]
 
 #endregion
 
