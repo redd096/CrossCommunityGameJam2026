@@ -19,13 +19,13 @@ class_name MapNode
 signal on_conquisted_node(new_faction: UnitUtilities.ECharacterFaction)
 
 var selected_path : StructPathNode ## path selected by the player, null when there isn't one or this node is no more of the player
-var _current_unit : OrphanUnit ## the tower on this node
-var arrows : Array[PathPlayerSelector] ## one for every path
 var current_faction: UnitUtilities.ECharacterFaction
 ## key: path that starts from this node; value: Array[OrphanUnit] on this node/path
 ## the currentUnit (the tower) is not in this array
 var current_units_on_this_node: Dictionary[Path3D, Array]
 
+var _current_unit : OrphanUnit ## the tower on this node
+var _arrows : Array[PathPlayerSelector] ## one for every path
 
 func _ready() -> void:
 	current_faction = default_faction
@@ -78,11 +78,11 @@ func _create_arrows() -> void:
 		var arrow: PathPlayerSelector = arrow_prefab.instantiate() as PathPlayerSelector
 		add_child(arrow)
 		arrow.setup(self, struct, arrow_distance)
-		arrows.append(arrow)
+		_arrows.append(arrow)
 
 
 func _update_arrows() -> void:
-	for arrow: PathPlayerSelector in arrows:
+	for arrow: PathPlayerSelector in _arrows:
 		# show arrows only if the node is of the player
 		arrow.set_active(current_faction == UnitUtilities.ECharacterFaction.PLAYER)
 		# and highlight selected one
