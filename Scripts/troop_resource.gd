@@ -2,6 +2,7 @@ class_name TroopResource extends Resource
 ## ScriptableObject for the troop, used by PlayerUI to show buttons and spawn troops on click
 
 @export var troop_prefab: PackedScene ## MovableOrphanUnit
+@export var faction: UnitUtilities.ECharacterFaction
 
 @export_group("Player UI")
 @export var troop_name: StringName
@@ -12,3 +13,7 @@ class_name TroopResource extends Resource
 @export var formation_size: int = 1 ## how many units are spawned together with one click
 @export var formation_max_columns: int = 3 ## max units side by side in a row
 @export var formation_spacing: float = 1.2 ## distance between units, both side by side and between rows
+
+@export_group("Game Data")
+@export var start_hp: float = 100 # initial unit hp
+@export var attack_damage: float = 10 # unit attack damage points

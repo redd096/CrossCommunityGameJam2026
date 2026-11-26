@@ -27,7 +27,7 @@ func _physics_process_state(delta: float) -> void:
 	_targets_timer += delta
 	if _targets_timer > check_targets_interval:
 		_targets_timer = 0.0
-		if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.PLAYER):
+		if sm.look_for_targets_component.are_there_targets(UnitUtilities.ECharacterFaction.PLAYER):
 			sm.set_state(sm.attack_state)
 			return
 

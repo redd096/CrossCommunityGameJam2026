@@ -8,9 +8,9 @@ class_name MovableOrphanUnit
 
 ## Place the unit on its formation slot, then start the state machine [br]
 ## formation_slot: x = side offset (column), y = distance (row). See MovementUtilities.get_formation_offsets
-func setup_movable_unit(map_node: MapNode, formation_slot: Vector2) -> void:
+func setup_movable_unit(troop_resource: TroopResource, map_node: MapNode, formation_slot: Vector2) -> void:
 	# call normal setup
-	setup(map_node)
+	setup(troop_resource, map_node)
 
 	# then move to slot
 	global_position += Vector3(formation_slot.x, spawn_height, formation_slot.y)
@@ -19,9 +19,8 @@ func setup_movable_unit(map_node: MapNode, formation_slot: Vector2) -> void:
 	state_machine.setup(map_node, formation_slot)
 
 
-
 ## Called when an enemy attacks this unit
-func receive_attack(_attacker_faction: ECharacterFaction, damage : float) -> void:
+func receive_attack(_attacker_faction: UnitUtilities.ECharacterFaction, damage : float) -> void:
 	current_hp = clamp(current_hp, 0.0, current_hp - damage)
 	if (current_hp == 0.0):
 		# stop the states

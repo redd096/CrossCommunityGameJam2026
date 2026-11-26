@@ -1,27 +1,27 @@
 extends Node3D
 class_name MapNode
 
-@export var default_faction : OrphanUnit.ECharacterFaction
+@export var default_faction : UnitUtilities.ECharacterFaction
 
 @export_group("Paths from this node")
 ## every possible path from this node
 @export var nodes : Array[StructPathNode]
 
 @export_group("Tower prefabs")
-@export var emptyUnitPrefab : PackedScene 	## OrphaUnit
-@export var playerUnitPrefab : PackedScene	## OrphaUnit
-@export var enemyUnitPrefab : PackedScene	## OrphaUnit
+@export var empty_tower : TroopResource 	## OrphaUnit
+@export var player_tower : TroopResource	## OrphaUnit
+@export var enemy_tower : TroopResource	## OrphaUnit
 
 @export_group("Arrow Path")
-@export var arrowPrefab : PackedScene ## PathPlayerSelector
+@export var arrow_prefab : PackedScene ## PathPlayerSelector
 @export var arrow_distance : float = 2.5 ## distance from this node, in meter along the path
 
-signal on_conquisted_node(new_faction: OrphanUnit.ECharacterFaction)
+signal on_conquisted_node(new_faction: UnitUtilities.ECharacterFaction)
 
-var selectedPath : StructPathNode ## path selected by the player, null when there isn't one or this node is no more of the player
-var currentUnit : OrphanUnit ## the tower on this node
+var selected_path : StructPathNode ## path selected by the player, null when there isn't one or this node is no more of the player
+var _current_unit : OrphanUnit ## the tower on this node
 var arrows : Array[PathPlayerSelector] ## one for every path
-var current_faction: OrphanUnit.ECharacterFaction
+var current_faction: UnitUtilities.ECharacterFaction
 ## key: path that starts from this node; value: Array[OrphanUnit] on this node/path
 ## the currentUnit (the tower) is not in this array
 var current_units_on_this_node: Dictionary[Path3D, Array]
@@ -35,7 +35,7 @@ func _ready() -> void:
 	_update_arrows()
 
 
-func on_tower_destroyed(destroyer_faction: OrphanUnit.ECharacterFaction) -> void:
+func on_tower_destroyed(destroyer_faction: UnitUtilities.ECharacterFaction) -> void:
 	# change faction and emit signal
 	current_faction = destroyer_faction
 	_recreate_tower()
@@ -46,33 +46,36 @@ func on_tower_destroyed(destroyer_faction: OrphanUnit.ECharacterFaction) -> void
 
 func _recreate_tower() -> void:
 	# destroy previous tower
-	if currentUnit:
-		currentUnit.queue_free()
+	if _current_unit:
+		_current_unit.queue_free()
 
+	var troop_resource : TroopResource
 	# instantiate tower and initialize
 	match (current_faction):
-		OrphanUnit.ECharacterFaction.NONE:
-			currentUnit = emptyUnitPrefab.instantiate() as OrphanUnit
-		OrphanUnit.ECharacterFaction.PLAYER:
-			currentUnit = playerUnitPrefab.instantiate() as OrphanUnit
-		OrphanUnit.ECharacterFaction.ENEMY:
-			currentUnit = enemyUnitPrefab.instantiate() as OrphanUnit
-	add_child(currentUnit)
-	currentUnit.setup(self)
+		UnitUtilities.ECharacterFaction.NONE:
+			troop_resource = empty_tower
+		UnitUtilities.ECharacterFaction.PLAYER:
+			troop_resource = player_tower
+		UnitUtilities.ECharacterFaction.ENEMY:
+			troop_resource = enemy_tower
+	
+	_current_unit = troop_resource.troop_prefab.instantiate() as OrphanUnit
+	add_child(_current_unit)
+	_current_unit.setup(troop_resource, self)
 
 
 #region player selected path
 
 ## Set the path that player's units on this node must follow
 func set_selected_path(struct: StructPathNode) -> void:
-	selectedPath = struct
+	selected_path = struct
 	_update_arrows()
 
 
 func _create_arrows() -> void:
 	# create an arrow for every path
 	for struct: StructPathNode in nodes:
-		var arrow: PathPlayerSelector = arrowPrefab.instantiate() as PathPlayerSelector
+		var arrow: PathPlayerSelector = arrow_prefab.instantiate() as PathPlayerSelector
 		add_child(arrow)
 		arrow.setup(self, struct, arrow_distance)
 		arrows.append(arrow)
@@ -81,9 +84,9 @@ func _create_arrows() -> void:
 func _update_arrows() -> void:
 	for arrow: PathPlayerSelector in arrows:
 		# show arrows only if the node is of the player
-		arrow.set_active(current_faction == OrphanUnit.ECharacterFaction.PLAYER)
+		arrow.set_active(current_faction == UnitUtilities.ECharacterFaction.PLAYER)
 		# and highlight selected one
-		arrow.set_selected(arrow.struct_path == selectedPath)
+		arrow.set_selected(arrow.struct_path == selected_path)
 
 #endregion
 

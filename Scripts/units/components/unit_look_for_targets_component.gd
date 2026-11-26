@@ -7,7 +7,7 @@ class_name UnitLookForTargetsComponent
 
 
 ## Check in area if there are units of this faction
-func are_there_targets(faction_to_check: OrphanUnit.ECharacterFaction) -> bool:
+func are_there_targets(faction_to_check: UnitUtilities.ECharacterFaction) -> bool:
 	for body: Node3D in FightUtilities.find_targets_in_area(targets_area):
 		var unit: OrphanUnit = body as OrphanUnit
 		if unit and unit.faction == faction_to_check:
@@ -17,7 +17,7 @@ func are_there_targets(faction_to_check: OrphanUnit.ECharacterFaction) -> bool:
 
 
 ## Return the closest unit of this faction in area
-func find_target(faction_to_check: OrphanUnit.ECharacterFaction) -> OrphanUnit:
+func find_target(faction_to_check: UnitUtilities.ECharacterFaction) -> OrphanUnit:
 	# keep only units of the requested faction
 	var targets: Array[Node3D] = []
 	for body: Node3D in FightUtilities.find_targets_in_area(targets_area):

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map/map_node.gd" id="1_b6fju"]
 [ext_resource type="Script" uid="uid://cngcvlml4cxx2" path="res://Scripts/map/struct_pathnode.gd" id="2_fiftr"]
-[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/map_node_empty.tscn" id="3_ikfsv"]
-[ext_resource type="PackedScene" uid="uid://c0njwyvvjjs1i" path="res://Scenes/Towers/map_node_player.tscn" id="4_5dgvu"]
+[ext_resource type="Resource" uid="uid://cs856hay7ciut" path="res://ScriptableObjects/default_empty_tower.tres" id="3_a7fet"]
+[ext_resource type="Resource" uid="uid://birpwq10fxbj7" path="res://ScriptableObjects/PlayerUnits/default_player_tower.tres" id="3_w8jfd"]
+[ext_resource type="Resource" uid="uid://dr50kgp4wxqdj" path="res://ScriptableObjects/EnemyUnits/default_enemy_tower.tres" id="4_a7fet"]
 [ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/managers/player_manager.gd" id="5_1ixah"]
-[ext_resource type="PackedScene" uid="uid://c1yuwxi0y8xr" path="res://Scenes/Towers/map_node_enemy.tscn" id="5_uscyt"]
 [ext_resource type="Material" uid="uid://wm2a70eyop23" path="res://Materials/path_grass.tres" id="6_4xiap"]
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="8_ikfsv"]
 [ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerUnits/default_player_unit.tres" id="9_5dgvu"]
@@ -136,10 +136,10 @@ shape = SubResource("ConcavePolygonShape3D_rgj8m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.560181)
 script = ExtResource("1_b6fju")
 nodes = Array[ExtResource("2_fiftr")]([SubResource("Resource_rgmaf"), SubResource("Resource_iv505")])
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-arrowPrefab = ExtResource("15_arrow")
+empty_tower = ExtResource("3_a7fet")
+player_tower = ExtResource("3_w8jfd")
+enemy_tower = ExtResource("4_a7fet")
+arrow_prefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="Path3D_AB" type="Path3D" parent="CSGBox3D_Map" unique_id=1991840106]
@@ -189,10 +189,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0.344)
 script = ExtResource("1_b6fju")
 default_faction = 2
 nodes = Array[ExtResource("2_fiftr")]([SubResource("Resource_xgnhf"), SubResource("Resource_tckcw")])
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-arrowPrefab = ExtResource("15_arrow")
+empty_tower = ExtResource("3_a7fet")
+player_tower = ExtResource("3_w8jfd")
+enemy_tower = ExtResource("4_a7fet")
+arrow_prefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="Path3D_BD" type="Path3D" parent="CSGBox3D_Map" unique_id=130352438]
@@ -222,10 +222,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0.344)
 script = ExtResource("1_b6fju")
 default_faction = 2
 nodes = Array[ExtResource("2_fiftr")]([SubResource("Resource_jq0hu"), SubResource("Resource_6ooll")])
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-arrowPrefab = ExtResource("15_arrow")
+empty_tower = ExtResource("3_a7fet")
+player_tower = ExtResource("3_w8jfd")
+enemy_tower = ExtResource("4_a7fet")
+arrow_prefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="Path3D_CD" type="Path3D" parent="CSGBox3D_Map" unique_id=416021793]
@@ -255,10 +255,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.62414)
 script = ExtResource("1_b6fju")
 default_faction = 1
 nodes = Array[ExtResource("2_fiftr")]([SubResource("Resource_ikfsv"), SubResource("Resource_5dgvu")])
-emptyUnitPrefab = ExtResource("3_ikfsv")
-playerUnitPrefab = ExtResource("4_5dgvu")
-enemyUnitPrefab = ExtResource("5_uscyt")
-arrowPrefab = ExtResource("15_arrow")
+empty_tower = ExtResource("3_a7fet")
+player_tower = ExtResource("3_w8jfd")
+enemy_tower = ExtResource("4_a7fet")
+arrow_prefab = ExtResource("15_arrow")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="PlayerManager" type="Node" parent="." unique_id=2087178807 node_paths=PackedStringArray("start_selected_spawner")]

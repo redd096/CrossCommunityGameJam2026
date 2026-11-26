@@ -23,7 +23,7 @@ func _enter_state() -> void:
 	_targets_timer = check_targets_interval
 
 	# arrived on an empty tower: conquer it immediately
-	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
+	if current_node.current_faction == UnitUtilities.ECharacterFaction.NONE:
 		current_node.on_tower_destroyed(sm.unit.faction)
 
 
@@ -41,7 +41,7 @@ func _process_state(delta: float) -> void:
 
 func _check_targets() -> bool:
 	# if find targets, attack
-	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.ENEMY):
+	if sm.look_for_targets_component.are_there_targets(UnitUtilities.ECharacterFaction.ENEMY):
 		sm.set_state(sm.attack_state)
 		return true
 	
@@ -61,12 +61,12 @@ func _check_paths() -> void:
 func _get_next_path() -> StructPathNode:
 	# if this node isn't of the player (e.g. reconquered by enemies), stay to fight
 	# NB this is necessary because the fight check is only every few seconds, not every frame
-	if current_node.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
+	if current_node.current_faction != UnitUtilities.ECharacterFaction.PLAYER:
 		return null
 
 	# if player selected a path on this node, move to it
-	if current_node.selectedPath != null:
-		return current_node.selectedPath
+	if current_node.selected_path != null:
+		return current_node.selected_path
 
 	# if there is only one path to a node that isn't already of the player, move to it
 	var paths_to_conquer: Array[StructPathNode] = current_node.nodes.filter(_is_path_to_conquer)
@@ -79,4 +79,4 @@ func _get_next_path() -> StructPathNode:
 
 func _is_path_to_conquer(struct_path: StructPathNode) -> bool:
 	var target_node: MapNode = current_node.get_map_node_from_struct(struct_path)
-	return target_node.current_faction != OrphanUnit.ECharacterFaction.PLAYER
+	return target_node.current_faction != UnitUtilities.ECharacterFaction.PLAYER

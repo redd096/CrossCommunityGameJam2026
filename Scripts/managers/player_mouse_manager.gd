@@ -88,7 +88,7 @@ func _try_select(target: CollisionObject3D) -> void:
 
 func _try_select_spawner(map_node: MapNode) -> void:
 	# be sure it isn't our current selected spawner and it is player faction
-	if map_node != player_manager.current_spawner and map_node.current_faction == OrphanUnit.ECharacterFaction.PLAYER:
+	if map_node != player_manager.current_spawner and map_node.current_faction == UnitUtilities.ECharacterFaction.PLAYER:
 		# then set this as player spawner
 		player_manager.set_spawner(map_node)
 

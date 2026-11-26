@@ -59,7 +59,7 @@ func set_spawner(spawner: MapNode) -> void:
 ## If there is a selected spawn and enough mana, spawn troops on selected spawner
 func try_spawn_troop(troop: TroopResource) -> void:
 	# check node is still in player faction
-	if current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
+	if current_spawner.current_faction != UnitUtilities.ECharacterFaction.PLAYER:
 		push_warning("TODO - Show some feedback that this node is no more Player's node")
 		return
 
@@ -78,8 +78,8 @@ func try_spawn_troop(troop: TroopResource) -> void:
 
 #region private spawn api
 
-func _on_conquisted_spawner(new_faction: OrphanUnit.ECharacterFaction) -> void:
-	if new_faction != OrphanUnit.ECharacterFaction.PLAYER:
+func _on_conquisted_spawner(new_faction: UnitUtilities.ECharacterFaction) -> void:
+	if new_faction != UnitUtilities.ECharacterFaction.PLAYER:
 		push_warning("TODO - Show some feedback that this node is no more Player's node")
 
 
@@ -87,7 +87,7 @@ func _spawn_troop(troop: TroopResource, formation_slot: Vector2) -> void:
 	# spawn troop prefab and initialize it
 	var spawned_troop: MovableOrphanUnit = troop.troop_prefab.instantiate() as MovableOrphanUnit
 	add_child(spawned_troop)
-	spawned_troop.setup_movable_unit(current_spawner, formation_slot)
+	spawned_troop.setup_movable_unit(troop, current_spawner, formation_slot)
 	# and emit signal
 	on_spawn_troop.emit(spawned_troop)
 

@@ -19,7 +19,7 @@ func _enter_state() -> void:
 	# reset values
 	_attack_timer = cooldown - first_attack_delay # start with predetermined delay
 	# find closest target
-	_target = sm.look_for_targets_component.find_target(OrphanUnit.ECharacterFaction.ENEMY)
+	_target = sm.look_for_targets_component.find_target(UnitUtilities.ECharacterFaction.ENEMY)
 
 
 func _physics_process_state(delta: float) -> void:

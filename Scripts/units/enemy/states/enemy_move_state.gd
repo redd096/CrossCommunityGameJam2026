@@ -36,7 +36,7 @@ func _physics_process_state(delta: float) -> void:
 	_targets_timer += delta
 	if _targets_timer > check_targets_interval:
 		_targets_timer = 0.0
-		if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.PLAYER):
+		if sm.look_for_targets_component.are_there_targets(UnitUtilities.ECharacterFaction.PLAYER):
 			sm.set_state(sm.attack_state)
 			return
 
@@ -74,4 +74,4 @@ func _physics_process_state(delta: float) -> void:
 
 ## Is the node already ours, and near to us there is an ally already arrived on it?
 func _is_node_crowded(target_node: MapNode) -> bool:
-	return target_node.current_faction == OrphanUnit.ECharacterFaction.ENEMY and sm.is_near_unit_arrived_on_node(target_node, crowd_distance)
+	return target_node.current_faction == UnitUtilities.ECharacterFaction.ENEMY and sm.is_near_unit_arrived_on_node(target_node, crowd_distance)

@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("1_bjvo7")
 troop_prefab = ExtResource("2_yu8sx")
+faction = 1
 metadata/_custom_type_script = "uid://dq42um1m8nncq"
