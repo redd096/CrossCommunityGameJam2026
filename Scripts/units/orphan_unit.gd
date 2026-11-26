@@ -19,7 +19,7 @@ func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
 	global_position = current_map_node.global_position
 
 	if (state_machine):
-		state_machine.setup(map_node, Vector2.ZERO)
+		state_machine.setup(troop_resource, map_node, Vector2.ZERO)
 
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
 func receive_attack(attacker_faction: UnitUtilities.ECharacterFaction, damage : float) -> void:

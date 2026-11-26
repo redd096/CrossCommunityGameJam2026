@@ -12,7 +12,7 @@ class_name TowerStateMachineComponent
 
 var enemy_faction: UnitUtilities.ECharacterFaction
 
-func setup(map_node: MapNode, slot: Vector2) -> void:
+func setup(_troop: TroopResource, map_node: MapNode, slot: Vector2) -> void:
 	health_component.init(unit)
 	
 	if (unit.faction == UnitUtilities.ECharacterFaction.ENEMY):
