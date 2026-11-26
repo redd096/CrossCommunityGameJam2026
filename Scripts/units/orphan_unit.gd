@@ -4,8 +4,8 @@ class_name OrphanUnit
 ## Base script for a Unit
 @export var state_machine: UnitStateMachineComponent
 
-var current_hp : float
 var faction: UnitUtilities.ECharacterFaction
+var current_hp : float
 var attack_damage : float
 var current_map_node: MapNode
 
@@ -20,7 +20,7 @@ func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
 
 
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
-func receive_attack(attacker_faction: ECharacterFaction, damage : float) -> void:
+func receive_attack(attacker_faction: UnitUtilities.ECharacterFaction, damage : float) -> void:
 	# already destroyed
 	if current_hp <= 0.0:
 		return

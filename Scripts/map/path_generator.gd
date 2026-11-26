@@ -29,10 +29,10 @@ class_name PathGenerator
 
 @export_group("Factions")
 ## show and edit the faction in the start node
-@export var start_faction: OrphanUnit.ECharacterFaction
+@export var start_faction: UnitUtilities.ECharacterFaction
 
 ## show and edit the faction in the end node
-@export var end_faction: OrphanUnit.ECharacterFaction
+@export var end_faction: UnitUtilities.ECharacterFaction
 
 ## Show in editor the towers of the two nodes, based on their faction
 @export_tool_button("Update towers", "MeshInstance3D") var update_towers_button: Callable = update_towers
@@ -116,7 +116,7 @@ func update_towers() -> void:
 #endregion
 
 
-func _update_tower(node: MapNode, faction: OrphanUnit.ECharacterFaction) -> void:
+func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> void:
 	if node == null:
 		return
 	# filter to return only OrphanUnit childs

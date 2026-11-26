@@ -21,12 +21,12 @@ class_name MapNode
 
 const ROOF_SURFACE: int = 2 ## surface of the tower's mesh with the color of the faction
 
-signal on_conquisted_node(new_faction: OrphanUnit.ECharacterFaction)
+signal on_conquisted_node(new_faction: UnitUtilities.ECharacterFaction)
 
 var selected_path : MapPath ## path selected by the player, null when there isn't one or this node is no more of the player
 var default_roof_material : Material ## roof of the current tower when not selected
 var is_selected_spawner : bool ## is this the spawner selected by the player?
-var current_faction: OrphanUnit.ECharacterFaction
+var current_faction: UnitUtilities.ECharacterFaction
 ## key: path that starts from this node; value: Array[OrphanUnit] on this node/path
 ## the currentUnit (the tower) is not in this array
 var current_units_on_this_node: Dictionary[MapPath, Array]
@@ -115,10 +115,10 @@ func set_selected_path(path: MapPath) -> void:
 func _create_arrows() -> void:
 	# create an arrow for every path
 	for path: MapPath in paths:
-		var arrow: PathPlayerSelector = arrowPrefab.instantiate() as PathPlayerSelector
+		var arrow: PathPlayerSelector = arrow_prefab.instantiate() as PathPlayerSelector
 		add_child(arrow)
 		arrow.setup(self, path, arrow_distance)
-		arrows.append(arrow)
+		_arrows.append(arrow)
 
 
 func _update_arrows() -> void:

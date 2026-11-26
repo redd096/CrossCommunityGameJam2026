@@ -85,7 +85,7 @@ func try_spawn_troop(troop: TroopResource) -> void:
 
 #region private spawn api
 
-func _on_conquisted_spawner(new_faction: OrphanUnit.ECharacterFaction) -> void:
+func _on_conquisted_spawner(new_faction: UnitUtilities.ECharacterFaction) -> void:
 	# deselect it, because it's no more Player's node
 	if new_faction != UnitUtilities.ECharacterFaction.PLAYER:
 		set_spawner(null)
