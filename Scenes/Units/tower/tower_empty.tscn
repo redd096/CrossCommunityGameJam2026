@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://2yjli6a80y51"]
 
-[ext_resource type="PackedScene" uid="uid://blii4s8sfax5h" path="res://Scenes/Towers/tower_base.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://blii4s8sfax5h" path="res://Scenes/Units/tower/tower_base.tscn" id="1_base"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yer10"]
 albedo_color = Color(0.29219002, 0.29219005, 0.29219002, 1)
 
-[node name="MapNode_Empty" unique_id=1464329382 instance=ExtResource("1_base")]
+[node name="Tower_Empty" unique_id=1464329382 instance=ExtResource("1_base")]
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=710792575]
 surface_material_override/2 = SubResource("StandardMaterial3D_yer10")

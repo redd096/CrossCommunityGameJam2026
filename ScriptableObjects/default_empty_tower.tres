@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://cs856hay7ciut"]
 
 [ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="1_g4l8g"]
-[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/tower_empty.tscn" id="2_gauhm"]
+[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Units/tower/tower_empty.tscn" id="2_gauhm"]
 
 [resource]
 script = ExtResource("1_g4l8g")
