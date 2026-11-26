@@ -2,7 +2,7 @@
 extends StateMachine
 class_name UnitStateMachineComponent
 
-@export var unit: MovableOrphanUnit
+@export var unit: OrphanUnit
 
 # blackboard (vars for states)
 var current_map_node: MapNode
@@ -43,4 +43,4 @@ func is_near_unit_arrived_on_node(map_node: MapNode, max_distance: float) -> boo
             and ally.state_machine.current_map_path == null:
             return true
 
-    return false
+	return false
