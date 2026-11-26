@@ -22,9 +22,13 @@ func setup_movable_unit(troop_resource: TroopResource, map_node: MapNode, format
 ## Called when an enemy attacks this unit
 func receive_attack(_attacker_faction: UnitUtilities.ECharacterFaction, damage : float) -> void:
 	current_hp = clamp(current_hp, 0.0, current_hp - damage)
+
+	# dead
 	if (current_hp == 0.0):
+		is_alive = false
 		# stop the states
 		state_machine.set_state(null)
 		# remove from the node/path list
-		state_machine.set_new_node_and_path(null, null)
+		state_machine.set_new_node_and_path(null, null)		
+		# destroy
 		queue_free()

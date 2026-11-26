@@ -5,6 +5,7 @@ class_name OrphanUnit
 @export var state_machine: UnitStateMachineComponent
 
 var current_hp : float
+var is_alive: bool
 var faction: UnitUtilities.ECharacterFaction
 var attack_damage : float
 var current_map_node: MapNode
@@ -12,6 +13,7 @@ var current_map_node: MapNode
 
 ## Init the character to set its node and start position. This is extended from MovableOrphanUnit
 func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
+	is_alive = true
 	faction = troop_resource.faction
 	current_hp = troop_resource.start_hp
 	attack_damage = troop_resource.attack_damage
@@ -24,6 +26,9 @@ func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
 func receive_attack(attacker_faction: UnitUtilities.ECharacterFaction, damage : float) -> void:
 	current_hp = clamp(current_hp, 0.0, current_hp - damage)
+
+	# dead
 	if (current_hp == 0.0):
+		is_alive = false
 		if current_map_node:
 			current_map_node.on_tower_destroyed(attacker_faction)
