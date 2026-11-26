@@ -17,7 +17,7 @@ func set_radius(radius: float) -> void:
 
 ## Is this unit still in area?
 func is_in_area(target: OrphanUnit) -> bool:
-	return targets_area.overlaps_body(target)
+	return target and target.is_alive and targets_area.overlaps_body(target)
 
 
 ## Check in area if there are units of this faction
