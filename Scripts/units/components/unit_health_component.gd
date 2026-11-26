@@ -9,7 +9,7 @@ var _prev_hp: float ## previous unit HP
 
 func init(unit: OrphanUnit):
 	_unit = unit
-	health_bar.set_max_health(unit.start_hp)
+	health_bar.set_max_health(unit.current_hp)
 
 func _process(_delta: float) -> void:
 	if (_unit.current_hp != _prev_hp):
