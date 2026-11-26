@@ -4,6 +4,7 @@ class_name TroopResource extends Resource
 ## Stats are applied to unit on spawn
 
 @export var troop_prefab: PackedScene ## MovableOrphanUnit
+@export var faction: UnitUtilities.ECharacterFaction
 
 @export_group("Stats")
 @export var cost: int = 10 ## mana to spawn the whole formation

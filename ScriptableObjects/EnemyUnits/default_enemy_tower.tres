@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://dr50kgp4wxqdj"]
+
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="1_u6k26"]
+[ext_resource type="PackedScene" uid="uid://c1yuwxi0y8xr" path="res://Scenes/Towers/tower_enemy.tscn" id="2_phxnj"]
+
+[resource]
+script = ExtResource("1_u6k26")
+troop_prefab = ExtResource("2_phxnj")
+faction = 1
+cost = 0
+metadata/_custom_type_script = "uid://dq42um1m8nncq"

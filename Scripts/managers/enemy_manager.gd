@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 func _spawn_troop() :
 	# the spawner tower was conquered by the Player: stop spawning
-	if spawner.current_faction != OrphanUnit.ECharacterFaction.ENEMY:
+	if spawner.current_faction != UnitUtilities.ECharacterFaction.ENEMY:
 		return
 
 	# pick a random troop

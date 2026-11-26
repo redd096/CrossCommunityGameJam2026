@@ -24,7 +24,7 @@ func _enter_state() -> void:
 	_path_timer = check_path_interval
 
 	# arrived on an empty tower: conquer it immediately
-	if current_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
+	if current_node.current_faction == UnitUtilities.ECharacterFaction.NONE:
 		current_node.on_tower_destroyed(sm.unit.faction)
 
 
@@ -45,7 +45,7 @@ func _process_state(delta: float) -> void:
 
 func _check_targets() -> bool:
 	# if find targets, attack
-	if sm.look_for_targets_component.are_there_targets(OrphanUnit.ECharacterFaction.PLAYER):
+	if sm.look_for_targets_component.are_there_targets(UnitUtilities.ECharacterFaction.PLAYER):
 		sm.set_state(sm.attack_state)
 		return true
 	
@@ -78,9 +78,9 @@ func _get_next_path() -> MapPath:
 	var empty_paths: Array[MapPath]
 	for path: MapPath in current_node.paths:
 		var target_node: MapNode = path.get_target_node(current_node)
-		if target_node.current_faction == OrphanUnit.ECharacterFaction.PLAYER:
+		if target_node.current_faction == UnitUtilities.ECharacterFaction.PLAYER:
 			player_paths.append(path)
-		elif target_node.current_faction == OrphanUnit.ECharacterFaction.NONE:
+		elif target_node.current_faction == UnitUtilities.ECharacterFaction.NONE:
 			empty_paths.append(path)
 	
 	# move to player's towers
@@ -105,7 +105,7 @@ func _get_path_to_defend() -> MapPath:
 		# every unit on the same path but starting from target_node, are moving to this current_node
 		var units_moving_to_current_node: Array = target_node.get_units_on_this_node(path)
 		# if there is at least one Player unit, defend
-		if units_moving_to_current_node.any(func(unit: OrphanUnit): return unit.faction == OrphanUnit.ECharacterFaction.PLAYER):
+		if units_moving_to_current_node.any(func(unit: OrphanUnit): return unit.faction == UnitUtilities.ECharacterFaction.PLAYER):
 			return path
 	
 	return null
@@ -150,10 +150,10 @@ func _draw_path_to_enemy_tower_with_player_or_empty_near() -> MapPath:
 
 		if mapNode != current_node:
 			## FOUND NEAREST PLAYER TOWER
-			if mapNode.current_faction == OrphanUnit.ECharacterFaction.PLAYER:
+			if mapNode.current_faction == UnitUtilities.ECharacterFaction.PLAYER:
 				return first_steps[mapNode]
 			# remember the nearest empty tower, but keep searching for a player tower
-			if mapNode.current_faction == OrphanUnit.ECharacterFaction.NONE and nearest_empty == null:
+			if mapNode.current_faction == UnitUtilities.ECharacterFaction.NONE and nearest_empty == null:
 				nearest_empty = mapNode
 				#IF WE DECIDE THAT THE NEAREST EMPTY TOWER IS OKAY, RETURN HERE, INSTEAD OF LOOK FOR THE PLAYER TOWER
 

@@ -66,7 +66,7 @@ func set_spawner(spawner: MapNode) -> void:
 ## If there is a selected spawn and enough mana, spawn troops on selected spawner
 func try_spawn_troop(troop: TroopResource) -> void:
 	# check node is still in player faction
-	if not current_spawner or current_spawner.current_faction != OrphanUnit.ECharacterFaction.PLAYER:
+	if not current_spawner or current_spawner.current_faction != UnitUtilities.ECharacterFaction.PLAYER:
 		push_warning("TODO - Show some feedback that this node is no more Player's node")
 		return
 
@@ -87,7 +87,7 @@ func try_spawn_troop(troop: TroopResource) -> void:
 
 func _on_conquisted_spawner(new_faction: OrphanUnit.ECharacterFaction) -> void:
 	# deselect it, because it's no more Player's node
-	if new_faction != OrphanUnit.ECharacterFaction.PLAYER:
+	if new_faction != UnitUtilities.ECharacterFaction.PLAYER:
 		set_spawner(null)
 
 

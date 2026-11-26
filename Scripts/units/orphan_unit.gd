@@ -1,27 +1,20 @@
 extends CharacterBody3D
 class_name OrphanUnit
 
-## Base script for a Unit, used by towers
-
-enum ECharacterFaction
-{
-	PLAYER,
-	ENEMY,
-	NONE
-}
-
-@export var faction: ECharacterFaction
+## Base script for a Unit
 @export var state_machine: UnitStateMachineComponent
-@export var start_hp : float
-@export var attack_damage: float
 
-var current_map_node: MapNode
 var current_hp : float
+var faction: UnitUtilities.ECharacterFaction
+var attack_damage : float
+var current_map_node: MapNode
 
 
 ## Init the character to set its node and start position. This is extended from MovableOrphanUnit
-func setup(map_node: MapNode) -> void:
-	current_hp = start_hp
+func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
+	faction = troop_resource.faction
+	current_hp = troop_resource.health
+	attack_damage = troop_resource.attack_damage
 	current_map_node = map_node
 	global_position = current_map_node.global_position
 

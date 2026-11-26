@@ -1,38 +1,38 @@
 extends Node3D
 class_name MapNode
 
-@export var default_faction : OrphanUnit.ECharacterFaction
+@export var default_faction : UnitUtilities.ECharacterFaction
 
 @export_group("Paths from this node")
 ## every possible path from this node
 @export var paths : Array[MapPath]
 
 @export_group("Tower prefabs")
-@export var emptyUnitPrefab : PackedScene 	## OrphaUnit
-@export var playerUnitPrefab : PackedScene	## OrphaUnit
-@export var enemyUnitPrefab : PackedScene	## OrphaUnit
+@export var empty_tower : TroopResource 	## OrphanUnit
+@export var player_tower : TroopResource	## OrphanUnit
+@export var enemy_tower : TroopResource	## OrphanUnit
 
 @export_group("Player spawner")
 @export var selected_material: Material ## material used by the tower's roof when this is the selected spawner
 
 @export_group("Arrow Path")
-@export var arrowPrefab : PackedScene ## PathPlayerSelector
+@export var arrow_prefab : PackedScene ## PathPlayerSelector
 @export var arrow_distance : float = 2.5 ## distance from this node, in meter along the path
 
 const ROOF_SURFACE: int = 2 ## surface of the tower's mesh with the color of the faction
 
 signal on_conquisted_node(new_faction: OrphanUnit.ECharacterFaction)
 
-var selectedPath : MapPath ## path selected by the player, null when there isn't one or this node is no more of the player
-var currentUnit : OrphanUnit ## the tower on this node
+var selected_path : MapPath ## path selected by the player, null when there isn't one or this node is no more of the player
 var default_roof_material : Material ## roof of the current tower when not selected
 var is_selected_spawner : bool ## is this the spawner selected by the player?
-var arrows : Array[PathPlayerSelector] ## one for every path
 var current_faction: OrphanUnit.ECharacterFaction
 ## key: path that starts from this node; value: Array[OrphanUnit] on this node/path
 ## the currentUnit (the tower) is not in this array
 var current_units_on_this_node: Dictionary[MapPath, Array]
 
+var _current_unit : OrphanUnit ## the tower on this node
+var _arrows : Array[PathPlayerSelector] ## one for every path
 
 func _ready() -> void:
 	# on instantiate destroy editor tower placeholder
@@ -46,7 +46,7 @@ func _ready() -> void:
 	_update_arrows()
 
 
-func on_tower_destroyed(destroyer_faction: OrphanUnit.ECharacterFaction) -> void:
+func on_tower_destroyed(destroyer_faction: UnitUtilities.ECharacterFaction) -> void:
 	# change faction and emit signal
 	current_faction = destroyer_faction
 	_recreate_tower()
@@ -57,19 +57,23 @@ func on_tower_destroyed(destroyer_faction: OrphanUnit.ECharacterFaction) -> void
 
 func _recreate_tower() -> void:
 	# destroy previous tower
-	if currentUnit:
-		currentUnit.queue_free()
+	if _current_unit:
+		_current_unit.queue_free()
 
+	var troop_resource : TroopResource
 	# instantiate tower and initialize
 	match (current_faction):
-		OrphanUnit.ECharacterFaction.NONE:
-			currentUnit = emptyUnitPrefab.instantiate() as OrphanUnit
-		OrphanUnit.ECharacterFaction.PLAYER:
-			currentUnit = playerUnitPrefab.instantiate() as OrphanUnit
-		OrphanUnit.ECharacterFaction.ENEMY:
-			currentUnit = enemyUnitPrefab.instantiate() as OrphanUnit
-	add_child(currentUnit)
-	currentUnit.setup(self)
+		UnitUtilities.ECharacterFaction.NONE:
+			troop_resource = empty_tower
+		UnitUtilities.ECharacterFaction.PLAYER:
+			troop_resource = player_tower
+		UnitUtilities.ECharacterFaction.ENEMY:
+			troop_resource = enemy_tower
+
+	_current_unit = troop_resource.troop_prefab.instantiate() as OrphanUnit
+	add_child(_current_unit)
+	_current_unit.setup(troop_resource, self)
+
 	# save its roof color, and update it because the new tower doesn't know if this node is selected
 	default_roof_material = _get_tower_mesh().get_surface_override_material(ROOF_SURFACE)
 	_update_selected_spawner()
@@ -85,17 +89,17 @@ func set_selected_spawner(selected: bool) -> void:
 
 func _update_selected_spawner() -> void:
 	# PlayerManager can select this node before its _ready, the tower will be updated when created
-	if not currentUnit:
+	if not _current_unit:
 		return
 
 	# change color only if the node is of the player
-	var selected: bool = is_selected_spawner and current_faction == OrphanUnit.ECharacterFaction.PLAYER
+	var selected: bool = is_selected_spawner and current_faction == UnitUtilities.ECharacterFaction.PLAYER
 	_get_tower_mesh().set_surface_override_material(ROOF_SURFACE, selected_material if selected else default_roof_material)
 
 
 func _get_tower_mesh() -> MeshInstance3D:
 	# find first MeshInstance3D child in the tower
-	return currentUnit.find_children("*", "MeshInstance3D", false)[0]
+	return _current_unit.find_children("*", "MeshInstance3D", false)[0]
 
 #endregion
 
@@ -104,7 +108,7 @@ func _get_tower_mesh() -> MeshInstance3D:
 
 ## Set the path that player's units on this node must follow
 func set_selected_path(path: MapPath) -> void:
-	selectedPath = path
+	selected_path = path
 	_update_arrows()
 
 
@@ -118,11 +122,11 @@ func _create_arrows() -> void:
 
 
 func _update_arrows() -> void:
-	for arrow: PathPlayerSelector in arrows:
+	for arrow: PathPlayerSelector in _arrows:
 		# show arrows only if the node is of the player
-		arrow.set_active(current_faction == OrphanUnit.ECharacterFaction.PLAYER)
+		arrow.set_active(current_faction == UnitUtilities.ECharacterFaction.PLAYER)
 		# and highlight selected one
-		arrow.set_selected(arrow.map_path == selectedPath)
+		arrow.set_selected(arrow.map_path == selected_path)
 
 #endregion
 

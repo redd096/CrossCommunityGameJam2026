@@ -10,12 +10,8 @@ class_name MovableOrphanUnit
 ## troop: the resource with the stats of this unit [br]
 ## formation_slot: x = side offset (column), y = distance (row). See MovementUtilities.get_formation_offsets
 func setup_movable_unit(troop: TroopResource, map_node: MapNode, formation_slot: Vector2) -> void:
-	# set stats (before normal setup, because it uses start_hp)
-	start_hp = troop.health
-	attack_damage = troop.attack_damage
-
 	# call normal setup
-	setup(map_node)
+	setup(troop, map_node)
 
 	# then move to slot
 	global_position += Vector3(formation_slot.x, spawn_height, formation_slot.y)
@@ -24,9 +20,8 @@ func setup_movable_unit(troop: TroopResource, map_node: MapNode, formation_slot:
 	state_machine.setup(troop, map_node, formation_slot)
 
 
-
 ## Called when an enemy attacks this unit
-func receive_attack(_attacker_faction: ECharacterFaction, damage : float) -> void:
+func receive_attack(_attacker_faction: UnitUtilities, damage : float) -> void:
 	# already killed by another attack
 	if current_hp <= 0.0:
 		return
