@@ -27,9 +27,13 @@ func receive_attack(_attacker_faction: UnitUtilities.ECharacterFaction, damage :
 		return
 
 	current_hp = clamp(current_hp, 0.0, current_hp - damage)
+
+	# dead
 	if (current_hp == 0.0):
+		is_alive = false
 		# stop the states
 		state_machine.set_state(null)
 		# remove from the node/path list
-		state_machine.set_new_node_and_path(null, null)
+		state_machine.set_new_node_and_path(null, null)		
+		# destroy
 		queue_free()

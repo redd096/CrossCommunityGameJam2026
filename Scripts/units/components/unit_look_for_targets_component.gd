@@ -24,7 +24,7 @@ func is_in_area(target: OrphanUnit) -> bool:
 func are_there_targets(faction_to_check: UnitUtilities.ECharacterFaction) -> bool:
 	for body: Node3D in FightUtilities.find_targets_in_area(targets_area):
 		var unit: OrphanUnit = body as OrphanUnit
-		if unit and unit.faction == faction_to_check:
+		if unit and unit.is_alive and unit.faction == faction_to_check:
 			return true
 	
 	return false
@@ -36,7 +36,7 @@ func find_target(faction_to_check: UnitUtilities.ECharacterFaction) -> OrphanUni
 	var targets: Array[Node3D] = []
 	for body: Node3D in FightUtilities.find_targets_in_area(targets_area):
 		var unit: OrphanUnit = body as OrphanUnit
-		if unit and unit.faction == faction_to_check:
+		if unit and unit.is_alive and unit.faction == faction_to_check:
 			targets.append(unit)
 
 	# then pick the best one
