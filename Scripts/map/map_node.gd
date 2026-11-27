@@ -10,21 +10,18 @@ class_name MapNode
 @export_group("Tower prefabs")
 @export var empty_tower : TroopResource 	## OrphanUnit
 @export var player_tower : TroopResource	## OrphanUnit
-@export var enemy_tower : TroopResource	## OrphanUnit
+@export var enemy_tower : TroopResource		## OrphanUnit
 
 @export_group("Player spawner")
-@export var selected_material: Material ## material used by the tower's roof when this is the selected spawner
+@export var flag: Node3D ## shown when this is the selected spawner. This is placed in MapNode prefab
 
 @export_group("Arrow Path")
 @export var arrow_prefab : PackedScene ## PathPlayerSelector
 @export var arrow_distance : float = 2.5 ## distance from this node, in meter along the path
 
-const ROOF_SURFACE: int = 2 ## surface of the tower's mesh with the color of the faction
-
 signal on_conquisted_node(new_faction: UnitUtilities.ECharacterFaction)
 
 var selected_path : MapPath ## path selected by the player, null when there isn't one or this node is no more of the player
-var default_roof_material : Material ## roof of the current tower when not selected
 var is_selected_spawner : bool ## is this the spawner selected by the player?
 var current_faction: UnitUtilities.ECharacterFaction
 ## key: path that starts from this node; value: Array[OrphanUnit] on this node/path
@@ -74,8 +71,7 @@ func _recreate_tower() -> void:
 	add_child(_current_unit)
 	_current_unit.setup(troop_resource, self)
 
-	# save its roof color, and update it because the new tower doesn't know if this node is selected
-	default_roof_material = _get_tower_mesh().get_surface_override_material(ROOF_SURFACE)
+	# update the flag, because a new faction can change it
 	_update_selected_spawner()
 
 
@@ -88,18 +84,8 @@ func set_selected_spawner(selected: bool) -> void:
 
 
 func _update_selected_spawner() -> void:
-	# PlayerManager can select this node before its _ready, the tower will be updated when created
-	if not _current_unit:
-		return
-
-	# change color only if the node is of the player
-	var selected: bool = is_selected_spawner and current_faction == UnitUtilities.ECharacterFaction.PLAYER
-	_get_tower_mesh().set_surface_override_material(ROOF_SURFACE, selected_material if selected else default_roof_material)
-
-
-func _get_tower_mesh() -> MeshInstance3D:
-	# find first MeshInstance3D child in the tower
-	return _current_unit.find_children("*", "MeshInstance3D", false)[0]
+	# show the flag only if the node is of the player
+	flag.visible = is_selected_spawner and current_faction == UnitUtilities.ECharacterFaction.PLAYER
 
 #endregion
 

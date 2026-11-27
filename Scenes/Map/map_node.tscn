@@ -1,20 +1,23 @@
 [gd_scene format=3 uid="uid://c2asd1eow1nf2"]
 
 [ext_resource type="Script" uid="uid://dce1w37ti0adq" path="res://Scripts/map/map_node.gd" id="1_67ker"]
-[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Towers/tower_empty.tscn" id="2_6bipi"]
+[ext_resource type="PackedScene" uid="uid://2yjli6a80y51" path="res://Scenes/Units/tower/tower_empty.tscn" id="2_6bipi"]
 [ext_resource type="Resource" uid="uid://cs856hay7ciut" path="res://ScriptableObjects/default_empty_tower.tres" id="2_vipkl"]
 [ext_resource type="Resource" uid="uid://birpwq10fxbj7" path="res://ScriptableObjects/PlayerUnits/default_player_tower.tres" id="3_bb76c"]
 [ext_resource type="Resource" uid="uid://dr50kgp4wxqdj" path="res://ScriptableObjects/EnemyUnits/default_enemy_tower.tres" id="4_p1mky"]
-[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="5_p1mky"]
 [ext_resource type="PackedScene" uid="uid://btusrjq64rhx4" path="res://Scenes/Map/path_arrow.tscn" id="6_n06pl"]
+[ext_resource type="PackedScene" uid="uid://cg8jndreupnpt" path="res://Models/Flag/flag_prefab.tscn" id="8_vipkl"]
 
-[node name="MapNode_A" type="Node3D" unique_id=1623825951]
+[node name="MapNode_A" type="Node3D" unique_id=1623825951 node_paths=PackedStringArray("flag")]
 script = ExtResource("1_67ker")
 empty_tower = ExtResource("2_vipkl")
 player_tower = ExtResource("3_bb76c")
 enemy_tower = ExtResource("4_p1mky")
-selected_material = ExtResource("5_p1mky")
+flag = NodePath("Flag_Prefab")
 arrow_prefab = ExtResource("6_n06pl")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
 [node name="MapNode_Empty" parent="." unique_id=1464329382 instance=ExtResource("2_6bipi")]
+
+[node name="Flag_Prefab" parent="." unique_id=1082041586 instance=ExtResource("8_vipkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76795125, 0, 0)

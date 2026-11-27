@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cg8jndreupnpt"]
+
+[ext_resource type="PackedScene" uid="uid://71d8olytqx1o" path="res://Models/Flag/Flag_AnimWaving.fbx" id="1_eq4m0"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_10nrw"]
+animation = &"Waving"
+
+[node name="Flag_Prefab" unique_id=1082041586 instance=ExtResource("1_eq4m0")]
+
+[node name="Skeleton3D" parent="." index="1" unique_id=1498546796]
+bones/1/position = Vector3(0.41306254, 0.17043962, 0)
+bones/1/rotation = Quaternion(1.04866765e-17, 0.15460034, -1.1107512e-17, 0.9879771)
+bones/2/position = Vector3(0.5839349, -0.0498533, 0)
+bones/2/rotation = Quaternion(3.3044257e-18, 0.022755934, -1.95169e-18, 0.999741)
+bones/3/position = Vector3(0.49064463, -0.22571982, 0.0337034)
+bones/3/rotation = Quaternion(0.013982398, 0.04944215, -0.14109282, 0.9886621)
+bones/3/scale = Vector3(0.99999994, 1, 0.99999994)
+bones/4/position = Vector3(0.27156648, -4.6912576e-17, 5.551115e-16)
+bones/4/rotation = Quaternion(0, -6.938894e-18, 0, 1)
+
+[node name="nurbsCircle1" parent="." index="2" unique_id=1749711199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31896442, 2.2637484, -0.17043962)
+
+[node name="nurbsCircle2" parent="." index="3" unique_id=518071874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9018917, 2.2294588, -0.12058633)
+
+[node name="nurbsCircle3" parent="." index="4" unique_id=1832281237]
+transform = Transform3D(0.9582688, 0.056291472, -0.28027153, -0.05409877, 0.99841434, 0.015560085, 0.280703, 0.00025160145, 0.95979464, 1.3933794, 2.211929, 0.10509278)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="6" unique_id=679588975]
+tree_root = SubResource("AnimationNodeAnimation_10nrw")
+anim_player = NodePath("../AnimationPlayer")
