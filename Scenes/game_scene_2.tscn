@@ -12,6 +12,9 @@
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="10_4e3x8"]
 [ext_resource type="Material" uid="uid://c04pnngtpch7f" path="res://Materials/floor.tres" id="11_qty1c"]
 [ext_resource type="PackedScene" uid="uid://c2asd1eow1nf2" path="res://Scenes/Map/map_node.tscn" id="12_oit20"]
+[ext_resource type="Material" uid="uid://bbvm3p2x6ao0f" path="res://tests/materials_for_tests/floor.tres" id="12_qhgvg"]
+[ext_resource type="Script" uid="uid://bw5f8x8auo2rf" path="res://Scripts/camera/camera_system.gd" id="13_xuj4x"]
+[ext_resource type="Material" uid="uid://4evgxxrbxg6b" path="res://Materials/arrow_selected_material.tres" id="14_oit20"]
 [ext_resource type="Script" uid="uid://derwx2rh3vnuh" path="res://Scripts/map/map_path.gd" id="18_tn2ii"]
 [ext_resource type="Material" uid="uid://wm2a70eyop23" path="res://Materials/path_grass.tres" id="19_jl082"]
 [ext_resource type="Script" uid="uid://dx8733yuhixif" path="res://Scripts/enemy_spawn_chance.gd" id="20_chance"]
@@ -31,6 +34,19 @@ sky = SubResource("Sky_rgj8m")
 script = ExtResource("20_chance")
 troop = ExtResource("10_4e3x8")
 metadata/_custom_type_script = "uid://dx8733yuhixif"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxjox"]
+margin = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_psxyw"]
+size = Vector3(5, 5, 35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_42qdx"]
+size = Vector3(80, 5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r3tbo"]
+material = ExtResource("12_qhgvg")
+size = Vector3(80, 1, 30)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gtbs0"]
 size = Vector3(80, 1, 30)
@@ -173,9 +189,6 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=20424259]
 environment = SubResource("Environment_2fmhe")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=676570752]
-transform = Transform3D(1, 0, 0, 0, 0.607503, 0.7943175, 0, -0.7943175, 0.607503, 0, 23.83, 18.225)
-
 [node name="---------------------------" type="Node" parent="." unique_id=972089372]
 
 [node name="PlayerManager" type="Node" parent="." unique_id=1204220021 node_paths=PackedStringArray("start_selected_spawner")]
@@ -190,7 +203,7 @@ player_manager = NodePath("../PlayerManager")
 [node name="PlayerMouseManager" type="Node" parent="." unique_id=2022696048 node_paths=PackedStringArray("player_manager", "camera")]
 script = ExtResource("6_yxjox")
 player_manager = NodePath("../PlayerManager")
-camera = NodePath("../Camera3D")
+camera = NodePath("../CameraTarget/Camera3D")
 metadata/_custom_type_script = "uid://bwoeuf3twejih"
 
 [node name="HoverOutline" type="Node" parent="." unique_id=79426105 node_paths=PackedStringArray("player_mouse_manager")]
@@ -206,6 +219,66 @@ spawnable_troops = Array[ExtResource("20_chance")]([SubResource("Resource_8wyov"
 metadata/_custom_type_script = "uid://cdpi7dawbfypr"
 
 [node name="---------------------------2" type="Node" parent="." unique_id=851933575]
+
+[node name="CameraSystem" type="Node3D" parent="." unique_id=1612589182 node_paths=PackedStringArray("camera", "camera_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("13_xuj4x")
+camera = NodePath("../CameraTarget/Camera3D")
+camera_target = NodePath("../CameraTarget")
+camera_offset = Vector3(0, 16, 12)
+enable_move = true
+enable_mouse_pan = true
+enable_zoom = true
+camera_move_speed = 20.0
+rotation_speed = 2.5
+drag_pan_speed = 0.25
+zoom_speed = 16.0
+zoom_min_dist = 10.0
+zoom_max_dist = 24.0
+metadata/_custom_type_script = "uid://bw5f8x8auo2rf"
+
+[node name="CameraTarget" type="CharacterBody3D" parent="." unique_id=1740813119]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraTarget" unique_id=21440547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_yxjox")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CameraTarget/CollisionShape3D" unique_id=1337072557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
+material = ExtResource("14_oit20")
+
+[node name="Camera3D" type="Camera3D" parent="CameraTarget" unique_id=1414035187]
+physics_interpolation_mode = 2
+transform = Transform3D(1, 0, 0, 0, 0.58430475, 0.81153435, 0, -0.81153435, 0.58430475, 0, 16, 12)
+
+[node name="CameraBounds" type="StaticBody3D" parent="." unique_id=97976277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D_Vert" type="CollisionShape3D" parent="CameraBounds" unique_id=75426978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0.5, 0)
+shape = SubResource("BoxShape3D_psxyw")
+
+[node name="CollisionShape3D_Vert2" type="CollisionShape3D" parent="CameraBounds" unique_id=1501362908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0.5, 0)
+shape = SubResource("BoxShape3D_psxyw")
+
+[node name="CollisionShape3D_Hor" type="CollisionShape3D" parent="CameraBounds" unique_id=668629825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15)
+shape = SubResource("BoxShape3D_42qdx")
+
+[node name="CollisionShape3D_Hor2" type="CollisionShape3D" parent="CameraBounds" unique_id=26040212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 15)
+shape = SubResource("BoxShape3D_42qdx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraBounds" unique_id=181540277]
+mesh = SubResource("BoxMesh_r3tbo")
+
+[node name="---------------------------3" type="Node" parent="." unique_id=58779030]
 
 [node name="Map" type="Node3D" parent="." unique_id=389898091]
 
