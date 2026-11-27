@@ -24,7 +24,7 @@ func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
 		state_machine.setup(troop_resource, map_node, Vector2.ZERO)
 
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
-func receive_attack(attacker_faction: UnitUtilities.ECharacterFaction, damage : float) -> void:
+func receive_attack(attacker_faction: UnitUtilities.ECharacterFaction, damage : float, _from_position: Vector3) -> void:
 	# already destroyed
 	if current_hp <= 0.0:
 		return

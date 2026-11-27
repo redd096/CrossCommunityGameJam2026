@@ -14,10 +14,39 @@ class_name UnitRagdollComponent
 
 @export var ragdoll: PhysicalBoneSimulator3D
 
+@export_group("Death animation")
+@export var unit: MovableOrphanUnit
+## Time in ragdoll before destroy this object
+@export var ragdoll_time_before_destroy: float = 10.0
+## Unit colliders to disable when start ragdoll
+@export var unit_colliders: Array[CollisionShape3D]
+## Unit animations to disable when start ragdoll
+@export var unit_animations: Array[AnimationTree]
+## Horizontal impulse applied to every bone when the ragdoll starts
+@export var death_push_force: float = 3.0
+## Upward impulse applied to every bone when the ragdoll starts
+@export var death_up_force: float = 2.0
+
 
 ## On start, disable ragdoll
-func setup() -> void:
+func _ready() -> void:
 	stop_ragdoll()
+
+
+## Start ragdoll pushed along direction (e.g. from attacker to this unit) and after few seconds, destroy this unit
+func death_animation(direction: Vector3) -> void:
+	# horizontal impulse + vertical impulse
+	var push: Vector3 = Vector3(direction.x, 0.0, direction.z).normalized()
+	push *= death_push_force
+	push.y = death_up_force
+
+	# start ragdoll, apply impulse, wait and destroy
+	start_ragdoll(unit_colliders, unit_animations)
+	apply_impulse(push)
+	await get_tree().create_timer(ragdoll_time_before_destroy).timeout
+	unit.queue_free()
+
+
 
 
 ## Start ragdoll (enable PhysicalBoneSimulator3D and every joint and collision in it) [br]
@@ -32,6 +61,13 @@ func start_ragdoll(colliders: Array[CollisionShape3D] = [], animations: Array[An
 	# and start ragdoll
 	ragdoll.active = true						# enable joints colliders
 	ragdoll.physical_bones_start_simulation()	# start physics simulation
+
+
+## Apply the same impulse (global space) to every physical bone, so the whole body is pushed together
+func apply_impulse(impulse: Vector3) -> void:
+	for bone: Node in ragdoll.get_children():
+		if bone is PhysicalBone3D:
+			bone.apply_central_impulse(impulse)
 
 
 ## Stop ragdoll (disable PhysicalBoneSimulator3D and every joint and collision in it) [br]

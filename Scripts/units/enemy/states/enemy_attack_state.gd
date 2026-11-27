@@ -31,7 +31,7 @@ func _physics_process_state(delta: float) -> void:
 	_attack_timer += delta
 	if _attack_timer > attack_delay:
 		_attack_timer = 0.0
-		_target.receive_attack(sm.unit.faction, sm.unit.attack_damage)
+		_target.receive_attack(sm.unit.faction, sm.unit.attack_damage, sm.unit.global_position)
 
 
 func _back_to_previous_state() -> void:
