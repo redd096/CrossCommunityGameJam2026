@@ -5,6 +5,10 @@ class_name PathGenerator
 ## Editor tool to create and destroy the paths between MapNodes. [br]
 ## Put the MapNodes in scene, set two of them in start_node and end_node, and press the buttons
 
+@export_group("MUST BE SET")
+@export var update_paths_in_update: bool = true ## If true, when user move a MapNode, the paths positions are updated with it
+@export var map_path_prefab: PackedScene ## MapPath
+
 @export_group("Path")
 ## node at the start of the path
 @export var start_node: MapNode: 
@@ -37,9 +41,6 @@ class_name PathGenerator
 ## Show in editor the towers of the two nodes, based on their faction
 @export_tool_button("Update towers", "MeshInstance3D") var update_towers_button: Callable = update_towers
 
-@export_group("Prefabs")
-@export var map_path_prefab: PackedScene ## MapPath
-
 
 
 
@@ -49,6 +50,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	# only if true
+	if not update_paths_in_update:
+		return
 	# only in scene
 	var root: Node = get_tree().edited_scene_root
 	if root == null:
