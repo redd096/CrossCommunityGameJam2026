@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cb4snnclsnwuo"]
+
+[ext_resource type="PackedScene" uid="uid://dp26vuy8cph4c" path="res://Scenes/Units/player_unit.tscn" id="1_bmbpr"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7ecl"]
+
+[node name="DefaultPlayerUnit" unique_id=1893412705 instance=ExtResource("1_bmbpr")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0" unique_id=1281278544]
+transform = Transform3D(0.578768, 0, 0, 0, 1, 0, 0, 0, 0.5554065, 0, 1.5909727, 0)
+mesh = SubResource("CapsuleMesh_q7ecl")

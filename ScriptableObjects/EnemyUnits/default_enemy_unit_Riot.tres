@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://dpcsfo3li2ov"]
+
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="1_oo81c"]
+[ext_resource type="PackedScene" uid="uid://exsuavd4vgp3" path="res://Scenes/Units/enemy/default_enemy_unit_Riot.tscn" id="2_oo81c"]
+
+[resource]
+script = ExtResource("1_oo81c")
+troop_prefab = ExtResource("2_oo81c")
+faction = 1
+health = 200.0
+attack_damage = 30.0
+attack_delay = 0.3
+troop_name = &"Riot"
+metadata/_custom_type_script = "uid://dq42um1m8nncq"

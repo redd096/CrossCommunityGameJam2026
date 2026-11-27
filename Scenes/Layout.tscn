@@ -1,0 +1,504 @@
+[gd_scene format=3 uid="uid://cufgpjdrjxanp"]
+
+[ext_resource type="Script" uid="uid://dh7ryi52cb4rf" path="res://Scripts/managers/player_manager.gd" id="1_0dtrj"]
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="2_nobqo"]
+[ext_resource type="Resource" uid="uid://dg5dm7ljdy02e" path="res://ScriptableObjects/PlayerUnits/default_player_unit.tres" id="3_qhuqn"]
+[ext_resource type="Resource" uid="uid://dityss1qu7adb" path="res://ScriptableObjects/PlayerUnits/multiple_player_units.tres" id="4_h6rcq"]
+[ext_resource type="PackedScene" uid="uid://dh6qxehqe1qpi" path="res://Scenes/UI/player_ui.tscn" id="5_3av68"]
+[ext_resource type="Resource" uid="uid://cxdi302ysqnix" path="res://ScriptableObjects/PlayerUnits/default_player_unit_Football.tres" id="5_h6rcq"]
+[ext_resource type="Script" uid="uid://bwoeuf3twejih" path="res://Scripts/managers/player_mouse_manager.gd" id="6_pdh8r"]
+[ext_resource type="Script" uid="uid://bidk1am4e7n7u" path="res://Scripts/managers/hover_outline.gd" id="7_r6p07"]
+[ext_resource type="Material" uid="uid://otm5mqi7dk15" path="res://Materials/outline_material.tres" id="8_r8tlv"]
+[ext_resource type="Script" uid="uid://cdpi7dawbfypr" path="res://Scripts/managers/enemy_manager.gd" id="9_wtpuo"]
+[ext_resource type="Script" uid="uid://dx8733yuhixif" path="res://Scripts/enemy_spawn_chance.gd" id="10_0dtrj"]
+[ext_resource type="Material" uid="uid://c04pnngtpch7f" path="res://Materials/floor.tres" id="11_4o32a"]
+[ext_resource type="Script" uid="uid://dlbcrlhpilxn0" path="res://Scripts/map/path_generator.gd" id="12_5vvak"]
+[ext_resource type="PackedScene" uid="uid://4gbbgfo84y2h" path="res://Scenes/Map/map_path.tscn" id="13_na5hx"]
+[ext_resource type="PackedScene" uid="uid://c2asd1eow1nf2" path="res://Scenes/Map/map_node.tscn" id="14_3bdn3"]
+[ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="15_enemy"]
+[ext_resource type="Resource" uid="uid://dpcsfo3li2ov" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit_Riot.tres" id="16_riot"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_rgj8m"]
+sky_material = SubResource("ProceduralSkyMaterial_1ixah")
+
+[sub_resource type="Environment" id="Environment_2fmhe"]
+background_mode = 2
+sky = SubResource("Sky_rgj8m")
+
+[sub_resource type="Resource" id="Resource_aqdxa"]
+script = ExtResource("10_0dtrj")
+troop = ExtResource("15_enemy")
+metadata/_custom_type_script = "uid://dx8733yuhixif"
+
+[sub_resource type="Resource" id="Resource_yvmck"]
+script = ExtResource("10_0dtrj")
+troop = ExtResource("16_riot")
+metadata/_custom_type_script = "uid://dx8733yuhixif"
+
+[sub_resource type="BoxMesh" id="BoxMesh_gtbs0"]
+size = Vector3(80, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_np3vi"]
+size = Vector3(80, 1, 30)
+
+[sub_resource type="Curve3D" id="Curve3D_0dtrj"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -32.223648, 0, 0.4, 0, 0, 0, 0, 0, 0, -26.162636, 0, 4.792043),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_lnkfh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -32.223648, 0, 0.4, 0, 0, 0, 0, 0, 0, -26.162636, 0, -5.683168),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_nobqo"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -26.162636, 0, -5.683168, 0, 0, 0, 0, 0, 0, -20.180145, 0, -8.206257),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_qhuqn"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -26.162636, 0, 4.792043, 0, 0, 0, 0, 0, 0, -19.799034, 0, 6.3605533),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_h6rcq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -20.180145, 0, -8.206257, 0, 0, 0, 0, 0, 0, -11.323185, 0, -5.5808444),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_3av68"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -20.180145, 0, -8.206257, 0, 0, 0, 0, 0, 0, -20.180145, 0, 0.47454596),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_pdh8r"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -20.180145, 0, 0.47454596, 0, 0, 0, 0, 0, 0, -9.61655, 0, 0.9826908),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_r6p07"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -20.180145, 0, 0.47454596, 0, 0, 0, 0, 0, 0, -11.323185, 0, -5.5808444),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_r8tlv"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -19.799034, 0, 6.3605533, 0, 0, 0, 0, 0, 0, -10.779469, 0, 7.2498093),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_wtpuo"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -19.799034, 0, 6.3605533, 0, 0, 0, 0, 0, 0, -20.180145, 0, 0.47454596),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_vjhmg"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -11.323185, 0, -5.5808444, 0, 0, 0, 0, 0, 0, -3.36903, 0, -4.8227525),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_4o32a"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -9.61655, 0, 0.9826908, 0, 0, 0, 0, 0, 0, -2.959465, 0, 5.027836),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_5vvak"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -10.779469, 0, 7.2498093, 0, 0, 0, 0, 0, 0, -2.959465, 0, 5.027836),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_na5hx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -3.36903, 0, -4.8227525, 0, 0, 0, 0, 0, 0, 2.8982925, 0, -6.5211687),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_3bdn3"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -3.36903, 0, -4.8227525, 0, 0, 0, 0, 0, 0, -9.61655, 0, 0.9826908),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_vjqbb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.959465, 0, 5.027836, 0, 0, 0, 0, 0, 0, 7.4713936, 0, 8.712969),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_52mhk"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.959465, 0, 5.027836, 0, 0, 0, 0, 0, 0, 4.800003, 0, 1.321455),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_gxtlj"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.8982925, 0, -6.5211687, 0, 0, 0, 0, 0, 0, 14.4583845, 0, -5.3216686),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_42bh6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.8982925, 0, -6.5211687, 0, 0, 0, 0, 0, 0, 4.800003, 0, 1.321455),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_welmn"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.800003, 0, 1.321455, 0, 0, 0, 0, 0, 0, 14.4583845, 0, 5.3215017),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_gq13t"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4.800003, 0, 1.321455, 0, 0, 0, 0, 0, 0, 14.4583845, 0, -5.3216686),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_4yrgt"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.4713936, 0, 8.712969, 0, 0, 0, 0, 0, 0, 14.4583845, 0, 5.3215017),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_tsu4n"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 14.4583845, 0, -5.3216686, 0, 0, 0, 0, 0, 0, 21.233646, 0, 0.38985586),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_227aw"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 14.4583845, 0, 5.3215017, 0, 0, 0, 0, 0, 0, 21.233646, 0, 0.38985586),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_rbpda"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 21.233646, 0, 0.38985586, 0, 0, 0, 0, 0, 0, 26.780891, 0, 0.38985586),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="GameScene" type="Node3D" unique_id=1813743792]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1967651581]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=20424259]
+environment = SubResource("Environment_2fmhe")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=676570752]
+transform = Transform3D(1, 0, 0, 0, 0.607503, 0.7943175, 0, -0.7943175, 0.607503, 0, 23.83, 18.225)
+
+[node name="---------------------------" type="Node" parent="." unique_id=972089372]
+
+[node name="PlayerManager" type="Node" parent="." unique_id=1204220021 node_paths=PackedStringArray("start_selected_spawner")]
+script = ExtResource("1_0dtrj")
+max_mana = 30
+increment_mana_per_second = 1.0
+start_selected_spawner = NodePath("../Map/MapNode_A")
+spawnable_troops = Array[ExtResource("2_nobqo")]([ExtResource("3_qhuqn"), ExtResource("4_h6rcq"), ExtResource("5_h6rcq")])
+metadata/_custom_type_script = "uid://dh7ryi52cb4rf"
+
+[node name="PlayerUI" parent="." unique_id=526003429 node_paths=PackedStringArray("player_manager") instance=ExtResource("5_3av68")]
+player_manager = NodePath("../PlayerManager")
+
+[node name="PlayerMouseManager" type="Node" parent="." unique_id=2022696048 node_paths=PackedStringArray("player_manager", "camera")]
+script = ExtResource("6_pdh8r")
+player_manager = NodePath("../PlayerManager")
+camera = NodePath("../Camera3D")
+metadata/_custom_type_script = "uid://bwoeuf3twejih"
+
+[node name="HoverOutline" type="Node" parent="." unique_id=79426105 node_paths=PackedStringArray("player_mouse_manager")]
+script = ExtResource("7_r6p07")
+player_mouse_manager = NodePath("../PlayerMouseManager")
+outline_material = ExtResource("8_r8tlv")
+metadata/_custom_type_script = "uid://bidk1am4e7n7u"
+
+[node name="EnemyManager" type="Node" parent="." unique_id=1119141982 node_paths=PackedStringArray("spawner")]
+script = ExtResource("9_wtpuo")
+spawner = NodePath("../Map/MapNode_R")
+spawnable_troops = Array[ExtResource("10_0dtrj")]([SubResource("Resource_aqdxa"), SubResource("Resource_yvmck")])
+spawn_interval = 4.0
+metadata/_custom_type_script = "uid://cdpi7dawbfypr"
+
+[node name="---------------------------2" type="Node" parent="." unique_id=851933575]
+
+[node name="Map" type="Node3D" parent="." unique_id=389898091]
+
+[node name="Floor" type="StaticBody3D" parent="Map" unique_id=1436487323]
+transform = Transform3D(1, 0, 0, 0, 1, 2.9802322e-08, 0, -2.9802322e-08, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Floor" unique_id=1030337515]
+material_override = ExtResource("11_4o32a")
+mesh = SubResource("BoxMesh_gtbs0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor" unique_id=1642318509]
+shape = SubResource("BoxShape3D_np3vi")
+
+[node name="---------- Node A ----------" type="Node" parent="Map" unique_id=934522024]
+
+[node name="PathGenerator" type="Node" parent="Map" unique_id=742085157 node_paths=PackedStringArray("start_node", "end_node")]
+script = ExtResource("12_5vvak")
+map_path_prefab = ExtResource("13_na5hx")
+start_node = NodePath("../MapNode_Q")
+end_node = NodePath("../MapNode_R")
+start_faction = 1
+end_faction = 1
+metadata/_custom_type_script = "uid://dlbcrlhpilxn0"
+
+[node name="MapNode_A" parent="Map" unique_id=1623825951 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.223648, 0, 0.4)
+paths = [NodePath("../MapPath"), NodePath("../MapPath2")]
+
+[node name="MapPath2" parent="Map" unique_id=1781790996 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_0dtrj")
+start_node = NodePath("../MapNode_A")
+end_node = NodePath("../MapNode_C")
+
+[node name="MapPath" parent="Map" unique_id=2084096722 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_lnkfh")
+start_node = NodePath("../MapNode_A")
+end_node = NodePath("../MapNode_B")
+
+[node name="MapNode_B" parent="Map" unique_id=1268309156 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.162636, 0, -5.683168)
+default_faction = 2
+paths = [NodePath("../MapPath"), NodePath("../MapPath3")]
+
+[node name="MapPath3" parent="Map" unique_id=604456009 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_nobqo")
+start_node = NodePath("../MapNode_B")
+end_node = NodePath("../MapNode_D")
+
+[node name="MapNode_C" parent="Map" unique_id=1817932726 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.162636, 0, 4.792043)
+default_faction = 2
+paths = [NodePath("../MapPath2"), NodePath("../MapPath5")]
+
+[node name="MapPath5" parent="Map" unique_id=880589687 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_qhuqn")
+start_node = NodePath("../MapNode_C")
+end_node = NodePath("../MapNode_F")
+
+[node name="MapNode_D" parent="Map" unique_id=1724106102 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.180145, 0, -8.206257)
+default_faction = 2
+paths = [NodePath("../MapPath3"), NodePath("../MapPath4"), NodePath("../MapPath7")]
+
+[node name="MapPath7" parent="Map" unique_id=401778716 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_h6rcq")
+start_node = NodePath("../MapNode_D")
+end_node = NodePath("../MapNode_G")
+
+[node name="MapPath4" parent="Map" unique_id=2021577247 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_3av68")
+start_node = NodePath("../MapNode_D")
+end_node = NodePath("../MapNode_E")
+
+[node name="MapNode_E" parent="Map" unique_id=1961153118 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.180145, 0, 0.47454596)
+default_faction = 2
+paths = [NodePath("../MapPath4"), NodePath("../MapPath6"), NodePath("../MapPath8"), NodePath("../MapPath9")]
+
+[node name="MapPath9" parent="Map" unique_id=1117545399 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_pdh8r")
+start_node = NodePath("../MapNode_E")
+end_node = NodePath("../MapNode_H")
+
+[node name="MapPath8" parent="Map" unique_id=1394350379 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_r6p07")
+start_node = NodePath("../MapNode_E")
+end_node = NodePath("../MapNode_G")
+
+[node name="MapNode_F" parent="Map" unique_id=540961681 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.799034, 0, 6.3605533)
+default_faction = 2
+paths = [NodePath("../MapPath5"), NodePath("../MapPath6"), NodePath("../MapPath10")]
+
+[node name="MapPath10" parent="Map" unique_id=204129327 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_r8tlv")
+start_node = NodePath("../MapNode_F")
+end_node = NodePath("../MapNode_I")
+
+[node name="MapPath6" parent="Map" unique_id=1462532122 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_wtpuo")
+start_node = NodePath("../MapNode_F")
+end_node = NodePath("../MapNode_E")
+
+[node name="MapNode_G" parent="Map" unique_id=1730025178 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.323185, 0, -5.5808444)
+default_faction = 2
+paths = [NodePath("../MapPath7"), NodePath("../MapPath8"), NodePath("../MapPath13")]
+
+[node name="MapPath13" parent="Map" unique_id=606259147 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_vjhmg")
+start_node = NodePath("../MapNode_G")
+end_node = NodePath("../MapNode_J")
+
+[node name="MapNode_H" parent="Map" unique_id=998203114 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61655, 0, 0.9826908)
+default_faction = 2
+paths = [NodePath("../MapPath9"), NodePath("../MapPath12"), NodePath("../MapPath14")]
+
+[node name="MapPath12" parent="Map" unique_id=913911320 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_4o32a")
+start_node = NodePath("../MapNode_H")
+end_node = NodePath("../MapNode_K")
+
+[node name="MapNode_I" parent="Map" unique_id=2012074418 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.779469, 0, 7.2498093)
+default_faction = 2
+paths = [NodePath("../MapPath10"), NodePath("../MapPath11")]
+
+[node name="MapPath11" parent="Map" unique_id=1689677532 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_5vvak")
+start_node = NodePath("../MapNode_I")
+end_node = NodePath("../MapNode_K")
+
+[node name="MapNode_J" parent="Map" unique_id=1400536766 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.36903, 0, -4.8227525)
+default_faction = 2
+paths = [NodePath("../MapPath13"), NodePath("../MapPath14"), NodePath("../MapPath15")]
+
+[node name="MapPath15" parent="Map" unique_id=1726681055 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_na5hx")
+start_node = NodePath("../MapNode_J")
+end_node = NodePath("../MapNode_L")
+
+[node name="MapPath14" parent="Map" unique_id=398358618 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_3bdn3")
+start_node = NodePath("../MapNode_J")
+end_node = NodePath("../MapNode_H")
+
+[node name="MapNode_K" parent="Map" unique_id=841700703 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.959465, 0, 5.027836)
+default_faction = 2
+paths = [NodePath("../MapPath11"), NodePath("../MapPath12"), NodePath("../MapPath17"), NodePath("../MapPath18")]
+
+[node name="MapPath18" parent="Map" unique_id=408816622 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_vjqbb")
+start_node = NodePath("../MapNode_K")
+end_node = NodePath("../MapNode_N")
+
+[node name="MapPath17" parent="Map" unique_id=917330876 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_52mhk")
+start_node = NodePath("../MapNode_K")
+end_node = NodePath("../MapNode_M")
+
+[node name="MapNode_L" parent="Map" unique_id=996848736 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8982925, 0, -6.5211687)
+default_faction = 1
+paths = [NodePath("../MapPath15"), NodePath("../MapPath16"), NodePath("../MapPath19")]
+
+[node name="MapPath19" parent="Map" unique_id=194103356 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_gxtlj")
+start_node = NodePath("../MapNode_L")
+end_node = NodePath("../MapNode_O")
+
+[node name="MapPath16" parent="Map" unique_id=79312642 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_42bh6")
+start_node = NodePath("../MapNode_L")
+end_node = NodePath("../MapNode_M")
+
+[node name="MapNode_M" parent="Map" unique_id=624604991 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.800003, 0, 1.321455)
+default_faction = 1
+paths = [NodePath("../MapPath16"), NodePath("../MapPath17"), NodePath("../MapPath20"), NodePath("../MapPath21")]
+
+[node name="MapPath21" parent="Map" unique_id=728135334 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_welmn")
+start_node = NodePath("../MapNode_M")
+end_node = NodePath("../MapNode_P")
+
+[node name="MapPath20" parent="Map" unique_id=1100806788 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_gq13t")
+start_node = NodePath("../MapNode_M")
+end_node = NodePath("../MapNode_O")
+
+[node name="MapNode_N" parent="Map" unique_id=1348320418 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4713936, 0, 8.712969)
+default_faction = 1
+paths = [NodePath("../MapPath18"), NodePath("../MapPath22")]
+
+[node name="MapPath22" parent="Map" unique_id=48801956 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_4yrgt")
+start_node = NodePath("../MapNode_N")
+end_node = NodePath("../MapNode_P")
+
+[node name="MapNode_O" parent="Map" unique_id=298168482 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4583845, 0, -5.3216686)
+default_faction = 1
+paths = [NodePath("../MapPath19"), NodePath("../MapPath20"), NodePath("../MapPath24")]
+
+[node name="MapPath24" parent="Map" unique_id=1967061075 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_tsu4n")
+start_node = NodePath("../MapNode_O")
+end_node = NodePath("../MapNode_Q")
+
+[node name="MapNode_P" parent="Map" unique_id=1147302936 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4583845, 0, 5.3215017)
+default_faction = 1
+paths = [NodePath("../MapPath21"), NodePath("../MapPath22"), NodePath("../MapPath23")]
+
+[node name="MapPath23" parent="Map" unique_id=376159379 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_227aw")
+start_node = NodePath("../MapNode_P")
+end_node = NodePath("../MapNode_Q")
+
+[node name="MapNode_Q" parent="Map" unique_id=1387209568 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.233646, 0, 0.38985586)
+default_faction = 1
+paths = [NodePath("../MapPath23"), NodePath("../MapPath24"), NodePath("../MapPath25")]
+
+[node name="MapPath25" parent="Map" unique_id=544720078 node_paths=PackedStringArray("start_node", "end_node") instance=ExtResource("13_na5hx")]
+curve = SubResource("Curve3D_rbpda")
+start_node = NodePath("../MapNode_Q")
+end_node = NodePath("../MapNode_R")
+
+[node name="MapNode_R" parent="Map" unique_id=406171704 node_paths=PackedStringArray("paths") instance=ExtResource("14_3bdn3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.780891, 0, 0.38985586)
+default_faction = 1
+paths = [NodePath("../MapPath25")]

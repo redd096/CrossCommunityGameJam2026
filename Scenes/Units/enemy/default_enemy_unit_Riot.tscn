@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://exsuavd4vgp3"]
+
+[ext_resource type="PackedScene" uid="uid://fuwpop7bqrso" path="res://Scenes/Units/enemy_unit.tscn" id="1_i445w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q7ecl"]
+
+[node name="DefaultEnemyUnit" unique_id=1740296113 instance=ExtResource("1_i445w")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stickman" parent_id_path=PackedInt32Array(1435321724) index="0" unique_id=237428343]
+transform = Transform3D(0.49143046, 0, 0, 0, 1, -7.4365275e-08, 0, -1.6292067e-07, -0.45645082, 0, 2.7499576, -4.4802493e-07)
+mesh = SubResource("CapsuleMesh_q7ecl")

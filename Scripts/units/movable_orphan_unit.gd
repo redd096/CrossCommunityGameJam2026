@@ -13,10 +13,10 @@ func receive_attack(_attacker_faction: UnitUtilities.ECharacterFaction, damage: 
 	if current_hp <= 0.0:
 		return
 
-	current_hp = clamp(current_hp, 0.0, current_hp - damage)
+	current_hp = maxf(current_hp - damage, 0.0)
 
 	# dead
-	if (current_hp == 0.0):
+	if current_hp <= 0.0:
 		is_alive = false
 		# stop the states
 		state_machine.set_state(null)

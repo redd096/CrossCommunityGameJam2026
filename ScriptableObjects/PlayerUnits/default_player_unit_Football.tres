@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TroopResource" format=3 uid="uid://cxdi302ysqnix"]
+
+[ext_resource type="Texture2D" uid="uid://c50uq6ktpjm84" path="res://icon.svg" id="1_fqtum"]
+[ext_resource type="Script" uid="uid://dq42um1m8nncq" path="res://Scripts/troop_resource.gd" id="2_av0i5"]
+[ext_resource type="PackedScene" uid="uid://cb4snnclsnwuo" path="res://Scenes/Units/player/default_player_unit_Football.tscn" id="3_fqtum"]
+
+[resource]
+script = ExtResource("2_av0i5")
+troop_prefab = ExtResource("3_fqtum")
+cost = 15
+health = 80.0
+attack_range = 15.0
+attack_damage = 50.0
+attack_delay = 0.4
+troop_name = &"Football Player"
+icon = ExtResource("1_fqtum")
+metadata/_custom_type_script = "uid://dq42um1m8nncq"
