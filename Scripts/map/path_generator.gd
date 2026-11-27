@@ -143,15 +143,21 @@ func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> v
 	var prefabs: Array[PackedScene] = [node.player_tower.troop_prefab, node.enemy_tower.troop_prefab, node.empty_tower.troop_prefab] # same order of the enum
 	var prefab: PackedScene = prefabs[faction]
 
-	# skip only if faction is right and there is exactly one tower, instantiated from the right prefab (so there is nothing to do)
-	if node.default_faction == faction and towers.size() == 1 and towers[0].scene_file_path == prefab.resource_path:
+	# skip only if faction is right, 
+	# there is only one or zero tower instantiated from this script, 
+	# and the showed tower (already in MapNode prefab or instantiated from this script) was instantiated from the correct prefab
+	var current_tower: Node3D = MapNode.get_placeholder_tower(node)
+	var scene_towers: int = towers.filter(func(tower: Node) -> bool: return tower.owner != node).size()
+	if node.default_faction == faction \
+		and current_tower and scene_towers <= 1 \
+		and current_tower.scene_file_path == prefab.resource_path:
 		return
 
 	# else, update the faction
 	node.default_faction = faction
 
 	# keep old tower position and rotation, so the new one replaces it where it was placed in scene
-	var old_transform: Transform3D = (towers[0] as Node3D).transform if not towers.is_empty() else Transform3D.IDENTITY
+	var old_transform: Transform3D = current_tower.transform if current_tower else Transform3D.IDENTITY
 
 	# destroy old tower and create the new one (in play they will be destroyed and recreated by MapNode)
 	for tower: Node in towers:

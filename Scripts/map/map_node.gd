@@ -35,13 +35,13 @@ var _current_unit : OrphanUnit ## the tower on this node
 var _arrows : Array[PathPlayerSelector] ## one for every path
 
 func _ready() -> void:
-	# on instantiate destroy editor tower placeholder
-	var placeholders: Array[Node] = find_children("*", "OrphanUnit")
-	# keep the placeholder offset, so every recreated tower is placed where it was put in scene
-	if not placeholders.is_empty():
-		var placeholder: Node3D = placeholders[0] as Node3D
+	# save placeholder offset, so every recreated tower is placed where it was put in scene
+	var placeholder: Node3D = get_placeholder_tower(self)
+	if placeholder:
 		_tower_offset = Vector2(placeholder.position.x, placeholder.position.z)
 		_tower_rotation = placeholder.rotation
+	# on instantiate destroy editor tower placeholder
+	var placeholders: Array[Node] = find_children("*", "OrphanUnit")
 	for p: Node in placeholders: p.queue_free()
 	# set faction and tower
 	current_faction = default_faction
@@ -49,6 +49,20 @@ func _ready() -> void:
 	# create disabled arrows
 	_create_arrows()
 	_update_arrows()
+
+
+## Return the first editor tower placeholder of this node. [br]
+## A tower added in scene (e.g. by PathGenerator) wins over the one in map_node prefab. [br]
+## Because when PathGenerator calls queue_free, Godot doesn't really delete the prefab child
+static func get_placeholder_tower(map_node: Node3D) -> Node3D:
+	# find every OrphanUnit child (towers)
+	var towers: Array[Node] = map_node.get_children().filter(func(child: Node) -> bool: return child is OrphanUnit)
+	# try find tower added in scene 
+	for tower: Node in towers:
+		if tower.owner != map_node: # prefab children are owned by the MapNode instance, scene children by the scene root
+			return tower
+	# else, return the first tower found
+	return towers[0] if not towers.is_empty() else null
 
 
 func on_tower_destroyed(destroyer_faction: UnitUtilities.ECharacterFaction) -> void:
