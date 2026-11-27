@@ -7,6 +7,7 @@ class_name PathGenerator
 
 @export_group("MUST BE SET")
 @export var update_paths_in_update: bool = true ## If true, when user move a MapNode, the paths positions are updated with it
+@export var update_towers_in_update: bool = true ## If true, every MapNode always shows the tower of its default_faction
 @export var map_path_prefab: PackedScene ## MapPath
 
 @export_group("Path")
@@ -50,24 +51,29 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	# only if true
-	if not update_paths_in_update:
-		return
 	# only in scene
 	var root: Node = get_tree().edited_scene_root
 	if root == null:
 		return
+	var changed: bool = false
+
 	# keep paths always connected when move nodes
-	for path: MapPath in root.find_children("*", "MapPath"):
-		if path.start_node and path.end_node and path.curve and path.curve.point_count >= 2:
-			_move_point(path, 0, path.start_node)
-			_move_point(path, path.curve.point_count - 1, path.end_node)
+	if update_paths_in_update:
+		for path: MapPath in root.find_children("*", "MapPath"):
+			if path.start_node and path.end_node and path.curve and path.curve.point_count >= 2:
+				changed = _move_point(path, 0, path.start_node) or changed
+				changed = _move_point(path, path.curve.point_count - 1, path.end_node) or changed
 
+	# show on every MapNode the tower of its faction (_update_tower does nothing if it's already right)
+	if update_towers_in_update:
+		for node: MapNode in root.find_children("*", "MapNode"):
+			# skip nodes without tower resources, to not spam errors every frame
+			if node.player_tower and node.enemy_tower and node.empty_tower:
+				changed = _update_tower(node, node.default_faction) or changed
 
-func _move_point(path: MapPath, index: int, node: MapNode) -> void:
-	# update curve point position to match the MapNode
-	if node.is_inside_tree() and not path.to_local(node.global_position).is_equal_approx(path.curve.get_point_position(index)):
-		path.curve.set_point_position(index, path.to_local(node.global_position))
+	# mark unsaved only when something changed, not every frame.
+	if changed:
+		_set_unsaved()
 
 
 #region buttons
@@ -133,10 +139,20 @@ func _get_path_between_nodes() -> MapPath:
 	return null
 
 
-## Destroy old tower and instantiate new one as child of this MapNode
-func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> void:
+## Move the curve point to the MapNode position. Return true if it was moved, false if it was already there
+func _move_point(path: MapPath, index: int, node: MapNode) -> bool:
+	# update curve point position to match the MapNode
+	if node.is_inside_tree() and not path.to_local(node.global_position).is_equal_approx(path.curve.get_point_position(index)):
+		path.curve.set_point_position(index, path.to_local(node.global_position))
+		return true
+	return false
+
+
+## Destroy old tower and instantiate new one as child of this MapNode. [br]
+## Return true if the tower was recreated, false if it was already right
+func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> bool:
 	if node == null:
-		return
+		return false
 	# filter to return only OrphanUnit childs
 	var towers: Array[Node] = node.get_children().filter(func(child: Node) -> bool: return child is OrphanUnit)
 	# get correct prefab to instantiate
@@ -151,7 +167,7 @@ func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> v
 	if node.default_faction == faction \
 		and current_tower and scene_towers <= 1 \
 		and current_tower.scene_file_path == prefab.resource_path:
-		return
+		return false
 
 	# else, update the faction
 	node.default_faction = faction
@@ -167,6 +183,7 @@ func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> v
 	node.add_child(new_tower, true)
 	new_tower.owner = get_tree().edited_scene_root
 	(new_tower as Node3D).transform = old_transform
+	return true
 
 
 ## Show the scene as modified. With get_singleton, because EditorInterface doesn't exist in the exported game
