@@ -33,7 +33,7 @@ func _spawn_troop() :
 	for slot: Vector2 in offsets:
 		var spawned_troop: MovableOrphanUnit = troop.troop_prefab.instantiate() as MovableOrphanUnit
 		add_child(spawned_troop)
-		spawned_troop.setup_movable_unit(troop, spawner, slot)
+		spawned_troop.setup(troop, spawner, slot)
 
 
 ## Pick a random troop, using percentages. Return null if there are no valid troops

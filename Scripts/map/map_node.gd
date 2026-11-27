@@ -28,12 +28,17 @@ var current_faction: UnitUtilities.ECharacterFaction
 ## the currentUnit (the tower) is not in this array
 var current_units_on_this_node: Dictionary[MapPath, Array]
 
+var _tower_offset : Vector2 ## tower offset from this node (x, z), read from the editor placeholder
 var _current_unit : OrphanUnit ## the tower on this node
 var _arrows : Array[PathPlayerSelector] ## one for every path
 
 func _ready() -> void:
 	# on instantiate destroy editor tower placeholder
 	var placeholders: Array[Node] = find_children("*", "OrphanUnit")
+	# keep the placeholder offset, so every recreated tower is placed where it was put in scene
+	if not placeholders.is_empty():
+		var placeholder_position: Vector3 = (placeholders[0] as Node3D).global_position
+		_tower_offset = Vector2(placeholder_position.x - global_position.x, placeholder_position.z - global_position.z)
 	for p: Node in placeholders: p.queue_free()
 	# set faction and tower
 	current_faction = default_faction
@@ -69,7 +74,7 @@ func _recreate_tower() -> void:
 
 	_current_unit = troop_resource.troop_prefab.instantiate() as OrphanUnit
 	add_child(_current_unit)
-	_current_unit.setup(troop_resource, self)
+	_current_unit.setup(troop_resource, self, _tower_offset)
 
 	# update the flag, because a new faction can change it
 	_update_selected_spawner()

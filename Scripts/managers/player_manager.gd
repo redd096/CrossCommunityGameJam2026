@@ -95,7 +95,7 @@ func _spawn_troop(troop: TroopResource, formation_slot: Vector2) -> void:
 	# spawn troop prefab and initialize it
 	var spawned_troop: MovableOrphanUnit = troop.troop_prefab.instantiate() as MovableOrphanUnit
 	add_child(spawned_troop)
-	spawned_troop.setup_movable_unit(troop, current_spawner, formation_slot)
+	spawned_troop.setup(troop, current_spawner, formation_slot)
 	# and emit signal
 	on_spawn_troop.emit(spawned_troop)
 

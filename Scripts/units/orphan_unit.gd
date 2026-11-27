@@ -11,17 +11,25 @@ var attack_damage : float
 var current_map_node: MapNode
 
 
-## Init the character to set its node and start position. This is extended from MovableOrphanUnit
-func setup(troop_resource: TroopResource, map_node: MapNode) -> void:
+## Set stats, place the unit on its formation slot, then start the state machine [br]
+## troop_resource: the resource with the stats of this unit [br]
+## formation_slot: x = side offset (column), y = distance (row). See MovementUtilities.get_formation_offsets
+func setup(troop_resource: TroopResource, map_node: MapNode, formation_slot: Vector2) -> void:
 	is_alive = true
+
+	# set values
 	faction = troop_resource.faction
 	current_hp = troop_resource.health
 	attack_damage = troop_resource.attack_damage
 	current_map_node = map_node
-	global_position = current_map_node.global_position
 
+	# set position
+	global_position = current_map_node.global_position
+	global_position += Vector3(formation_slot.x, 0, formation_slot.y)
+
+	# start statemachine
 	if (state_machine):
-		state_machine.setup(troop_resource, map_node, Vector2.ZERO)
+		state_machine.setup(troop_resource, map_node, formation_slot)
 
 ## Called when an enemy attacks this unit. Extended from MovableOrphanUnit [br]
 func receive_attack(attacker_faction: UnitUtilities.ECharacterFaction, damage : float, _from_position: Vector3) -> void:
