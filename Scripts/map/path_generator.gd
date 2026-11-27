@@ -70,8 +70,12 @@ func _move_point(path: MapPath, index: int, node: MapNode) -> void:
 
 ## Create a path between the two nodes
 func generate_path() -> void:
-	if not start_node or not end_node or start_node == end_node or _get_path_between_nodes():
-		push_warning("Set two different nodes, without a path between them")
+	if not start_node or not end_node or start_node == end_node:
+		push_warning("Missing StartNode or EndNode, or they are the same Node")
+		return
+	var current_path: MapPath = _get_path_between_nodes()
+	if current_path:
+		push_warning("These nodes are already connected by a path in their list: ", current_path)
 		return
 
 	# create path
@@ -116,26 +120,6 @@ func update_towers() -> void:
 #endregion
 
 
-func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> void:
-	if node == null:
-		return
-	# filter to return only OrphanUnit childs
-	var towers: Array[Node] = node.get_children().filter(func(child: Node) -> bool: return child is OrphanUnit)
-	if node.default_faction == faction and not towers.is_empty():
-		return
-
-	# destroy old tower and create the new one (in play they will be destroyed and recreated by MapNode)
-	for tower: Node in towers:
-		tower.free()
-
-	node.default_faction = faction
-
-	var prefabs: Array[PackedScene] = [node.player_tower.troop_prefab, node.enemy_tower.troop_prefab, node.empty_tower.troop_prefab] # same order of the enum
-	var new_tower: Node = prefabs[faction].instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
-	node.add_child(new_tower, true)
-	new_tower.owner = get_tree().edited_scene_root
-
-
 ## Return if start_node and end_node have a path in common
 func _get_path_between_nodes() -> MapPath:
 	if start_node and end_node:
@@ -143,6 +127,32 @@ func _get_path_between_nodes() -> MapPath:
 			if end_node.paths.has(path):
 				return path
 	return null
+
+
+## Destroy old tower and instantiate new one as child of this MapNode
+func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> void:
+	if node == null:
+		return
+	# filter to return only OrphanUnit childs
+	var towers: Array[Node] = node.get_children().filter(func(child: Node) -> bool: return child is OrphanUnit)
+	# get correct prefab to instantiate
+	var prefabs: Array[PackedScene] = [node.player_tower.troop_prefab, node.enemy_tower.troop_prefab, node.empty_tower.troop_prefab] # same order of the enum
+	var prefab: PackedScene = prefabs[faction]
+
+	# skip only if faction is right and there is exactly one tower, instantiated from the right prefab (so there is nothing to do)
+	if node.default_faction == faction and towers.size() == 1 and towers[0].scene_file_path == prefab.resource_path:
+		return
+
+	# else, update the faction
+	node.default_faction = faction
+
+	# destroy old tower and create the new one (in play they will be destroyed and recreated by MapNode)
+	for tower: Node in towers:
+		tower.free()
+
+	var new_tower: Node = prefab.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+	node.add_child(new_tower, true)
+	new_tower.owner = get_tree().edited_scene_root
 
 
 ## Show the scene as modified. With get_singleton, because EditorInterface doesn't exist in the exported game
