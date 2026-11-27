@@ -17,7 +17,7 @@ flag = NodePath("Flag_Prefab")
 arrow_prefab = ExtResource("6_n06pl")
 metadata/_custom_type_script = "uid://dce1w37ti0adq"
 
-[node name="MapNode_Empty" parent="." unique_id=1464329382 instance=ExtResource("2_6bipi")]
+[node name="Tower_Empty" parent="." unique_id=1464329382 instance=ExtResource("2_6bipi")]
 
 [node name="Flag_Prefab" parent="." unique_id=1082041586 instance=ExtResource("8_vipkl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76795125, 0, 0)

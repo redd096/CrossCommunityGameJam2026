@@ -150,6 +150,9 @@ func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> v
 	# else, update the faction
 	node.default_faction = faction
 
+	# keep old tower position and rotation, so the new one replaces it where it was placed in scene
+	var old_transform: Transform3D = (towers[0] as Node3D).transform if not towers.is_empty() else Transform3D.IDENTITY
+
 	# destroy old tower and create the new one (in play they will be destroyed and recreated by MapNode)
 	for tower: Node in towers:
 		tower.free()
@@ -157,6 +160,7 @@ func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> v
 	var new_tower: Node = prefab.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	node.add_child(new_tower, true)
 	new_tower.owner = get_tree().edited_scene_root
+	(new_tower as Node3D).transform = old_transform
 
 
 ## Show the scene as modified. With get_singleton, because EditorInterface doesn't exist in the exported game
