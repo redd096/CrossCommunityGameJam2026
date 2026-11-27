@@ -7,7 +7,7 @@ class_name PathGenerator
 
 @export_group("MUST BE SET")
 @export var update_paths_in_update: bool = true ## If true, when user move a MapNode, the paths positions are updated with it
-@export var update_towers_in_update: bool = true ## If true, every MapNode always shows the tower of its default_faction
+@export var update_towers_in_update: bool = false ## If true, every MapNode always shows the tower of its default_faction
 @export var map_path_prefab: PackedScene ## MapPath
 
 @export_group("Path")
