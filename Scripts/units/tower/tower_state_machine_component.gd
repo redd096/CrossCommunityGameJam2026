@@ -12,8 +12,10 @@ class_name TowerStateMachineComponent
 
 var enemy_faction: UnitUtilities.ECharacterFaction
 
-func setup(_troop: TroopResource, map_node: MapNode, slot: Vector2) -> void:
+func setup(troop: TroopResource, map_node: MapNode, slot: Vector2) -> void:
+	look_for_targets_component.set_radius(troop.attack_range)
 	health_component.init(unit)
+	attack_state.attack_delay = troop.attack_delay
 	
 	if (unit.faction == UnitUtilities.ECharacterFaction.ENEMY):
 		enemy_faction = UnitUtilities.ECharacterFaction.PLAYER

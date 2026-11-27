@@ -10,6 +10,7 @@ troop_prefab = ExtResource("3_6k6h2")
 cost = 30
 formation_size = 5
 move_speed = 2.5
+attack_range = 5.0
 troop_name = &"Multiple Troops"
 icon = ExtResource("1_6k6h2")
 metadata/_custom_type_script = "uid://dq42um1m8nncq"

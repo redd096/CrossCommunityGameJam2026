@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c6jyg34nf4ovy" path="res://Scenes/UI/health_bar/unit_health_bar_enemy.tscn" id="8_5t0l1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mthvj"]
-radius = 2.0
+radius = 4.0
 
 [node name="Tower_Enemy" unique_id=2100006670 node_paths=PackedStringArray("state_machine") instance=ExtResource("1_base")]
 state_machine = NodePath("Components/TowerStateMachineComponent")
@@ -37,9 +37,10 @@ metadata/_custom_type_script = "uid://hpg0rvs4eumj"
 script = ExtResource("5_hr3pd")
 metadata/_custom_type_script = "uid://br0nfyqtpjv2s"
 
-[node name="UnitLookForTargetsComponent" type="Node" parent="Components" index="1" unique_id=236805151 node_paths=PackedStringArray("targets_area")]
+[node name="UnitLookForTargetsComponent" type="Node" parent="Components" index="1" unique_id=236805151 node_paths=PackedStringArray("targets_area", "targets_shape")]
 script = ExtResource("4_3trwk")
 targets_area = NodePath("../../LookForTargetsArea")
+targets_shape = NodePath("../../LookForTargetsArea/CollisionShape3D")
 metadata/_custom_type_script = "uid://dhp16hhrbb214"
 
 [node name="UnitHealthComponent" type="Node" parent="Components" index="2" unique_id=1709057946 node_paths=PackedStringArray("health_bar")]
@@ -54,5 +55,4 @@ parent = NodePath("../..")
 collision_mask = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LookForTargetsArea" index="0" unique_id=1838739778]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 shape = SubResource("SphereShape3D_mthvj")

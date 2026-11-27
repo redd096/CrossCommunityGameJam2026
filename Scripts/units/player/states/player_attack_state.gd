@@ -22,16 +22,16 @@ func _enter_state() -> void:
 
 
 func _physics_process_state(delta: float) -> void:
-	# no target, already destroyed by another unit, or out of range: go back
+	# target destroyed or out of range: go back
 	if _target == null or not sm.look_for_targets_component.is_in_area(_target):
 		_back_to_previous_state()
 		return
 
-	# when timer is completed, attack the target and go back
+	# when timer is completed, attack the target
 	_attack_timer += delta
 	if _attack_timer > attack_delay:
+		_attack_timer = 0.0
 		_target.receive_attack(sm.unit.faction, sm.unit.attack_damage)
-		_back_to_previous_state()
 
 
 func _back_to_previous_state() -> void:

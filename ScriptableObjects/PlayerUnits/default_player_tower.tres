@@ -7,4 +7,5 @@
 script = ExtResource("1_uabgt")
 troop_prefab = ExtResource("2_1kt7t")
 cost = 0
+attack_range = 4.0
 metadata/_custom_type_script = "uid://dq42um1m8nncq"
