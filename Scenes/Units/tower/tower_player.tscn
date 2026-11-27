@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dhp16hhrbb214" path="res://Scripts/units/components/unit_look_for_targets_component.gd" id="6_ajfc0"]
 [ext_resource type="Script" uid="uid://ba54u3ew8v8fb" path="res://Scripts/units/components/unit_health_component.gd" id="7_gqywx"]
 [ext_resource type="PackedScene" uid="uid://dpfmvwtp8ajyd" path="res://Scenes/UI/health_bar/unit_health_bar_player.tscn" id="8_wv717"]
+[ext_resource type="PackedScene" uid="uid://uqo23788hsfk" path="res://Models/Camionetta/Prefabs/camionetta_graffiti_prefab.tscn" id="9_3i7fe"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4htqd"]
 radius = 4.0
@@ -57,3 +58,8 @@ collision_mask = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LookForTargetsArea" index="0" unique_id=42601235]
 shape = SubResource("SphereShape3D_4htqd")
+
+[node name="Camionetta" parent="Model" parent_id_path=PackedInt32Array(597866168) index="0" unique_id=1678997907]
+visible = false
+
+[node name="Camionetta2" parent="Model" parent_id_path=PackedInt32Array(597866168) index="1" unique_id=390450348 instance=ExtResource("9_3i7fe")]

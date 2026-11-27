@@ -130,7 +130,7 @@ func _update_tower(node: MapNode, faction: UnitUtilities.ECharacterFaction) -> v
 
 	node.default_faction = faction
 
-	var prefabs: Array[PackedScene] = [node.playerUnitPrefab, node.enemyUnitPrefab, node.emptyUnitPrefab] # same order of the enum
+	var prefabs: Array[PackedScene] = [node.player_tower.troop_prefab, node.enemy_tower.troop_prefab, node.empty_tower.troop_prefab] # same order of the enum
 	var new_tower: Node = prefabs[faction].instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	node.add_child(new_tower, true)
 	new_tower.owner = get_tree().edited_scene_root

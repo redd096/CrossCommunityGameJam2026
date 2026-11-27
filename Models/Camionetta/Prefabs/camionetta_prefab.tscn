@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cypgxugurx08s"]
+
+[ext_resource type="PackedScene" uid="uid://ib5ccgpctvjv" path="res://Models/Camionetta/Camionetta.fbx" id="1_ec1b3"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f7ex2"]
+animation = &"Take 001"
+
+[node name="Camionetta" unique_id=1678997907 instance=ExtResource("1_ec1b3")]
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=1725701]
+tree_root = SubResource("AnimationNodeAnimation_f7ex2")
+anim_player = NodePath("../AnimationPlayer")

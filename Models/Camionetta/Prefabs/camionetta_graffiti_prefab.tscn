@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://uqo23788hsfk"]
+
+[ext_resource type="PackedScene" uid="uid://cypgxugurx08s" path="res://Models/Camionetta/Prefabs/camionetta_prefab.tscn" id="1_fbnyo"]
+[ext_resource type="Material" uid="uid://chkt0ixw480m7" path="res://Models/Camionetta/Mats/camionetta_graffiti.tres" id="2_gratv"]
+
+[node name="Camionetta" unique_id=1678997907 instance=ExtResource("1_fbnyo")]
+
+[node name="paraurti_fronte_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="0" unique_id=1875283272]
+material_override = ExtResource("2_gratv")
+
+[node name="paraurti_retro_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="1" unique_id=300019925]
+material_override = ExtResource("2_gratv")
+
+[node name="ruote_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="2" unique_id=1831742141]
+material_override = ExtResource("2_gratv")
+
+[node name="lampeggianti_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="3" unique_id=42579826]
+material_override = ExtResource("2_gratv")
+
+[node name="specchietto_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="4" unique_id=1978027447]
+material_override = ExtResource("2_gratv")
+
+[node name="fari_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="5" unique_id=730223373]
+material_override = ExtResource("2_gratv")
+
+[node name="dettagli_low" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="6" unique_id=187770594]
+material_override = ExtResource("2_gratv")
+
+[node name="corpo_low3" parent="Camionetta_GEO" parent_id_path=PackedInt32Array(831047536) index="7" unique_id=819318716]
+material_override = ExtResource("2_gratv")

@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://chkt0ixw480m7"]
+
+[ext_resource type="Texture2D" uid="uid://coawdsb771ky7" path="res://Models/Camionetta/Camionetta_Graffiti_BaseColor.1001.png" id="1_dseea"]
+
+[resource]
+albedo_texture = ExtResource("1_dseea")

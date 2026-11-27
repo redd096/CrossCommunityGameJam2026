@@ -2,20 +2,35 @@
 
 [ext_resource type="ArrayMesh" uid="uid://u04u310uu2yn" path="res://Models/Tower/Tower.obj" id="1_bkrsj"]
 [ext_resource type="Script" uid="uid://bw3yw4g0pdmoo" path="res://Scripts/units/orphan_unit.gd" id="1_irdos"]
+[ext_resource type="PackedScene" uid="uid://cypgxugurx08s" path="res://Models/Camionetta/Prefabs/camionetta_prefab.tscn" id="3_v0282"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_irdos"]
 points = PackedVector3Array(0.007901194, 0.28537863, 0.007901194, -0.072, 0.0022936757, -0.072, 0.070206344, 0.0022936757, -0.072, 0.072500005, -0.0022936463, 0.072500005, -0.07429366, 0.25913584, 0.072500005, -0.07429366, 0.25913584, -0.07429366, 0.07248563, 0.25916457, -0.07429366, -0.072, 0.0022936757, 0.070206344, 0.07080637, 0.25654063, 0.07082041, -0.0053188875, 0.28656217, -0.0053188875, -0.005282046, 0.28537863, 0.007901194, 0.007901194, 0.28537863, -0.005282046)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1j7oj"]
+size = Vector3(1.4298439, 1.5934998, 3.1100116)
+
 [node name="TowerBase" type="CharacterBody3D" unique_id=2100006670]
 collision_layer = 8
 script = ExtResource("1_irdos")
-start_hp = 100.0
 metadata/_custom_type_script = "uid://bw3yw4g0pdmoo"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=710792575]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+visible = false
 mesh = ExtResource("1_bkrsj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1726821505]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+visible = false
 shape = SubResource("ConvexPolygonShape3D_irdos")
+disabled = true
+
+[node name="Model" type="Node3D" parent="." unique_id=597866168]
+transform = Transform3D(0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, 0.7071068, -0.8, 0, 0.2)
+
+[node name="Camionetta" parent="Model" unique_id=1678997907 instance=ExtResource("3_v0282")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1269246981]
+transform = Transform3D(0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, 0.7071068, -0.30071363, 0.80899984, -0.30320498)
+shape = SubResource("BoxShape3D_1j7oj")

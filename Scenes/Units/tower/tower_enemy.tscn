@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://br0nfyqtpjv2s" path="res://Scripts/units/tower/states/tower_attack_state.gd" id="5_hr3pd"]
 [ext_resource type="Script" uid="uid://ba54u3ew8v8fb" path="res://Scripts/units/components/unit_health_component.gd" id="5_w6ev8"]
 [ext_resource type="PackedScene" uid="uid://c6jyg34nf4ovy" path="res://Scenes/UI/health_bar/unit_health_bar_enemy.tscn" id="8_5t0l1"]
+[ext_resource type="PackedScene" uid="uid://dri2g2fi2bcke" path="res://Models/Camionetta/Prefabs/camionetta_basecolor_prefab.tscn" id="9_hr3pd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mthvj"]
 radius = 4.0
@@ -56,3 +57,8 @@ collision_mask = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LookForTargetsArea" index="0" unique_id=1838739778]
 shape = SubResource("SphereShape3D_mthvj")
+
+[node name="Camionetta" parent="Model" parent_id_path=PackedInt32Array(597866168) index="0" unique_id=1678997907]
+visible = false
+
+[node name="Camionetta2" parent="Model" parent_id_path=PackedInt32Array(597866168) index="1" unique_id=710852884 instance=ExtResource("9_hr3pd")]
