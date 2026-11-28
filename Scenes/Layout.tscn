@@ -15,7 +15,9 @@
 [ext_resource type="Script" uid="uid://dlbcrlhpilxn0" path="res://Scripts/map/path_generator.gd" id="12_5vvak"]
 [ext_resource type="PackedScene" uid="uid://4gbbgfo84y2h" path="res://Scenes/Map/map_path.tscn" id="13_na5hx"]
 [ext_resource type="PackedScene" uid="uid://c2asd1eow1nf2" path="res://Scenes/Map/map_node.tscn" id="14_3bdn3"]
+[ext_resource type="Script" uid="uid://viio7qtq1odl" path="res://Scripts/managers/difficulty_manager.gd" id="14_pdh8r"]
 [ext_resource type="Resource" uid="uid://d270xf1t1x71l" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit.tres" id="15_enemy"]
+[ext_resource type="Script" uid="uid://fp1sf7i6fw4w" path="res://Scripts/difficulty.gd" id="15_r6p07"]
 [ext_resource type="Resource" uid="uid://dpcsfo3li2ov" path="res://ScriptableObjects/EnemyUnits/default_enemy_unit_Riot.tres" id="16_riot"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ixah"]
@@ -29,14 +31,26 @@ sky_material = SubResource("ProceduralSkyMaterial_1ixah")
 background_mode = 2
 sky = SubResource("Sky_rgj8m")
 
-[sub_resource type="Resource" id="Resource_aqdxa"]
+[sub_resource type="Resource" id="Resource_r6p07"]
 script = ExtResource("10_0dtrj")
 troop = ExtResource("15_enemy")
 metadata/_custom_type_script = "uid://dx8733yuhixif"
 
-[sub_resource type="Resource" id="Resource_yvmck"]
+[sub_resource type="Resource" id="Resource_pdh8r"]
+script = ExtResource("10_0dtrj")
+troop = ExtResource("15_enemy")
+metadata/_custom_type_script = "uid://dx8733yuhixif"
+
+[sub_resource type="Resource" id="Resource_r8tlv"]
+script = ExtResource("10_0dtrj")
+troop = ExtResource("15_enemy")
+percentage = 50.0
+metadata/_custom_type_script = "uid://dx8733yuhixif"
+
+[sub_resource type="Resource" id="Resource_wtpuo"]
 script = ExtResource("10_0dtrj")
 troop = ExtResource("16_riot")
+percentage = 50.0
 metadata/_custom_type_script = "uid://dx8733yuhixif"
 
 [sub_resource type="BoxMesh" id="BoxMesh_gtbs0"]
@@ -260,9 +274,27 @@ metadata/_custom_type_script = "uid://bidk1am4e7n7u"
 [node name="EnemyManager" type="Node" parent="." unique_id=1119141982 node_paths=PackedStringArray("spawner")]
 script = ExtResource("9_wtpuo")
 spawner = NodePath("../Map/MapNode_R")
-spawnable_troops = Array[ExtResource("10_0dtrj")]([SubResource("Resource_aqdxa"), SubResource("Resource_yvmck")])
+spawnable_troops = Array[ExtResource("10_0dtrj")]([SubResource("Resource_r6p07")])
 spawn_interval = 4.0
 metadata/_custom_type_script = "uid://cdpi7dawbfypr"
+
+[node name="DifficultyManager" type="Node" parent="." unique_id=13234136 node_paths=PackedStringArray("enemy_manager", "difficulties")]
+script = ExtResource("14_pdh8r")
+enemy_manager = NodePath("../EnemyManager")
+difficulties = [NodePath("Difficulty"), NodePath("Difficulty2")]
+metadata/_custom_type_script = "uid://viio7qtq1odl"
+
+[node name="Difficulty" type="Node" parent="DifficultyManager" unique_id=1643061582 node_paths=PackedStringArray("trigger_nodes")]
+script = ExtResource("15_r6p07")
+trigger_nodes = [NodePath("../../Map/MapNode_D"), NodePath("../../Map/MapNode_E"), NodePath("../../Map/MapNode_F")]
+spawnable_troops = Array[ExtResource("10_0dtrj")]([SubResource("Resource_pdh8r")])
+metadata/_custom_type_script = "uid://fp1sf7i6fw4w"
+
+[node name="Difficulty2" type="Node" parent="DifficultyManager" unique_id=1092666888 node_paths=PackedStringArray("trigger_nodes")]
+script = ExtResource("15_r6p07")
+trigger_nodes = [NodePath("../../Map/MapNode_J"), NodePath("../../Map/MapNode_K")]
+spawnable_troops = Array[ExtResource("10_0dtrj")]([SubResource("Resource_r8tlv"), SubResource("Resource_wtpuo")])
+metadata/_custom_type_script = "uid://fp1sf7i6fw4w"
 
 [node name="---------------------------2" type="Node" parent="." unique_id=851933575]
 
