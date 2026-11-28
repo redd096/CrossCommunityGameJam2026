@@ -6,6 +6,7 @@
 albedo_color = Color(0.29219002, 0.29219005, 0.29219002, 1)
 
 [node name="Tower_Empty" unique_id=1464329382 instance=ExtResource("1_base")]
+collision_layer = 0
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=710792575]
 surface_material_override/2 = SubResource("StandardMaterial3D_yer10")
