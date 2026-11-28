@@ -68,19 +68,19 @@ func _get_next_path() -> MapPath:
 	if current_node.selected_path != null:
 		return current_node.selected_path
 	
-	# if there is only one path, move to it
-	if current_node.paths.size() == 1:
-		return current_node.paths[0]
+	# # if there is only one path, move to it
+	# if current_node.paths.size() == 1:
+	# 	return current_node.paths[0]
 
-	# if there is only one path to a node that isn't already of the player, move to it
-	var paths_to_conquer: Array[MapPath] = current_node.paths.filter(_is_path_to_conquer)
-	if paths_to_conquer.size() == 1:
-		return paths_to_conquer[0]
+	# # if there is only one path to a node that isn't already of the player, move to it
+	# var paths_to_conquer: Array[MapPath] = current_node.paths.filter(_is_path_to_conquer)
+	# if paths_to_conquer.size() == 1:
+	# 	return paths_to_conquer[0]
 
 	# else, wait for player to select a path
 	return null
 
 
-func _is_path_to_conquer(path: MapPath) -> bool:
-	var target_node: MapNode = path.get_target_node(current_node)
-	return target_node.current_faction != UnitUtilities.ECharacterFaction.PLAYER
+# func _is_path_to_conquer(path: MapPath) -> bool:
+# 	var target_node: MapNode = path.get_target_node(current_node)
+# 	return target_node.current_faction != UnitUtilities.ECharacterFaction.PLAYER
