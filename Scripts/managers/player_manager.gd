@@ -4,13 +4,13 @@ class_name PlayerManager
 
 
 @export_group("Mana")
+@export var current_mana: float = 100
 @export var max_mana: int = 100
 @export var increment_mana_per_second: float = 10
 @export_group("Spawn")
 @export var start_selected_spawner: MapNode
 @export var spawnable_troops: Array[TroopResource]
 
-var current_mana: float
 var current_spawner: MapNode
 
 signal on_update_mana(from: int, to: int)
@@ -20,8 +20,6 @@ signal on_spawn_troop(troop: MovableOrphanUnit)
 
 
 func _ready() -> void:
-	# on start set max mana
-	add_mana(max_mana)
 	set_spawner(start_selected_spawner)
 
 

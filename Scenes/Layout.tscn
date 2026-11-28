@@ -250,6 +250,7 @@ transform = Transform3D(1, 0, 0, 0, 0.607503, 0.7943175, 0, -0.7943175, 0.607503
 
 [node name="PlayerManager" type="Node" parent="." unique_id=1204220021 node_paths=PackedStringArray("start_selected_spawner")]
 script = ExtResource("1_0dtrj")
+current_mana = 30.0
 max_mana = 30
 increment_mana_per_second = 1.0
 start_selected_spawner = NodePath("../Map/MapNode_A")
